@@ -10,8 +10,6 @@ class Solution {
         }
         Arrays.sort(req);
 
-        System.out.print(Arrays.toString(potions));
-
         for(int i=0; i<spells.length; i++){
            spells[i] = findUpperBound(req,spells[i]);
         }
