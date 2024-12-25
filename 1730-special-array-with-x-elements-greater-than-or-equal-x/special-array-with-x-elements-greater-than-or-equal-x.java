@@ -4,18 +4,7 @@ class Solution {
         // answer lies in between 0 to length
         int start = 0;
         int end = nums.length;
-        // while(start<=end){
-        //     int mid = start + ((end-start)>>1);
-        //     int biggerCount = nums.length - findUpperBound(nums,mid);
-
-        //     if(biggerCount == mid){
-        //         return mid;
-        //     }else if(biggerCount<mid){
-        //         start = mid+1;
-        //     }else{
-        //         end = mid-1;
-        //     }
-        // }
+        
 
         for(int i=0; i<nums.length+1; i++){
               int biggerCount = nums.length - findUpperBound(nums,i);
