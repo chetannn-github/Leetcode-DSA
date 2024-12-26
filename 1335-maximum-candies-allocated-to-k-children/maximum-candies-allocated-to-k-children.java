@@ -1,8 +1,12 @@
 class Solution {
     public int maximumCandies(int[] candies, long k) {
         Arrays.sort(candies);
+        long sum =0;
+        for(int i=0; i<candies.length; i++){
+            sum += candies[i];
+        }
         int start = 1;
-        int end = candies[candies.length-1];
+        int end =(int)( sum/k);
         int ans = 0;
         while(start<=end){
             int mid = start + ((end-start)>>1);
