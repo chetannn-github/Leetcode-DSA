@@ -33,7 +33,7 @@ class Solution {
         if(s.length()!= t.length()){
             return false;
         }
-        // HashMap<Integer,Integer> hm = new HashMap<>();
+    
         int[] map = new int[26];
 
         for(int i=0; i<s.length(); i++){
@@ -43,7 +43,7 @@ class Solution {
                 if(dif<0){dif = (dif+26)%26;}
     
                 if(dif>k){return false;}
-                // hm.put(dif, hm.getOrDefault(dif,0)+1);
+                
                 map[dif]++;
             }
         }
