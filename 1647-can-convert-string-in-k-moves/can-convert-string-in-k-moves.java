@@ -38,8 +38,7 @@ class Solution {
 
         for(int i=0; i<s.length(); i++){
             if(s.charAt(i)!= t.charAt(i)){
-                int dif =t.charAt(i) - s.charAt(i);
-                dif = (dif+26)%26;
+                int dif =(t.charAt(i) - s.charAt(i) + 26) %26;
                 map[dif]++;
             }
         }
