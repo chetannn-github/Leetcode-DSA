@@ -49,7 +49,7 @@ class Solution {
         }
 
         for(int i=1; i<26; i++){
-            if( (((map[i]-1)*26)+ i )>k){
+            if((i + (map[i]-1)*26)>k){
                 return false;
             }
         }
