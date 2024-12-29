@@ -40,9 +40,8 @@ class Solution {
             if(s.charAt(i)!= t.charAt(i)){
                 int dif =(int) (t.charAt(i) - s.charAt(i));
 
-                if(dif<0){dif = (dif+26)%26;}
+                dif = (dif+26)%26;
     
-                if(dif>k){return false;}
                 
                 map[dif]++;
             }
