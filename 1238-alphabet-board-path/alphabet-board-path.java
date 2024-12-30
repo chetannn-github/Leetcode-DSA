@@ -1,5 +1,7 @@
 class Solution {
     public String alphabetBoardPath(String target) {
+
+        // bus catch yahaa yhhh hh down sbse baadme krnaa nhii z ki wjh se dikkkt ho skti hh
         String[] board = {"abcde", "fghij", "klmno", "pqrst", "uvwxy", "z"};
         HashMap<Character, int[]> hm = new HashMap<>();
 
