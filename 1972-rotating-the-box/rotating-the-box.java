@@ -1,5 +1,6 @@
 class Solution {
     public char[][] rotateTheBox(char[][] mat) {
+        // always remeberr apply all ops to row 
         int length = mat.length;
         char[][] ans = new char[mat[0].length][length];
 
@@ -13,7 +14,7 @@ class Solution {
                 }else if(lastDot!=-1 && mat[i][j]=='#') {
                     mat[i][j]='.' ;
                     mat[i][lastDot]='#';
-                    lastDot--;
+                    lastDot--; // kukii i am sure isse peeche wala bhii star nhii ho skta hhh wo dot hogaa yaa ban jaaegaa
                }
             }
             
