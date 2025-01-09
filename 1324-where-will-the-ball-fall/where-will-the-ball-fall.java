@@ -12,10 +12,10 @@ class Solution {
         int col = ball;
         for(int i=0; i<grid.length; i++){
             if(col == 0 && grid[i][0] == -1){
-            return -1;
-        }else if(col == grid[0].length-1 && grid[i][grid[0].length-1] == 1){
-            return -1;
-        } 
+                return -1;
+            }else if(col == grid[0].length-1 && grid[i][grid[0].length-1] == 1){
+                return -1;
+            } 
             else if(col!= grid[0].length-1 && grid[i][col]==1 && grid[i][col+1]== 1 ){
                 col++;
             }else if(col!= grid[0].length-1 && grid[i][col]==1 && grid[i][col+1]== -1 ){
