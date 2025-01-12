@@ -6,7 +6,6 @@ class Solution {
         long ans = 0;
 
         for(int i=0; i<k; i++){
-            
             sum += nums[i];
             hm.put(nums[i], hm.getOrDefault(nums[i],0)+1);
         }
@@ -25,7 +24,7 @@ class Solution {
             }else{
                 hm.put(nums[i-k], hm.get(nums[i-k])-1);
             }
-
+            
             hm.put(nums[i], hm.getOrDefault(nums[i],0)+1);
 
             if(hm.size()==k){
