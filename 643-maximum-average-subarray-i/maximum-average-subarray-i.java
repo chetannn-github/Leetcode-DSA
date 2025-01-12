@@ -6,17 +6,17 @@ class Solution {
         for(int i=0; i<k; i++){
             sum += nums[i];
         }
-        double avg = (double) sum/k;
+        
 
         long temp = sum;
         for(int i=k; i<length;i++){
-            sum -= nums[i-k];
-            sum += nums[i];
+            temp -= nums[i-k];
+            temp += nums[i];
 
-            avg = Math.max((double) sum/k,avg);
+            sum = Math.max(temp,sum);
             
         }
-        return avg;
+        return (double) sum/k;
     }
 } 
     
