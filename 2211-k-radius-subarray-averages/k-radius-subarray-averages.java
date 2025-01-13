@@ -4,7 +4,7 @@ class Solution {
         int n = nums.length;
         int[] ans = new int[n];
         
-        if(k>=n || 2*k >=n){
+        if(2*k >=n){
             for(int i= 0; i<n; i++){
                 ans[i] = -1;
                 
