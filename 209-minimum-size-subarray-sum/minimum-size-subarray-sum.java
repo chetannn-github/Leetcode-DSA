@@ -45,17 +45,17 @@ class Solution {
     public int minSubArrayLen(int target, int[] nums) {
         int n = nums.length;
         int start = 0; 
-        int currentSum = 0;
+        int currSum = 0;
         int minLength = Integer.MAX_VALUE; 
 
         for (int end = 0; end < n; end++) {
             
-            currentSum += nums[end];
+            currSum += nums[end];
 
             
-            while (currentSum >= target) {
+            while (currSum >= target) {
                 minLength = Math.min(minLength, end - start + 1);
-                currentSum -= nums[start];
+                currSum -= nums[start];
                 start++;
                 if(minLength ==1){return 1;}
             }
