@@ -1,5 +1,6 @@
 class Solution {
     public int maxFreq(String s, int maxLetters, int minSize, int maxSize) {
+        // trick is that ki minimum size wale substrings hii max ho skte hh
         int n = s.length();
         int start = 0; 
 
