@@ -1,6 +1,8 @@
 class Solution {
     public int minOperations(int[] nums, int x) {
         // cyclic array banakrr esii min length ki subarray jiska sum x ho simple
+        // second idea can be kii aap total sum me se x hata de aur utne sum ka max subarray find krr le aur
+        // baad uss length ho total se hata de
         int start = 0;
         int minLength = -1;
         int n = nums.length;
