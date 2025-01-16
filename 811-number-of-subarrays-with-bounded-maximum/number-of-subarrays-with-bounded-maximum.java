@@ -1,8 +1,7 @@
 class Solution {
     public int numSubarrayBoundedMax(int[] nums, int left, int right) {
         // right se bade wale nikal lo aur left se bade wale nikal krr subtract krr do!!
-        System.out.println(countSubarraysWithMax(nums,left));
-        System.out.println(countSubarraysWithMax(nums,right+1));
+       
         return countSubarraysWithMax(nums,left) - countSubarraysWithMax( nums, right+1);
     }
 
