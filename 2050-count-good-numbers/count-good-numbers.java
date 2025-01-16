@@ -11,7 +11,7 @@ class Solution {
 
         // answer is 4^oddPos * 5^evenPos
         System.out.println(powerxn(4,oddPos) );
-        long ans = (powerxn(4,oddPos) ) * (powerxn(5,evenPos) ) % MOD ;
+        long ans = (powerxn(4,oddPos)  * powerxn(5,evenPos) ) % MOD ;
 
         return (int) ans  ;
 
