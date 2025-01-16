@@ -27,7 +27,7 @@ class Solution {
         if(n%2==0){
             return (temp*temp) %MOD;
         }else{
-            return  x*(temp*temp) %MOD;
+            return  (x*temp*temp) %MOD;
         }
 
     }
