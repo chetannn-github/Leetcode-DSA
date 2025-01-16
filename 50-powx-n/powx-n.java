@@ -1,3 +1,5 @@
+// runtime error
+
 // class Solution {
 //     public double myPow(double x, int n) {
         
@@ -16,23 +18,23 @@
 // }
 
 
+
 class Solution {
     public double myPow(double x, int n) {
-        if(n==0){
+        if (n == 0) {
             return 1;
         }
-        if(x==1){
-            return 1;
+        
+        long N = n;
+        if (N < 0) {
+            N = -N;
+            x = 1 / x;
         }
-        long absN = Math.abs((long) n);
-        double ans=1.0;
-        while(absN > 0){
-            if(absN%2==1){
-                ans*=x;
-            }
-            x*=x;
-            absN/=2;
+
+        if (N % 2 == 0) {
+            return myPow(x * x, (int) (N / 2));
+        }else {
+            return x * myPow(x, (int) (N - 1));
         }
-        return n < 0 ? 1/ans : ans;
     }
 }
