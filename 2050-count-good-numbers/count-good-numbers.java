@@ -1,7 +1,7 @@
 class Solution {
     public long MOD = 1_000_000_007;
     public int countGoodNumbers(long n) {
-        long oddPos = n/2;
+        long oddPos = n>>1;
         long evenPos = n - oddPos;
         // 4 prime digits  hain 
         //5 even digits hain
@@ -11,7 +11,7 @@ class Solution {
 
         // answer is 4^oddPos * 5^evenPos
         System.out.println(powerxn(4,oddPos) );
-        long ans = (powerxn(4,oddPos)% MOD ) * (powerxn(5,evenPos)% MOD ) % MOD ;
+        long ans = (powerxn(4,oddPos) ) * (powerxn(5,evenPos) ) % MOD ;
 
         return (int) ans  ;
 
