@@ -65,6 +65,7 @@ class Solution {
         }
         
         for(int i=start; i<nums.length; i++){
+            // nice statement!!!!!!!
             if(i>start && nums[i] == nums[i-1]){
                 continue;
             }
