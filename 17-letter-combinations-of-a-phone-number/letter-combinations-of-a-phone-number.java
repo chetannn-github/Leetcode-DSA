@@ -29,16 +29,16 @@ class Solution {
             return ;
         }
 
-        for(int i=start; i<n; i++){
-            char ch = digits.charAt(i);
+        
+            char ch = digits.charAt(start);
             String st = hm.get(ch);
 
             for(int j=0; j<st.length(); j++){
                 sb.append(st.charAt(j));
-                solve(digits,sb, i+1);
+                solve(digits,sb, start+1);
                 sb.setLength(sb.length()-1);
             }
-        }
+        
 
     }
 
