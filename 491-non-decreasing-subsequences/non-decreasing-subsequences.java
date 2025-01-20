@@ -31,11 +31,11 @@ class Solution {
             }
                 
             temp.add(nums[i]);
-
+hs.add(nums[i]);
             solve(nums,temp,i+1);
 
             temp.remove(temp.size()-1);
-            hs.add(nums[i]);
+            
             
         }
 
