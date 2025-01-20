@@ -15,26 +15,26 @@ class Solution {
             return;
         }
 
-        for(int i=start; i<n; i++){
-            char ch = Character.toLowerCase(s.charAt(i));
+        
+            char ch = Character.toLowerCase(s.charAt(start));
             
             if(isNonDigit(ch)){
                 sb.append(ch);
-                solve(s,sb,i+1);
+                solve(s,sb,start+1);
                 sb.setLength(sb.length()-1);
 
-                ch = Character.toUpperCase(s.charAt(i));
+                ch = Character.toUpperCase(s.charAt(start));
                 sb.append(ch);
-                solve(s,sb,i+1);
+                solve(s,sb,start+1);
                 sb.setLength(sb.length()-1);
 
 
             }else{
                 sb.append(ch);
-                solve(s,sb,i+1);
+                solve(s,sb,start+1);
                 sb.setLength(sb.length()-1);
             }
-        }
+        
     }
 
 
