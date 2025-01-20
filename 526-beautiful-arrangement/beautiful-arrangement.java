@@ -21,7 +21,7 @@ class Solution {
             }
         }
         if(temp.size()==n){
-            System.out.println(temp);
+            // System.out.println(temp);
             result++;
             return;
         }
