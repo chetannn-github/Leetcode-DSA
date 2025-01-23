@@ -1,7 +1,9 @@
 class Solution {
     public void nextPermutation(int[] nums) {
         int poi = -1;
-        for(int i= nums.length-1; i>=1; i--){
+        int n = nums.length;
+
+        for(int i= n-1; i>=1; i--){
             if(nums[i]>nums[i-1]){
                 poi = i-1;
                 break;
@@ -9,12 +11,13 @@ class Solution {
         }
 
         if(poi==-1){
-            reverse(nums);
+            reverse(nums,0,n-1);
             return;
         }
+        
         int minIndex = poi+1;
 
-        for(int i= nums.length-1; i>poi; i--){
+        for(int i= n-1; i>poi; i--){
             if(nums[i]>nums[poi]){
                 minIndex = i;
                 break;
@@ -27,17 +30,18 @@ class Solution {
         nums[minIndex] = nums[minIndex] ^ nums[poi];
 
         // now sort nums from poi+1 to n-1
-        Arrays.sort(nums, poi+1, nums.length);
+        // Arrays.sort(nums, poi+1, n);
+
+        // or reverse poi+1 to n-1
+        reverse(nums,poi+1, n-1);
 
         return;
 
 
     }
 
-    public void reverse(int[] nums){
-        int start = 0;
-        int end = nums.length-1;
-
+    public void reverse(int[] nums, int start, int end){
+        
         while(start<end){
             nums[start] = nums[start] ^ nums[end];
             nums[end] = nums[start] ^ nums[end];
