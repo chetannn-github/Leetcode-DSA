@@ -1,16 +1,17 @@
 class Solution {
     Set<String> hs = new HashSet<>();
     int n ;
-    int dp[] = new int[101];
+    int dp[];
 
     public int numDecodings(String s) {
         for (int i = 1; i <= 26; i++) {
             String key = String.valueOf(i);
             hs.add(key);
         }
-        Arrays.fill(dp,-1);
         n = s.length();
-        
+        dp = new int[n];
+        Arrays.fill(dp,-1);
+
         return solve(s,0);
         
     }
