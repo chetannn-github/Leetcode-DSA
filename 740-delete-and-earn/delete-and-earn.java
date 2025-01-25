@@ -2,44 +2,52 @@ class Solution {
     
     int n;
     int dp[];
-    public int deleteAndEarn(int[] nums) {
-        n = nums.length;
-        Arrays.sort(nums);
-        dp = new int[n];
-        Arrays.fill(dp,-1);
+    int unique[] ;
+    HashMap<Integer,Integer> hm = new HashMap<>();
 
-        return solve(nums,0);
+    public int deleteAndEarn(int[] nums) {
+     for(int num : nums) {
+            hm.put(num, hm.getOrDefault(num, 0) + num);
+        }
+
+        n = hm.size();
+        unique = new int[n];
+        int idx = 0;
+
+        for(int key: hm.keySet()){
+            unique[idx] = key;
+            idx++;
+        }
+
+        Arrays.sort(unique);
+        dp = new int[n];
+        Arrays.fill(dp, -1);
+
+        return solve(0);
     }
 
-    public int solve(int[] nums, int start){
-        if(start >=n){
+    public int solve(int start) {
+        if (start >= n) {
             return 0;
-        } 
+        }
 
-        if(dp[start]!=-1){
+        if (dp[start] != -1){
             return dp[start];
         }
-        int maxPoints = Integer.MIN_VALUE;
-        
-        for(int i=start; i<n;i++ ){
-            if(i>start && nums[i] == nums[i-1]){continue;}
 
-            int points = 0;
-            int next = i;
-            while(next<n && nums[next]== nums[i]){
-                points += nums[next];
-                next++;
-            }
-            
+        int skip = solve(start + 1);
 
-            while(next<n && nums[next]== nums[i]+1){
-                next++;
-            }
+        int currNum = unique[start];
+        int take = hm.get(currNum);
+        int nextidx = start + 1;
 
-            points += solve(nums,next);  
-            maxPoints = Math.max(maxPoints,points);          
+        while (nextidx < n && unique[nextidx] == currNum + 1 ){
+            nextidx++;
         }
 
-        return dp[start] = maxPoints;
+        take += solve(nextidx);
+
+        return dp[start] = Math.max(skip, take);
     }
 }
+
