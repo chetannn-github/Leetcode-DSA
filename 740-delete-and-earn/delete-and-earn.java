@@ -20,6 +20,7 @@ class Solution {
             return dp[start];
         }
         int maxPoints = Integer.MIN_VALUE;
+        
         for(int i=start; i<n;i++ ){
             if(i>start && nums[i] == nums[i-1]){continue;}
 
