@@ -12,12 +12,12 @@ class Solution {
             return 0;
         }
 
-
-        // take  it -- with some condition kii koi bhi letter phele se toh nhi h
+        // take  it -- with some condition kii koi bhi letter phele se toh nhi h aurr khud string toh dup nhii hh
         boolean isPresent = true;
         String curr = arr.get(start);
         int length = curr.length();
         HashSet<Character> checkDup = new HashSet<>();
+
         for(int i=0; i<length; i++){
             char ch = curr.charAt(i);
             if(temp.contains(ch)){
