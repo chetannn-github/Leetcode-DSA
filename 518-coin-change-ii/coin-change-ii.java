@@ -3,7 +3,7 @@ class Solution {
     int[][] dp;
     public int change(int amount, int[] coins) {
         n = coins.length;
-        dp = new int[amount+1][n+1];
+        dp = new int[n+1][amount+1];
 
         for(int[] row : dp){
             Arrays.fill(row,-1);
@@ -21,8 +21,8 @@ class Solution {
             return 0;
         }
 
-        if(dp[amount][start]!=-1){
-            return dp[amount][start];
+        if(dp[start][amount]!=-1){
+            return dp[start][amount];
         }
 
         int ways = 0;
@@ -30,7 +30,7 @@ class Solution {
             ways += solve(amount-coins[i] , coins,i);
         }
 
-        return dp[amount][start] = ways;
+        return dp[start][amount] = ways;
 
 
         
