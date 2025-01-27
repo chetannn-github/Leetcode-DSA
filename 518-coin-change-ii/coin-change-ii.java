@@ -4,7 +4,7 @@ class Solution {
     public int change(int amount, int[] coins) {
         n = coins.length;
         dp = new int[n+1][amount+1];
-
+        Arrays.sort(coins);
         for(int[] row : dp){
             Arrays.fill(row,-1);
         }
@@ -28,7 +28,7 @@ class Solution {
         int ways = 0;
         for(int i=start; i<n; i++){
             if(amount-coins[i]<0){
-                continue;
+                break;
             }
             ways += solve(amount-coins[i] , coins,i);
         }
