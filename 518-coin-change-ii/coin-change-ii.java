@@ -27,6 +27,9 @@ class Solution {
 
         int ways = 0;
         for(int i=start; i<n; i++){
+            if(amount-coins[i]<0){
+                continue;
+            }
             ways += solve(amount-coins[i] , coins,i);
         }
 
