@@ -8,7 +8,7 @@ class Solution {
         vowels.add('u');
 
         int[] prefix  = new int[words.length+1];
-        prefix[0] = 0;
+        prefix[0] = 10;
         int idx = 1;
         for(String word : words){
             if(checkVowelString(word,vowels)){
