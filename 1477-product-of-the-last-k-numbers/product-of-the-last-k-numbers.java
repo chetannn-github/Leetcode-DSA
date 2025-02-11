@@ -11,9 +11,9 @@ class ProductOfNumbers {
         if(num==0){
             prefix  = new ArrayList<>();
             prefix.add(1);
-            size =1;
+            size = 1;
         }else{ 
-            int last = prefix.size()-1;
+            int last = size - 1;
             prefix.add(prefix.get(last)*num);
             size++;
         }
@@ -28,10 +28,3 @@ class ProductOfNumbers {
         return prefix.get(size-1) / prefix.get(size - 1 - k);                                          
     }
 }
-
-/**
- * Your ProductOfNumbers object will be instantiated and called as such:
- * ProductOfNumbers obj = new ProductOfNumbers();
- * obj.add(num);
- * int param_2 = obj.getProduct(k);
- */
