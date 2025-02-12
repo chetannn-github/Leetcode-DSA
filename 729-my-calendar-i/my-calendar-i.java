@@ -22,9 +22,9 @@ class MyCalendar {
                 hm.put(start, hm.get(start) - 1);
                 hm.put(end, hm.get(end) + 1);
 
-                if (hm.get(start) == 0) {
-                    hm.remove(start);
-                }
+                // if (hm.get(start) == 0) {
+                //     hm.remove(start);
+                // }
 
                 return false;
             }
