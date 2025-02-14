@@ -6,7 +6,6 @@ class Solution {
         for(int i=0; i<k; i++){
             sum += nums[i];
         }
-        
 
         long temp = sum;
         for(int i=k; i<length;i++){
