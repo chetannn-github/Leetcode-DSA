@@ -11,12 +11,20 @@ class Solution {
         
         hs.add(sb.toString());
 
+        if(hs.size() == Math.pow(2,k)){
+            return true;
+        } 
+
         for(int i=k; i<length;i++){
             sb.deleteCharAt(0);
             sb.append(s.charAt(i));
-            hs.add(sb.toString());    
+            hs.add(sb.toString());
+
+            if(hs.size() == Math.pow(2,k)){
+                return true;
+            } 
         }
-        return hs.size() == Math.pow(2,k);
+        return false;
     }
 } 
     
