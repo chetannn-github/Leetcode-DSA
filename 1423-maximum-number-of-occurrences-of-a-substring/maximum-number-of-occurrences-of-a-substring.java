@@ -24,7 +24,7 @@ class Solution {
             }
             if(freq.size() <= maxLetters && end-start+1==minSize ){
                 String st =  s.substring(start,end+1);
-                System.out.println(st);
+                // System.out.println(st);
                 hm.put(st, hm.getOrDefault(st,0)+1);
             }
 
