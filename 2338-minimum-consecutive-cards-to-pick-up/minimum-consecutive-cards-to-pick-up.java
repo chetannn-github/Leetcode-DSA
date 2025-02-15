@@ -1,23 +1,59 @@
+// class Solution {
+//     public int minimumCardPickup(int[] nums) {
+//         // esi subrray batani hh jisme saare elements distinct + 1 dup ho aur length min ho
+//         int start = 0;
+//         int n = nums.length;
+//         HashSet<Integer> hs = new HashSet<>();
+//         int minLength = -1;
+
+//         for(int end =0; end<n; end++){
+           
+//             while(hs.size()>0 && hs.contains(nums[end])){ 
+//                 if(minLength!=-1){
+//                     minLength = Math.min(minLength, end - start+1);
+//                 }else{
+//                     minLength = end -start+1;
+//                 } 
+//                 hs.remove(nums[start]);
+//                 start++;
+//             }
+//             hs.add(nums[end]);
+            
+//         }
+
+//         return  minLength ;
+//     }
+// }
+
 class Solution {
     public int minimumCardPickup(int[] nums) {
-        // esi subrray batani hh jisme saare elements distinct ho aur length min ho
+        // esi subrray batani hh jisme saare elements distinct + 1 dup ho aur length min ho
         int start = 0;
         int n = nums.length;
-        HashSet<Integer> hs = new HashSet<>();
+        HashMap<Integer,Integer> hm = new HashMap<>();
         int minLength = -1;
 
         for(int end =0; end<n; end++){
-           
-            while(hs.size()>0 && hs.contains(nums[end])){ 
-                if(minLength!=-1){
-                    minLength = Math.min(minLength, end - start+1);
+        
+            hm.put(nums[end], hm.getOrDefault(nums[end],0)+1);
+
+            while(end-start+1 - hm.size() >=1){
+                if(hm.get(nums[start])==1){
+                    hm.remove(nums[start]);
                 }else{
-                    minLength = end -start+1;
-                } 
-                hs.remove(nums[start]);
+                    hm.put(nums[start], hm.getOrDefault(nums[start],0)-1);
+                }
+                
+                if(end-start+1 - hm.size() == 1){
+                    if(minLength==-1){
+                        minLength = end -start +1;
+                    }else{
+                        minLength = Math.min(minLength, end-start+1);
+                    }
+                }
                 start++;
             }
-            hs.add(nums[end]);
+            
             
         }
 
