@@ -49,9 +49,7 @@ class Solution {
         int minLength = Integer.MAX_VALUE; 
 
         for (int end = 0; end < n; end++) {
-            
             currSum += nums[end];
-
             
             while (currSum >= target) {
                 minLength = Math.min(minLength, end - start + 1);
