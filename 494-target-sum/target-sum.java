@@ -1,27 +1,17 @@
 class Solution {
-    int result = 0;
     int n ;
 
     public int findTargetSumWays(int[] nums, int target) {
         n = nums.length;
-
-        solve(nums,target,0);
-        return result;
+        return solve(nums,target,0);
     }
 
-    public void solve(int[] nums, int target,int start){
+    public int  solve(int[] nums, int target,int start){
         if(target ==0 && start ==n){
-            result++;
-            return;
+            return 1;
         }else if(start ==n){
-            return;
-        }
-
-            
-        solve(nums,target - nums[start],start+1);
-
-        solve(nums,target + nums[start],start+1);
-            
-        
+            return 0;
+        }            
+       return  solve(nums,target - nums[start],start+1) + solve(nums,target + nums[start],start+1);
     }
 }
