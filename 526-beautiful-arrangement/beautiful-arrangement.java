@@ -9,25 +9,17 @@ class Solution {
     }
 
     public void solve(int n, List<Integer> temp ){
-        
-        int last ;
-        int size = temp.size();
-
-        if(size>0){
-            last = temp.get(size-1);
-
-            if(last% size !=0 && size % last !=0){
-                return;
-            }
-        }
         if(temp.size()==n){
-            // System.out.println(temp);
             result++;
             return;
         }
 
         for(int i=1; i<=n; i++){
             if(hs.contains(i)){
+                continue;
+            }
+            int size = temp.size();
+            if((i%(size+1))!=0 && (size+1)%i!=0){
                 continue;
             }
             
