@@ -10,7 +10,7 @@ class Solution {
         // aur koi bhi digit kitne baar bhiii select krr skte h aur unke permutations bhi krne h.
 
         // answer is 4^oddPos * 5^evenPos
-        System.out.println(powerxn(4,oddPos) );
+        // System.out.println(powerxn(4,oddPos) );
         long ans = (powerxn(4,oddPos)  * powerxn(5,evenPos) ) % MOD ;
 
         return (int) ans  ;
@@ -32,3 +32,5 @@ class Solution {
 
     }
 }
+
+
