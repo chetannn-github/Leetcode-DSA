@@ -15,25 +15,23 @@ class Solution {
             return;
         }
 
-        
-            char ch = Character.toLowerCase(s.charAt(start));
-            
-            if(isNonDigit(ch)){
-                sb.append(ch);
-                solve(s,sb,start+1);
-                sb.setLength(sb.length()-1);
+        char ch = Character.toLowerCase(s.charAt(start));
 
-                ch = Character.toUpperCase(s.charAt(start));
-                sb.append(ch);
-                solve(s,sb,start+1);
-                sb.setLength(sb.length()-1);
+        if(isNonDigit(ch)){
+            sb.append(ch);
+            solve(s,sb,start+1);
+            sb.setLength(sb.length()-1);
 
+            ch = Character.toUpperCase(s.charAt(start));
+            sb.append(ch);
+            solve(s,sb,start+1);
+            sb.setLength(sb.length()-1);
 
-            }else{
-                sb.append(ch);
-                solve(s,sb,start+1);
-                sb.setLength(sb.length()-1);
-            }
+        }else{
+            sb.append(ch);
+            solve(s,sb,start+1);
+            sb.setLength(sb.length()-1);
+        }
         
     }
 
