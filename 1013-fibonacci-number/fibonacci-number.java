@@ -1,11 +1,12 @@
 class Solution {
-    int dp[];
+    
     public int fib(int n) {
+        int dp[];
         dp = new int[n+1];
-        return solve(n);
+        return solve(n,dp);
     }
 
-    public int solve(int n){
+    public int solve(int n,int[] dp){
         if(n==0 || n==1){
             return dp[n] =  n;
         }
