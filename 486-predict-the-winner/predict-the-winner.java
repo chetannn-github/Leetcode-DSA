@@ -40,39 +40,15 @@
 
 
 
-class Solution {
-    public boolean predictTheWinner(int[] nums) {
-        int sum = 0;
-        for(int num : nums){
-            sum += num;
-        }
-        int p1 = solve(nums, 0, nums.length-1);
-        int p2 = sum - p1;
-        return p1>=p2;
-    }
-
-    public int solve(int[] nums, int start , int end){
-        if(start>end){
-            return 0;
-        }
-        if(start == end){
-            return nums[end];
-        }
-
-        int option1 = nums[start] + Math.min(solve(nums,start+2,end), solve(nums,start+1,end-1));
-        int option2 = nums[end] + Math.min(solve(nums,start+1,end-1), solve(nums,start,end-2));
-
-        return Math.max(option1 , option2);
-    }
-}
-
-
-
 // class Solution {
 //     public boolean predictTheWinner(int[] nums) {
-        
-//         int cummulativeScore = solve(nums, 0, nums.length-1);
-//         return cummulativeScore>=0;
+//         int sum = 0;
+//         for(int num : nums){
+//             sum += num;
+//         }
+//         int p1 = solve(nums, 0, nums.length-1);
+//         int p2 = sum - p1;
+//         return p1>=p2;
 //     }
 
 //     public int solve(int[] nums, int start , int end){
@@ -83,9 +59,33 @@ class Solution {
 //             return nums[end];
 //         }
 
-//         int option1 = nums[start] - solve(nums,start+1,end);
-//         int option2 = nums[end] - solve(nums,start,end-1);
+//         int option1 = nums[start] + Math.min(solve(nums,start+2,end), solve(nums,start+1,end-1));
+//         int option2 = nums[end] + Math.min(solve(nums,start+1,end-1), solve(nums,start,end-2));
 
 //         return Math.max(option1 , option2);
 //     }
 // }
+
+
+
+class Solution {
+    public boolean predictTheWinner(int[] nums) {
+        
+        int cummulativeScore = solve(nums, 0, nums.length-1);
+        return cummulativeScore>=0;
+    }
+
+    public int solve(int[] nums, int start , int end){
+        if(start>end){
+            return 0;
+        }
+        if(start == end){
+            return nums[end];
+        }
+
+        int option1 = nums[start] - solve(nums,start+1,end);
+        int option2 = nums[end] - solve(nums,start,end-1);
+
+        return Math.max(option1 , option2);
+    }
+}
