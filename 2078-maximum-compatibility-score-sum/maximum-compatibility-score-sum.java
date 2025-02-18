@@ -1,4 +1,5 @@
 class Solution {
+    //permutation walaa swaal
     int m;
     int n;
     int ans = 0;
@@ -20,8 +21,6 @@ class Solution {
             //jisse jb 1 length ho toh dikkt naa aayee
         }
 
-        
-        
         if(digits==m){
             compatibility(students,mentors,temp);
             return;
