@@ -61,16 +61,20 @@ class Solution {
         }else if(target<0 ){
             return;
         }
-        
+        HashSet<Integer> hs = new HashSet<>();
         for(int i=start; i<nums.length; i++){
             // nice statement!!!!!!!
-            if(i>start && nums[i] == nums[i-1]){
+            // if(i>start && nums[i] == nums[i-1]){
+            //     continue;
+            // }
+
+            int num = nums[i];
+            if(hs.contains(num)){
                 continue;
             }
-
             
-            int num = nums[i];
-
+            
+            hs.add(num);
             temp.add(num);
             solve(nums,target-num,temp,i+1);
 
