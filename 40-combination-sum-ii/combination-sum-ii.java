@@ -1,5 +1,4 @@
 // tle
-
 // class Solution {
     
 //     HashSet<List<Integer>> result = new HashSet<>();
@@ -47,10 +46,9 @@
 class Solution {
     
     List<List<Integer>> result = new ArrayList<>();
-
+    
     public List<List<Integer>> combinationSum2(int[] nums, int target) {
         Arrays.sort(nums);
-
         List<Integer> temp = new ArrayList<>();
         solve(nums,target,temp,0);
         
@@ -69,9 +67,11 @@ class Solution {
             if(i>start && nums[i] == nums[i-1]){
                 continue;
             }
+
+            
             int num = nums[i];
 
-            temp.add(nums[i]);
+            temp.add(num);
             solve(nums,target-num,temp,i+1);
 
             temp.remove(temp.size()-1);
