@@ -17,8 +17,6 @@ class Solution {
                 pairs -= hm.get(nums[start]);
                 start++;
             }
-
-
         }
 
         return subarrays;
