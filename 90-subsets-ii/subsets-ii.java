@@ -15,12 +15,21 @@ class Solution {
         }
 
         
-
+        HashSet<Integer> hs = new HashSet<>();
         for(int i=start; i<nums.length; i++){
-            if(i>start && nums[i]== nums[i-1]){
+
+        
+            // if(i>start && nums[i]== nums[i-1]){
+            //     continue;
+            // }
+
+
+            if(hs.contains(nums[i])){
                 continue;
             }
+            hs.add(nums[i]);
             temp.add(nums[i]);
+            
             solve(nums,temp,i+1);
             temp.remove(temp.size()-1);
         }
