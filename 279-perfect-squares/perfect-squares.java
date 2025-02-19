@@ -3,11 +3,11 @@ class Solution {
     public int numSquares(int n) {
         dp = new int[n+1];
         Arrays.fill(dp,-1);
-        int result = solve(n,n);
+        int result = solve(n);
         return result == Integer.MAX_VALUE ? -1 : result;
     }
 
-    public int solve(int n , int target){
+    public int solve( int target){
         
         if(target==0){
             return 0;
@@ -19,9 +19,8 @@ class Solution {
         }
 
         for(int i=(int)Math.sqrt(target); i>0; i--){
-            int result = solve(n,target-i*i);
+            int result = solve(target-i*i);
             min = Math.min(result+1,min);
-            
         }
         
         return dp[target] = min;
