@@ -3,12 +3,12 @@ class Solution {
          int length = matrix.length;
          if(length == matrix[0].length){
             for(int i=0; i<length; i++){
-            for(int j=i+1; j<length;j++){
+                for(int j=i+1; j<length;j++){
                 // swap
                 matrix[i][j] = matrix[i][j] ^ matrix[j][i];
                 matrix[j][i] = matrix[i][j] ^ matrix[j][i];
                 matrix[i][j] = matrix[i][j] ^ matrix[j][i];
-            }
+                }
             }
             return matrix;
          }
