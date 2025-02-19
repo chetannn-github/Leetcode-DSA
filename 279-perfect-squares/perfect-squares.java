@@ -1,7 +1,7 @@
 class Solution {
-    
-    int[] dp = new int[10001];
+    int[] dp;
     public int numSquares(int n) {
+        dp = new int[n+1];
         Arrays.fill(dp,-1);
         int result = solve(n,n);
         return result == Integer.MAX_VALUE ? -1 : result;
@@ -12,23 +12,18 @@ class Solution {
         if(target==0){
             return 0;
         }
-        if(target<0 ){
-            return Integer.MAX_VALUE;
-        }
+        
         int min = Integer.MAX_VALUE;
         if(dp[target]!= -1){
             return dp[target];
         }
 
-        for(int i=(int)Math.sqrt(n); i>0; i--){
+        for(int i=(int)Math.sqrt(target); i>0; i--){
             int result = solve(n,target-i*i);
-
-            if(result != Integer.MAX_VALUE){
-                min = Math.min(result+1,min);
-            }
+            min = Math.min(result+1,min);
             
         }
-        dp[target] = min;
-        return min;
+        
+        return dp[target] = min;
     }
 }
