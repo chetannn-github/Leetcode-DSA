@@ -28,12 +28,9 @@ class Solution {
             if(coinsRequired != Integer.MAX_VALUE){
                 min = Math.min(coinsRequired +1 , min);
             }
-           
-
         }
-        dp[amount] = min;
-
-        return dp[amount];
+       
+        return dp[amount] = min;
     }
 }
 
