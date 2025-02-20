@@ -1,36 +1,3 @@
-// basic recursion TLE
-
-// class Solution {
-//     int minCost = Integer.MAX_VALUE;
-//     int n;
-//     public int mincostTickets(int[] days, int[] costs) {
-//         n = days.length;
-//         solve(days,costs,0,0,0);
-//         return minCost;
-//     }
-
-
-//     public void solve(int[] days, int[] costs, int start, int cost, int validity){
-//         if(start>=n){
-//             minCost = Math.min(minCost,cost);
-//             return;
-//         }
-
-//         if(days[start] <= validity){
-//             solve(days, costs, start+1,cost+0, validity);
-//         }
-//         // choice one  --> one day pass
-//         solve(days, costs, start+1,cost+costs[0], days[start]+0);
-//         // choice one  --> seven days pass
-
-//         solve(days, costs, start+1,cost+costs[1], days[start]+6);
-
-//         // choice one  --> 30days pass
-//         solve(days, costs, start+1,cost+costs[2], days[start]+29);
-        
-//     }
-// }
-
 
 class Solution {
     int n;
