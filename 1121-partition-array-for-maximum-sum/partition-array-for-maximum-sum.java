@@ -4,6 +4,7 @@ class Solution {
     public int maxSumAfterPartitioning(int[] nums, int k) {
         n = nums.length;
         dp = new int[n];
+
         Arrays.fill(dp,-1);
         return solve(nums,k,0);
     }
@@ -18,7 +19,7 @@ class Solution {
         int max = Integer.MIN_VALUE;
         int maxSum = 0;
 
-        for(int i=start;i<n && i<start+k; i++){
+        for(int i=start; i<n && i<start+k; i++){
             max = Math.max(nums[i],max);
             maxSum = Math.max(maxSum , max*(i-start+1) + solve(nums,k,i+1));     
         }
