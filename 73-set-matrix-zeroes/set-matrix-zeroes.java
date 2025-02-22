@@ -10,17 +10,15 @@ class Solution {
                 if(el==0){
                     row.add(count/n);
                     col.add(count%n);
-                    
-                }count++;
+                }
+                count++;
             }
         }
 
 
         for(int i=0; i<matrix.length; i++){
             for(int j=0; j<matrix[0].length; j++){
-                if(row.contains(i)){
-                    matrix[i][j] = 0;
-                }else if(col.contains(j)){
+                if(row.contains(i) || col.contains(j)){
                     matrix[i][j] = 0;
                 }
             }
