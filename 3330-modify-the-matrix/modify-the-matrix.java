@@ -7,8 +7,6 @@ class Solution {
             }
         }
 
-        int ans[][] = new int[matrix.length][matrix[0].length];
-
         int r = 0;
         for(int[] row : matrix){
             for(int j=0; j<row.length; j++){
@@ -16,11 +14,8 @@ class Solution {
                     row[j] = max[j];
                 }
             }
-
-            ans[r] = row;
             r++;
-
         }
-        return ans;
+        return matrix;
     }
 }
