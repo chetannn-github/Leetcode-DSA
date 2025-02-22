@@ -7,7 +7,7 @@ class Solution {
         for(int i=0;i<mat.length; i++){
             int lastDot = -1;
             for(int j=mat[0].length-1; j>=0; j--){
-                if(lastDot==-1&&mat[i][j]=='.' ) {
+                if(lastDot==-1 && mat[i][j]=='.' ) {
                    lastDot = j;
                 }else if(mat[i][j]=='*' ) {
                    lastDot = -1;
