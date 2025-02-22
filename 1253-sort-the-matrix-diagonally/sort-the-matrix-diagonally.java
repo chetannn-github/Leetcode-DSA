@@ -4,7 +4,7 @@ class Solution {
         int c = mat[0].length;
         ArrayList<Integer> diag = new ArrayList<>();
 
-        for(int i=0; i<mat.length; i++){
+        for(int i=0; i<r; i++){
             int row = i;
             int col = 0;
             while(row<r && col<c){
@@ -26,7 +26,7 @@ class Solution {
             }
             diag.clear();
         }
-        for(int i=1; i<mat[0].length; i++){
+        for(int i=1; i<c; i++){
             int row = 0;
             int col = i;
             while(row<r && col<c){
