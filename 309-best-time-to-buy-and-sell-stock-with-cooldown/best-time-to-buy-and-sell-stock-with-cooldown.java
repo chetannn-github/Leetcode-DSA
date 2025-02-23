@@ -33,7 +33,7 @@ class Solution {
         maxProfit = Math.max(solve(prices, bought,curr+1),maxProfit);
        
         
-            dp[curr][bought] =  maxProfit;
+        dp[curr][bought] =  maxProfit;
         
         return maxProfit;
     }
