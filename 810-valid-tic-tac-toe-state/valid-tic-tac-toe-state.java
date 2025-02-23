@@ -23,7 +23,7 @@ class Solution {
             }
         }
 
-    if(isOWinner(board)){
+        if(isOWinner(board)){
             if(countO!=countX){
                 return false;
             }
