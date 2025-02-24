@@ -32,11 +32,7 @@ class Solution {
             }else{
                 if(carry == 1){
                     if(a.charAt(l1) == '1'){
-                        if(b.charAt(l2)== '1'){
-                            sb.append("1");
-                        }else{
-                            sb.append("0");
-                        }
+                        sb.append(b.charAt(l2));
                     }else{
                         if(b.charAt(l2)== '1'){
                             sb.append("0");
