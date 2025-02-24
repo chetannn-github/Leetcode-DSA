@@ -8,7 +8,7 @@ class Solution {
             totalSum += num;
         }
 
-        dp = new int[totalSum+1][n+1];
+        dp = new int[n+1][totalSum+1];
 
         for(int row[] : dp){
             Arrays.fill(row, -1);
@@ -23,8 +23,8 @@ class Solution {
             return true;
         }
 
-        if(dp[sum][start]!=-1){
-            return dp[sum][start] == 0? true : false;
+        if(dp[start][sum]!=-1){
+            return dp[start][sum]== 0? true : false;
         }
         
         boolean ans = false;
@@ -34,7 +34,7 @@ class Solution {
                 return true;
             }
         }
-        dp[sum][start] = ans? 0 : 1;
+        dp[start][sum] = ans? 0 : 1;
         
         return ans;
     }
