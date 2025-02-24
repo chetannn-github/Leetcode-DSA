@@ -76,6 +76,10 @@ class Solution {
         if(target==0){
             return true;
         }
+
+        if(start>=n){
+            return false;
+        }
         
 
         if(dp[start][target]!=-1){
@@ -83,13 +87,15 @@ class Solution {
         }
         
         boolean ans = false;
-        for(int i= start ; i<n; i++){
-            if(target>= nums[i]) ans =  ans || solve(nums,i+1,target-nums[i]);
-            
-            if(ans){
-                return true;
-            }
+        
+        if(target>= nums[start]) ans =  ans || solve(nums,start+1,target-nums[start]);
+        if(ans) {
+            dp[start][target] = ans? 0 : 1;
+            return true;
         }
+        
+        ans = ans || solve(nums,start+1,target);
+        
         dp[start][target] = ans? 0 : 1;
         
         return ans;
