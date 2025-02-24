@@ -15,13 +15,8 @@ class Solution {
                         sb.append("1");
                     }
                 }else{
-                    if(carry == 1){
-                        sb.append("1");
-                        carry = 0;
-                    }else{
-                        sb.append("0");
-                        carry = 0;
-                    }
+                    sb.append(carry);
+                    carry = 0;
                 }
             }else if(l2<0){
                 if(a.charAt(l1)=='1'){
@@ -31,13 +26,8 @@ class Solution {
                         sb.append("1");
                     }
                 }else{
-                    if(carry == 1){
-                        sb.append("1");
-                        carry = 0;
-                    }else{
-                        sb.append("0");
-                        carry = 0;
-                    }
+                    sb.append(carry);
+                    carry = 0;
                 }
             }else{
                 if(carry == 1){
