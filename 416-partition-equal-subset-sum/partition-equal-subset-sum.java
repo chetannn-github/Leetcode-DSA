@@ -20,7 +20,13 @@ class Solution {
     public boolean solve(int[] nums, int start,int sum){
         
         if(2*sum == totalSum){
+            dp[start][sum] =  0 ;
             return true;
+        }
+
+        if(2* sum>= totalSum ){
+            dp[start][sum] =  1 ;
+            return false;
         }
 
         if(dp[start][sum]!=-1){
