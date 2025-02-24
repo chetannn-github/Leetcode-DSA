@@ -8,7 +8,11 @@ class Solution {
             totalSum += num;
         }
 
-        dp = new int[n+1][totalSum+1];
+        if(totalSum%2 != 0){
+            return false;
+        }
+
+        dp = new int[n+1][totalSum +1];
 
         for(int row[] : dp){
             Arrays.fill(row, -1);
