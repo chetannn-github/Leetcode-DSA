@@ -30,17 +30,17 @@ class Solution {
         
         
         // row+1,col-1 (left diagonal)
-        if(i+1<r && j-1>=0){
+        if(j-1>=0){
             int opt1 = matrix[i][j] + solve(matrix,i+1,j-1);
             ans = Math.min(ans,opt1);
         }
         // row+1,c (down)
-        if(i+1<r){
+        
             int opt2 =  matrix[i][j] + solve(matrix,i+1,j);
             ans = Math.min(ans,opt2);
-        }
+        
         // row+1, col+1(right diagonal)
-        if(i+1<r && j+1<c){
+        if(j+1<c){
             int opt3 =  matrix[i][j] + solve(matrix,i+1,j+1);
             ans = Math.min(ans,opt3);
         }
