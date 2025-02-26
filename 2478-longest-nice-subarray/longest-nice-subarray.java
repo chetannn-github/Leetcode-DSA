@@ -9,11 +9,19 @@ class Solution {
             // doston se puchoo are you finee????
             // end se puchna shuru krugaa jisme mna kiyaa usse aur usse phele waalo se dosti khtmm
 
-            for(int i = end-1; i>=start; i--){
+            // for(int i = end-1; i>=start; i--){
+            //     if((nums[i] & nums[end] )!= 0){
+            //         start = i+1;
+            //         break;
+            //     }
+            // }
+            int i = end-1;
+            while(i>=start){
                 if((nums[i] & nums[end] )!= 0){
                     start = i+1;
                     break;
                 }
+                i--;
             }
             
 
