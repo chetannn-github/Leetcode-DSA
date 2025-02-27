@@ -1,17 +1,73 @@
+// class Solution {
+//     int info[][];
+//     int rows ;
+//     HashMap<String,Integer> dp ;
+//     public int findMaxForm(String[] strs, int m, int n) {
+//         rows = strs.length;
+//         info =  new int[rows][2];
+//         dp = new HashMap<>();
+
+//         for(int i=0; i<rows; i++){
+//             int length = strs[i].length();
+//             int zeroes = countZeroes(strs[i],length);
+//             info[i][0] = zeroes;
+//             info[i][1] = length - zeroes; 
+//         }
+
+//         return solve(0,m,n);
+//     }
+
+//     public int solve(int start, int m , int n){
+//         if(start>=rows){
+//             return 0;
+//         }
+
+//         String key = "start -> " + start + "m -> " + m + "n -> " + n;
+//         if(dp.containsKey(key)){
+//             return dp.get(key);
+//         }
+
+
+//         int skip = solve(start+1, m , n);
+//         int take = 0;
+//         if(m-info[start][0]>=0 && n - info[start][1]>=0){
+//             take = 1+ solve(start+1,m-info[start][0], n - info[start][1]);
+//         }
+        
+//         dp.put(key,Math.max(take,skip));
+//         return dp.get(key);
+
+//     }
+//     public int countZeroes(String s, int n){
+//         int zeroes = 0;
+
+//         for(int i=0; i<n; i++){
+//             if(s.charAt(i) == '0') zeroes++;
+//         }
+//         return zeroes;
+//     }
+// }
+
 class Solution {
     int info[][];
     int rows ;
-    HashMap<String,Integer> dp ;
+    int[][][] dp ;
     public int findMaxForm(String[] strs, int m, int n) {
         rows = strs.length;
         info =  new int[rows][2];
-        dp = new HashMap<>();
+        dp = new int[rows][m+1][n+1];
 
         for(int i=0; i<rows; i++){
             int length = strs[i].length();
             int zeroes = countZeroes(strs[i],length);
             info[i][0] = zeroes;
             info[i][1] = length - zeroes; 
+        }
+
+        for(int[][] mat : dp){
+            for(int[] row : mat){
+                Arrays.fill(row,-1);
+            }
         }
 
         return solve(0,m,n);
@@ -23,8 +79,8 @@ class Solution {
         }
 
         String key = "start -> " + start + "m -> " + m + "n -> " + n;
-        if(dp.containsKey(key)){
-            return dp.get(key);
+        if(dp[start][m][n]!=-1){
+            return dp[start][m][n];
         }
 
 
@@ -34,28 +90,10 @@ class Solution {
             take = 1+ solve(start+1,m-info[start][0], n - info[start][1]);
         }
         
-        dp.put(key,Math.max(take,skip));
-        return dp.get(key);
+        return dp[start][m][n] = Math.max(take,skip);
+        
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public int countZeroes(String s, int n){
         int zeroes = 0;
