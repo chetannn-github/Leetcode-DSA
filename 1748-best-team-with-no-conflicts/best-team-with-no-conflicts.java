@@ -14,10 +14,7 @@ class Solution {
             Arrays.fill(dp[i], -1);
         }
 
-        Arrays.sort(data, Comparator
-            .comparingInt((int[] a) -> a[0]) 
-            .thenComparingInt(a -> a[1])
-        );
+        Arrays.sort(data, (a,b)->a[0]==b[0]?a[1]-b[1]:a[0]-b[0]);
 
         return solve(-1,0);
     }
