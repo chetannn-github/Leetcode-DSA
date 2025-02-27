@@ -1,8 +1,10 @@
 class Solution {
     int n ;
+   
 
     public int findTargetSumWays(int[] nums, int target) {
         n = nums.length;
+        
         return solve(nums,target,0);
     }
 
@@ -12,6 +14,6 @@ class Solution {
         }else if(start ==n){
             return 0;
         }            
-       return  solve(nums,target - nums[start],start+1) + solve(nums,target + nums[start],start+1);
+       return solve(nums,target - nums[start],start+1) + solve(nums,target + nums[start],start+1);
     }
 }
