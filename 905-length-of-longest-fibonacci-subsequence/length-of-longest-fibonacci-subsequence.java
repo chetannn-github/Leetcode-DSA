@@ -24,10 +24,9 @@ class Solution {
 
     public int solve(int first,int second, int[] arr){
         
-
-        if(dp[first][second]!=-1){
-            return dp[first][second];
-        }
+        // if(dp[first][second]!=-1){
+        //     return dp[first][second];
+        // }
         int next = arr[first] + arr[second];
         if(hm.containsKey(next)){
             return 1 + solve(second, hm.get(next),arr);
