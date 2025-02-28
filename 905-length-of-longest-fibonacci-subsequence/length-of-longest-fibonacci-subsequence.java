@@ -24,9 +24,9 @@ class Solution {
 
     public int solve(int j,int k, int[] arr){
         
-        if(dp[j][k]!=-1){
-            return dp[j][k];
-        }
+        // if(dp[j][k]!=-1){
+        //     return dp[j][k];
+        // }
         int prev = arr[k] - arr[j];
         if(hm.containsKey(prev) && hm.get(prev)<j){
             return 1 + solve(hm.get(prev),j ,arr);
