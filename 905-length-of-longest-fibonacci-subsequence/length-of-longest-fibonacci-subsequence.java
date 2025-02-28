@@ -13,25 +13,25 @@ class Solution {
             Arrays.fill(dp[i],-1);
         }
 
-        for(int i=0;i<n; i++){
-            for(int j = i+1; j<n; j++){
-                maxLength  = Math.max(2 + solve(i, j, arr),maxLength);
+        for(int j=1;j<n; j++){
+            for(int k = j+1; k<n; k++){
+                maxLength  = Math.max(2 + solve(j, k, arr),maxLength);
             }
         }
         return maxLength == 2 ? 0 : maxLength;
     }
 
 
-    public int solve(int first,int second, int[] arr){
+    public int solve(int j,int k, int[] arr){
         
-        // if(dp[first][second]!=-1){
-        //     return dp[first][second];
-        // }
-        int next = arr[first] + arr[second];
-        if(hm.containsKey(next)){
-            return 1 + solve(second, hm.get(next),arr);
+        if(dp[j][k]!=-1){
+            return dp[j][k];
+        }
+        int prev = arr[k] - arr[j];
+        if(hm.containsKey(prev) && hm.get(prev)<j){
+            return 1 + solve(hm.get(prev),j ,arr);
         } 
 
-        return dp[first][second] = 0;
+        return dp[j][k] = 0;
     }
 }
