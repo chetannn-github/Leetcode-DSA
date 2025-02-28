@@ -20,7 +20,6 @@ class Solution {
                 occr.add(i);
                 hm.put(arr[i], occr);
             }
-           
             Arrays.fill(dp[i],-1);
         }
 
@@ -35,7 +34,6 @@ class Solution {
 
     public int solve(int first,int second, int[] arr){
         
-
         if(dp[first][second]!=-1){
             return dp[first][second];
         }
