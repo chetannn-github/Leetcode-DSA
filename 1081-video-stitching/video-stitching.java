@@ -30,6 +30,9 @@ class Solution {
 
         if(clips[start][0] <= lastOne){
             take = 1 + solve(clips, time,start+1,Math.max(clips[start][1],lastOne));
+        }else{
+            return dp[start][lastOne] = Integer.MAX_VALUE;
+            // kukii array sorted hh tohh aage kuch nhii mileegaaa
         }
         
         long skip = solve(clips,time,start+1, lastOne);
