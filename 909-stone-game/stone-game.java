@@ -7,7 +7,7 @@ class Solution {
         for(int[] row : dp){
             Arrays.fill(row,Integer.MAX_VALUE);
         }
-        return solve(piles,0,0) > 0;
+        return solve(piles,0,n-1) > 0;
 
     }
 
