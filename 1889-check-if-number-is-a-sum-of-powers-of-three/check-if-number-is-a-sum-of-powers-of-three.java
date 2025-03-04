@@ -12,19 +12,19 @@ class Solution {
         }else if(n<3){
             return false;
         }
-        int bigPower = 1;
+        int bigPowerSub = 1;
 
-        while(bigPower <= n){
-            bigPower *=3;
+        while(bigPowerSub <= n){
+            bigPowerSub *=3;
         }
-        bigPower /=3;
+        bigPowerSub /=3;
         
-        if(hs.contains(bigPower)){
+        if(hs.contains(bigPowerSub)){
             return false;
         }else{
-            hs.add(bigPower);
+            hs.add(bigPowerSub);
         }
 
-        return check(n-bigPower); 
+        return check(n-bigPowerSub); 
     }
 }
