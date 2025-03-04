@@ -28,12 +28,10 @@ class Solution {
         if(word1.charAt(i) == word2.charAt(j)){
             return dp[i][j] = solve(word1,word2, i+1, j+1);
         }
-            int replace = 1 + solve(word1,word2, i+1, j+1);
-            int delete = 1 + solve(word1,word2, i+1, j);
-            int insert = 1 + solve(word1,word2, i, j+1);
-             return dp[i][j] =Math.min(Math.min(replace,nothing),Math.min(delete,insert));
-        
-        
-       
+
+        int replace = 1 + solve(word1,word2, i+1, j+1);
+        int delete = 1 + solve(word1,word2, i+1, j);
+        int insert = 1 + solve(word1,word2, i, j+1);
+        return dp[i][j] =Math.min(Math.min(replace,nothing),Math.min(delete,insert));  
     }
 }
