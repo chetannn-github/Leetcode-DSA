@@ -4,7 +4,7 @@ class Solution {
     public int countSubstrings(String s) {
         n = s.length();
         
-        dp = new int[n][n];
+        dp = new int[n+1][n+1];
         for(int[] row : dp){
             Arrays.fill(row,-1);
         }
@@ -19,7 +19,7 @@ class Solution {
     public int solve(String s, int start, int end){
         int count;
         if(end>=n){
-            return 0;
+            return dp[start][end] = 0;
         }
         if(dp[start][end]!=-1){
             return dp[start][end];
