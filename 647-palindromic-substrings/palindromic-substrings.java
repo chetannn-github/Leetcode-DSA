@@ -21,9 +21,9 @@ class Solution {
         if(end>=n){
             return dp[start][end] = 0;
         }
-        if(dp[start][end]!=-1){
-            return dp[start][end];
-        }
+        // if(dp[start][end]!=-1){
+        //     return dp[start][end];
+        // }
         count = isPalindrome(s,start,end);
         
         int take = solve(s,start,end+1);
