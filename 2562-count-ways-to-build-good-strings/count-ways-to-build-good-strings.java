@@ -1,17 +1,16 @@
 class Solution {
-    long dp[];
+    int dp[];
     int mod = 1_000_000_007;
     public int countGoodStrings(int low, int high, int zero, int one) {
-        dp = new long[high+1];
+        dp = new int[high+1];
         Arrays.fill(dp,-1);
-        long ans= solve(low,high,zero,one,0) % mod;
-        return (int) ans;
+        return  solve(low,high,zero,one,0);
     }
 
 
-    public long solve(int low, int high, int zero, int one, int currentLength){
+    public int solve(int low, int high, int zero, int one, int currentLength){
         
-        long ans = 0;
+        int ans = 0;
         if(dp[currentLength] != -1){
             return dp[currentLength];
         }
