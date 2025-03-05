@@ -7,7 +7,7 @@ class Solution {
         for(int[] row : dp){
             Arrays.fill(row,-1);
         }
-        
+
         int ans = 0;
         for(int i=0; i<n; i++){
             ans += solve(s,i,i);
@@ -30,16 +30,16 @@ class Solution {
     }
 
     public int isPalindrome(String s, int left, int right) {
+        if(left>=right){
+            return 1;
+        }
         if(dp[left][right]!=-1){
             return dp[left][right];
         }
-        while (left < right) {
-            if (s.charAt(left) != s.charAt(right)) {
-                return dp[left][right] = 0;
-            }
-            left++;
-            right--;
+        if (s.charAt(left) != s.charAt(right)) {
+            return dp[left][right] = 0;
         }
-        return dp[left][right] = 1;
+        
+        return dp[left][right] = isPalindrome(s,left+1,right-1);
     }
 }
