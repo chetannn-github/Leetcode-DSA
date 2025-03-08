@@ -1,27 +1,24 @@
 class Solution {
-    int result = 0;
     public int sumNumbers(TreeNode root) {
-        solve(root,0);
-        return result; 
-        
+        return solve(root,0,0);
     }
 
-    public void solve(TreeNode root,int curr){
+    public int solve(TreeNode root,int curr,int result){
         if(root == null){
-            return;
+            return result;
         }
         if(root.left == null && root.right == null ){
             result += curr*10 + root.val;
-            return;
+            return result;
         }
 
         if(root.left != null){
-            solve(root.left,curr*10 + root.val);
+            result = solve(root.left,curr*10 + root.val,result);
         }
 
         if(root.right != null){
-            solve(root.right,curr*10 + root.val);
+            result = solve(root.right,curr*10 + root.val,result);
         }
-        return;
+        return result;
     }
 }
