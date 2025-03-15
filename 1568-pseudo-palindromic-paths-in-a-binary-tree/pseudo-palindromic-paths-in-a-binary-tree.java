@@ -19,8 +19,16 @@ class Solution {
         }
        
         
-        if(root.left != null ) {freq[root.left.val -1]++; dfs(root.left);freq[root.left.val -1]--;}
-        if(root.right != null ) {freq[root.right.val -1]++; dfs(root.right);freq[root.right.val -1]--;}
+        if(root.left != null ) {
+            freq[root.left.val -1]++;
+            dfs(root.left);
+            freq[root.left.val -1]--;
+        }
+        if(root.right != null ) {
+            freq[root.right.val -1]++;
+            dfs(root.right);
+            freq[root.right.val -1]--;
+        }
         
 
         return ;
