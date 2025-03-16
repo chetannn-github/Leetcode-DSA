@@ -37,6 +37,7 @@ class Solution {
             if(dirn == null || dirn.length() > temp.length()){
                 dirn = temp.toString();
             }
+            return;
         }
 
         if(root.left != null && !hs.contains(root.left.val)){
@@ -52,7 +53,8 @@ class Solution {
             temp.append("R");
             hs.add(root.right.val);
             modifiedDFS(root.right,destValue);
-            temp.setLength(temp.length()-1);hs.remove(root.right.val);
+            temp.setLength(temp.length()-1);
+            hs.remove(root.right.val);
         }
 
         if(hm.containsKey(root) && !hs.contains(hm.get(root).val)){
