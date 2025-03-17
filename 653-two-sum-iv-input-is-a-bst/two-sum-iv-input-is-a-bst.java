@@ -27,16 +27,15 @@ class Solution {
         return false;
 
         int target = k - node.val;
-        if (target != node.val && search(root, target)) 
-        return true;
+
+        if (target != node.val && search(root, target)) return true;
 
         return dfs(node.left, root, k) || dfs(node.right, root, k);
     }
 
     private boolean search(TreeNode node, int val) {
         while (node != null) {
-            if (node.val == val) 
-            return true;
+            if (node.val == val) return true;
             else if (node.val < val) node = node.right;
             else node = node.left;
         }
