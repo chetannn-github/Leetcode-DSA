@@ -1,4 +1,8 @@
 class Solution {
+    // accha sawal hain 
+    // isme yhh cheez interseting thiii only one pair is fuckup 
+    // tohh buus mera inorder sirf ek swap se sorted ban jaaegaa
+    // mtlb ek pair ko chod ke pura array sorted hogaa
     TreeNode prev = null;
     boolean phelibaar = true;
     TreeNode prevINeed = null;
