@@ -6,12 +6,14 @@ class Solution {
             hm.put(ch, hm.getOrDefault(ch, 0) +1);
         }
 
-        final int[][] arr = new int[hm.size()][2];
-        final int[] i ={0};
-        hm.forEach((key,value)->{
-            arr[i[0]] = new int[]{(int)(key),value};
-            i[0]++;
-        });
+        int[][] arr = new int[hm.size()][2];
+        int i = 0 ;
+
+        for(Character ch : hm.keySet()){
+            arr[i] = new int[] {(int)(ch),hm.get(ch)};
+            i++;
+        }
+        
 
         Arrays.sort(arr,(a,b)->{
             return Integer.compare(b[1], a[1]);
