@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Solution {
     public long findScore(int[] nums) {
         int n = nums.length;
