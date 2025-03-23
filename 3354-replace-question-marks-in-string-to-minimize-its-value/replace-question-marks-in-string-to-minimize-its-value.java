@@ -2,7 +2,7 @@ class Solution {
     public String minimizeStringValue(String s) {
         int[] freq = new int[26];
         int n = s.length();
-        HashSet<Integer> questionMarkIndices = new HashSet<>();
+        
         PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->{
             return freq[a] == freq[b] ? a - b : freq[a] - freq[b];
         });
@@ -11,10 +11,7 @@ class Solution {
             char currChar = s.charAt(i);
             if(currChar != '?'){
                 freq[(int)(currChar - 'a')]++;
-            }else{
-                questionMarkIndices.add(i);
-            }
-            
+            }  
         }
 
         for(int i=0; i<26;i++){
@@ -40,7 +37,7 @@ class Solution {
 
         int replacementIdx = 0;
         for(int i=0; i<n; i++){
-            if(questionMarkIndices.contains(i)){
+            if(s.charAt(i) == '?'){
                 char replacedChar =(char) (replacement.get(replacementIdx) + 'a');
                 sb.append(replacedChar);
                 replacementIdx++;
