@@ -13,11 +13,9 @@ class Solution {
             return points[a] == points[b] ? student_id[b] - student_id[a] : points[a] - points[b];
         });
         
+        
         for(int i=0; i<report.length; i++){
             points[i] = calculatePoints(report[i]);
-        }
-
-        for(int i=0; i<report.length; i++){
             pq.add(i);
             if(pq.size() > k) pq.remove();
         }
