@@ -7,6 +7,7 @@ class Solution {
         for(int i=0; i<n; i++){
             parent[i] = i;
         }
+        int total = n;
         for(int[] edge : connections){
             int x = edge[0];
             int y = edge[1];
@@ -15,15 +16,11 @@ class Solution {
 
             if(xParent != yParent){
                 union(x,y,rank,parent);
+                n--;
                 
             }
         }
-        HashSet<Integer> hs = new HashSet<>();
-        for(int i=0; i<n; i++){
-            hs.add(find(i,parent));
-        }
-
-        return hs.size()-1;
+        return n-1;
 
     }
 
