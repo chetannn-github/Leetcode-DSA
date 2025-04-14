@@ -22,7 +22,7 @@ class Solution {
         Arrays.fill(dis,Double.MIN_VALUE);
        
         PriorityQueue<double[]> pq = new PriorityQueue<>((a,b)-> {
-            double dif = (double) a[0] - b[0];
+            double dif = (double) b[0] - a[0];
             return dif > 0.0 ? 1 : -1;
         });
         pq.add(new double[]{(double) start,1.0});
