@@ -1,14 +1,13 @@
 class Solution {
     public List<Integer> findSmallestSetOfVertices(int n, List<List<Integer>> edges) {
-        Set<Integer> hs = new HashSet<>();
+        boolean[] bl = new boolean[n];
         
-        for(int i=0; i<n; i++) hs.add(i);
         for(List<Integer> edge : edges){
-            hs.remove(edge.get(1));
+            bl[edge.get(1)] = true;
         }
         List<Integer> ans = new ArrayList<>();
-        for(int node : hs){
-            ans.add(node);
+        for(int i=0; i<n; i++){
+            if(!bl[i]) ans.add(i);
         }
         return ans;
     }
