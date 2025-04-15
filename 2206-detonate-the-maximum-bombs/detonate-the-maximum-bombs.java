@@ -6,8 +6,7 @@ class Solution {
         for(int i=0; i<n; i++) adj.add(new ArrayList<>());
 
         for(int i=0; i<n; i++){
-            for(int j=0; j<n; j++){
-                if(i == j) continue;
+            for(int j=i+1; j<n; j++){
                 long dSquare =(long) Math.pow( bombs[i][0] - bombs[j][0] , 2) +(long) Math.pow(bombs[i][1] - bombs[j][1],2); 
                 
                 int r1 = bombs[i][2];
@@ -15,7 +14,9 @@ class Solution {
                 if((long) r1*r1 >= dSquare){
                     adj.get(i).add(j);
                 }
-
+                if((long) r2*r2 >= dSquare){
+                    adj.get(j).add(i);
+                }
                 
             }
         }
