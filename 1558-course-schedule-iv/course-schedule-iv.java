@@ -26,20 +26,17 @@ class Solution {
         visited.add(s);
 
         while(!queue.isEmpty()){
-            int n = queue.size();
+            int curr = queue.remove();
 
-            while(n-->0){
-                int curr = queue.remove();
+            if(curr == e) return true;
 
-                if(curr == e) return true;
-
-                for(int nbr : adj.get(curr)){
-                    if(!visited.contains(nbr)){
-                        queue.add(nbr);
-                        visited.add(nbr);
-                    }
+            for(int nbr : adj.get(curr)){
+                if(!visited.contains(nbr)){
+                    queue.add(nbr);
+                    visited.add(nbr);
                 }
             }
+            
         }
 
         return false;
