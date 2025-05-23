@@ -80,21 +80,74 @@
 
 
 
+// class Solution {
+//     public int minimumLengthEncoding(String[] words) {
+//         Set<String> wordSet = new HashSet<>(Arrays.asList(words));
+
+//         for (String word : words) {
+//             for (int i = 1; i < word.length(); i++) {
+//                 wordSet.remove(word.substring(i));
+//             }
+//         }
+
+//         int result = 0;
+//         for (String word : wordSet) {
+//             result += word.length() + 1;
+//         }
+
+//         return result;
+//     }
+// }
+
+
 class Solution {
     public int minimumLengthEncoding(String[] words) {
-        Set<String> wordSet = new HashSet<>(Arrays.asList(words));
+        Trie suffixTrie = new Trie();
+        HashMap<TrieNode, Integer> wordEndNodeIndexMap = new HashMap<>();
 
-        for (String word : words) {
-            for (int i = 1; i < word.length(); i++) {
-                wordSet.remove(word.substring(i));
+        
+        for (int i = 0; i < words.length; i++) {
+            String reversed = reverseString(words[i]);
+            TrieNode curr = suffixTrie.root;
+
+            for (char ch : reversed.toCharArray()) {
+                if(curr.children.get(ch) == null){
+                    curr.children.put(ch, new TrieNode());
+                }
+                curr = curr.children.get(ch);
+            }
+            wordEndNodeIndexMap.put(curr, i);
+        }
+
+        int totalLength = 0;
+        for (TrieNode node : wordEndNodeIndexMap.keySet()) {
+            if (node.children.isEmpty()) {
+                int idx = wordEndNodeIndexMap.get(node);
+                totalLength += words[idx].length() + 1;
             }
         }
 
-        int result = 0;
-        for (String word : wordSet) {
-            result += word.length() + 1;
-        }
+        return totalLength;
+    }
 
-        return result;
+    public String reverseString(String st) {
+        return new StringBuilder(st).reverse().toString();
+    }
+}
+
+class Trie {
+    TrieNode root;
+    Trie() {
+        root = new TrieNode();
+    }
+}
+
+class TrieNode {
+    HashMap<Character, TrieNode> children;
+    boolean isEndOfWord;
+
+    TrieNode() {
+        isEndOfWord = false;
+        children = new HashMap<>();
     }
 }
