@@ -34,7 +34,7 @@ class RangeFreqQuery {
         int size = indices.size();
         int l = lowerBound(indices, left,size);
         int r = upperBound(indices, right, size);
-        if (r<l) return 0;
+        
         return r -l +1;
     }
 
