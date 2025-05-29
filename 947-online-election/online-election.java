@@ -62,8 +62,8 @@ class TopVotedCandidate {
             voteCount.put(p, voteCount.getOrDefault(p, 0) + 1);
 
             if (voteCount.get(p) >= maxVotes) {
-                    leader = p;
-                    maxVotes = voteCount.get(p);
+                leader = p;
+                maxVotes = voteCount.get(p);
             }
 
             leaders[i] = leader;
