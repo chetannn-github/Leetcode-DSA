@@ -7,9 +7,12 @@ class Solution {
             int mid = start +((end - start) >> 1);
 
             if(nums[mid] == target) return true;
-            //left sorted
-            else if(nums[start] == nums[mid]) start++;
-            else if(nums[start] < nums[mid]){
+            //we dont know which part is sorted
+            else if(nums[start] == nums[mid] && nums[mid] == nums[end]) {
+                start++; end--;
+                
+                //left sorted
+            }else if(nums[start] <= nums[mid]){
                 
                 if(nums[start] <= target && target < nums[mid]){
                     end = mid -1;
