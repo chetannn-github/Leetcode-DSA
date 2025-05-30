@@ -3,7 +3,7 @@ class Solution {
         long[] req = new long[potions.length];
         for(int i=0; i<potions.length; i++){
             if(success%potions[i]==0){
-                req[i] =(success/potions[i]) ;
+                req[i] = (success/potions[i]) ;
             }else{
                 req[i] = (success/potions[i])+1;
             }
