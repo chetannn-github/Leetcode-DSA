@@ -1,12 +1,12 @@
 class Solution {
     public int maximumCandies(int[] candies, long k) {
         Arrays.sort(candies);
-        int min = 1_000_000_0; 
-        // for(int i=0; i<candies.length; i++){
-        //     min = Math.min(min,candies[i]);
-        // }
+        int max = candies[0];
+        for(int i=0; i<candies.length; i++){
+           max = Math.max(max,candies[i]);
+        }
         int start = 1;
-        int end = min;
+        int end = max;
         int ans = 0;
         while(start<=end){
             int mid = start + ((end-start)>>1);
