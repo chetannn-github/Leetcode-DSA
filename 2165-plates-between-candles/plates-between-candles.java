@@ -1,94 +1,95 @@
 class Solution {
     public int[] platesBetweenCandles(String s, int[][] queries) {
-        int count = 0; 
+        int n = s.length();
+        int[] pre = new int[n];
+        boolean prevCandel = false;
+        int count = 0;
+        int candelCount = 0;
+
         for(int i=0; i<s.length(); i++){
-            if(s.charAt(i)=='|'){
-                count++;
+            char ch = s.charAt(i);
+            if(ch =='*' && prevCandel){
+                count++; 
+                
+            }else if(ch == '|') {
+                prevCandel = true;
+                candelCount++;
             }
+            pre[i] = count;
         }
 
-        if(count ==0){
-            return new int[queries.length];
-        }
-
-        int[] candle = new int[count];
-        int j =0;
-        for(int i=0; i<s.length(); i++){
-            if(s.charAt(i)=='|'){
-                candle[j] = i;
-                j++; 
-            }
-        }
-
-        int[] pre = new int[candle.length];
+        prevCandel = false;
         count = 0;
-        j=1;
-        for(int i=candle[0]+1; i<=candle[candle.length-1]; i++){
-            if(s.charAt(i)=='*'){
+        int candles[] = new int[candelCount];
+        int j = candelCount-1;
+
+        for(int i=n-1; i>=0; i--){
+            char ch = s.charAt(i);
+            if(ch =='*' && prevCandel){
                 count++;
-            }else{
-                pre[j] = pre[j-1] + count;
-                j++;
-                count = 0;
+                
+            }else if( ch == '|') {
+                prevCandel = true;
+                candles[j--] = i;
             }
-             
+            // yhh meenee thoraa req koo analyse krne ke baad likhii hh
+            if(ch == '*' && count == 0) {
+                pre[i] = 0;
+            }
+            
         }
+
         int ans[] = new int[queries.length];
 
+
         for(int i=0; i<queries.length; i++){
-            int first = findUpperBound(candle,queries[i][0]);
-            int sec = findLowerBound(candle,queries[i][1]) -1;
-
-
-
-            if(first>sec ){
-                ans[i] = 0;
-            }else{
+            int first = findUpperBound(candles,queries[i][0]) ;
+            int sec = findLowerBound(candles,queries[i][1]);
+            
+            if(first < sec) {
                 ans[i] = pre[sec] - pre[first];
             }
-
+            
         }
-
-       
 
         return ans;
-
-       
-
-
     }
 
-    public int findUpperBound(int[] nums , int q){
-        int start = 0; 
-        int end = nums.length-1;
-        int upper = nums.length;
+    public int findUpperBound(int[] candles , int target){
+        int start = 0, end = candles.length - 1;
+        int ans = Integer.MAX_VALUE;
+
         while(start<=end){
             int mid = start + ((end-start)>>1);
-            if(nums[mid]>=q){
-                upper = mid;
+            int val = candles[mid];
+
+            if(val >= target){
+                ans = candles[mid];
                 end = mid -1;
             }else{
                 start = mid+1;
             }
         }
 
-        return upper;
+        return ans;
     }
-    public int findLowerBound(int[] nums , int q){
-        int start = 0; 
-        int end = nums.length-1;
-        int upper = nums.length;
+    public int findLowerBound(int[] candles , int target){
+        int start = 0, end = candles.length - 1;
+        int ans = Integer.MIN_VALUE;
+
         while(start<=end){
             int mid = start + ((end-start)>>1);
-            if(nums[mid]>q){
-                upper = mid;
-                end = mid -1;
-            }else{
+            int val = candles[mid];
+
+            if(val <= target){
+                ans = candles[mid];
                 start = mid+1;
+            }else{
+                end = mid -1;
             }
         }
 
-        return upper;
+        return ans;
         }
     
 }
