@@ -35,6 +35,7 @@ class Solution {
         return gcd(b%a, a);
     }
     long lcm(long a, long b) {
-        return a / gcd(a, b)* b ;
+        // lcm * hcf = a * b;
+        return a / gcd(a, b) * b ;
     }
 }
