@@ -30,25 +30,24 @@ class Solution {
             last[changeIndices[i] -1] = i;
         }
 
-        int dec = 0;
-        int mark = 0;
+        int currSum = 0;
+        int markedIndices = 0;
 
         for(int i=0; i<sec ; i++){
             int idx = changeIndices[i] - 1;
 
             if(i == last[idx]){
-
-                if(dec>=nums[idx]){
-                    dec -=nums[idx];
-                    mark++;
+                if(currSum>=nums[idx]){
+                    currSum -=nums[idx];
+                    markedIndices++;
                 }else{
                     return false;
                 }
             }else{
-                dec++;
+                currSum++;
             }
         }
-        return mark ==nums.length;
+        return markedIndices ==nums.length;
 
     }
 }
