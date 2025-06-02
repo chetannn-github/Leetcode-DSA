@@ -1,41 +1,31 @@
 class Solution {
-    int n;
-    int x;
     public int maximumRemovals(String s, String p, int[] removable) {
-        int start = 0;
-        int end = removable.length;
-        int ans = 0;
-        n = s.length();
-        x = p.length();
-
-        while (start <= end) {
-            int mid = start + ((end - start) >> 1);
-
-            if(checkPossible(s,p,removable,mid)) {
-                ans = mid; 
-                start = mid + 1;
-            }else {
-                end = mid - 1;
+        
+        char[] letters = s.toCharArray();
+        int l = 0, r = removable.length;
+        while (l <= r) {
+            int mid = (l+r)/2;
+            for (int i=0;i<mid;i++) letters[removable[i]] = '/';
+            
+            if (check(letters,p)) l = mid+1;
+            
+            else {
+                for (int i=0;i<mid;i++) letters[removable[i]] = s.charAt(removable[i]);
+                r = mid-1;
             }
         }
-
-        return ans;
+        return r;
     }
-
-    public boolean checkPossible (String s, String p , int[] removable, int k) {
-        HashSet<Integer> indices = new HashSet<>();
-
-        for(int i=0; i<k; i++) {
-            indices.add(removable[i]);
+    
+    public boolean check(char[] letters, String p) {
+        int i1 = 0, i2 = 0;
+        while (i1 < letters.length && i2 < p.length()) {
+            char curr = letters[i1], curr2 = p.charAt(i2);
+            if (curr != '/' && curr == curr2) i2++;
+            i1++;
         }
-
-        int j=0;
-        for(int i=0; i<n; i++) {
-            if(indices.contains(i)) continue;
-            if(s.charAt(i) == p.charAt(j)) j++;
-            if(j == x) return true;
-        }
-
+        
+        if (i2 == p.length()) return true;
         return false;
     }
 }
