@@ -8,6 +8,19 @@ class Solution {
         int end = Math.min(m,n);
         int max = 0;
 
+        for(int i=0; i<m; i++) {
+            for(int j=1; j<n; j++) {
+                mat[i][j] += mat[i][j-1];
+            }
+        }
+        
+        
+        for(int i=1; i<m; i++) {
+            for(int j=0; j<n; j++) {
+                mat[i][j] += mat[i-1][j];
+            }
+        }
+
         while(start <= end) {
             int mid = start + ((end - start) >> 1);
 
@@ -28,14 +41,33 @@ class Solution {
         for(int i=0; i <= m-1-(side - 1); i++) {
             for(int j=0; j <= n-1-(side - 1); j++) {
                 int sum = 0;
+                int bottomRightX = i + side -1;
+                int bottomRightY = j + side -1;
 
-                for(int p=0; p<side && sum <= threshold; p++) {
-                    for(int q=0; q<side && sum <= threshold; q++) {
-                        sum += mat[i+p][j+q];
-                    }
+                int topRightX = i;
+                int topRightY = j + side -1;
+
+                int bottomLeftX = i + side -1;
+                int bottomLeftY = j;
+
+
+                if(i - 1 >= 0) {
+                    sum -= mat[i-1][topRightY];
+
+                    
+                }
+                if(j-1 >=0) {
+                    sum -= mat[bottomLeftX][j - 1];
                 }
 
+                if(i-1 >= 0 && j-1>=0) {
+                    sum += mat[i-1][j-1];
+                }
+
+                sum += mat[bottomRightX][bottomRightY];
+
                 if(sum <= threshold) return true;
+                
             }
         }
 
