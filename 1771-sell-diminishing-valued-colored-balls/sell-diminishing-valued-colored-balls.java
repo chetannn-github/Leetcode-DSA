@@ -35,29 +35,36 @@ class Solution {
     public int maxProfit(int[] inventory, int orders) {
         int MOD = 1_000_000_007;
         Arrays.sort(inventory);
-        int curIndex = inventory.length - 1;
-        int curValue = inventory[curIndex];
+        int n =  inventory.length;
+        int currIndex = n - 1;
+        int currVal = inventory[currIndex];
         long profit = 0;
         
         while (orders > 0) {
-            while (curIndex >= 0 && inventory[curIndex] == curValue) {
-                curIndex--;
+            while (currIndex >= 0 && inventory[currIndex] == currVal) {
+                currIndex--;
             }
-            int nextValue = curIndex < 0 ? 0 : inventory[curIndex];
-            int numSameColor = inventory.length - 1 - curIndex;
 
-            long nums = (long) (curValue - nextValue) * numSameColor;
-            if (orders >= nums) {
-                profit += (long)(curValue + nextValue + 1) * (curValue - nextValue) / 2 * numSameColor;
-            } else {
-                int numFullRow = orders / numSameColor;
-                int remainder = orders % numSameColor;
-                profit += (long)(curValue + curValue - numFullRow + 1) * numFullRow / 2 * numSameColor;
-                profit += (long)(curValue - numFullRow) * remainder;
+            int nextVal = currIndex < 0 ? 0 : inventory[currIndex];
+
+            long countOfSame = (long) (n-1 - currIndex) * (currVal  - nextVal) ;
+        
+            if(countOfSame <= orders) {
+                profit += (long) (currVal + nextVal + 1) * (currVal - nextVal) / 2 * (n-1- currIndex);
+            }else {
+                int fullRows =  orders / (n-1- currIndex);
+                int remainder = orders % (n-1- currIndex)  ;
+
+                profit += (long)  (currVal + (currVal - fullRows + 1)) * (fullRows) /2 * (n-1- currIndex) ;
+
+                profit += (long) (remainder) * (currVal - fullRows);
             }
-            orders -= nums;
-            profit = profit % MOD;
-            curValue = nextValue;
+
+
+            orders -= countOfSame;
+            profit %= MOD;
+            currVal = nextVal;
+            
         }
         return (int)profit;
     }
