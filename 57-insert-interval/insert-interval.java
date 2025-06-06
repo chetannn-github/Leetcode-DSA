@@ -27,7 +27,7 @@ class Solution {
             }
             
             if(i<0) continue;
-            
+
             if(!st.isEmpty()  && st.peek()[1] >= arr[i][0]){
                 int start = st.peek()[0];
                 int end = Math.max(arr[i][1], st.pop()[1]);
@@ -51,11 +51,6 @@ class Solution {
                 st.push(newInterval);
             }
         }
-
-
-
-
-        
 
 
         int[][] ans = new int[st.size()][2];
