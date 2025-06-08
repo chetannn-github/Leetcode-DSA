@@ -6,9 +6,9 @@ class Solution {
             pop[logs[i][1]]--;
         }
         int maxYear = 1950;
-        for(int i=1950;i<2051;i++){
+        for(int i= 1950; i<2051; i++){
             pop[i] += pop[i-1];
-            maxYear = pop[i] > pop[maxYear]? i : maxYear;
+            maxYear = pop[i] > pop[maxYear] ? i : maxYear;
         }
     return maxYear;
 }}
