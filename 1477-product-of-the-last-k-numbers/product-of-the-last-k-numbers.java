@@ -4,7 +4,7 @@ class ProductOfNumbers {
     public ProductOfNumbers() {
        prefix  = new ArrayList<>();
        prefix.add(1);
-       size =1;
+       size = 1;
     }
     
     public void add(int num) {
@@ -21,7 +21,7 @@ class ProductOfNumbers {
     
     public int getProduct(int k) {
         // matlb khii zero aaya hogaa ussse size choti ho gyiii
-        if(size-1<k){
+        if(size-1 < k){
             return 0;
         }
 
