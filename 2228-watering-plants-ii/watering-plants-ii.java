@@ -17,17 +17,13 @@ class Solution {
                     count++;
                     currCapA = capA;
                 }
-                    currCapA -= plants[left];
-                
-                
+                currCapA -= plants[left];
                 
                 if(plants[right]>currCapB){
                     count++;
                     currCapB = capB;
                 }
-                    currCapB -= plants[right];
-                
-                
+                currCapB -= plants[right];
             }
 
             left++;
