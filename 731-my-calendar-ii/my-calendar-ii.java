@@ -1,5 +1,4 @@
 class MyCalendarTwo {
-
     private TreeMap<Integer, Integer> hm;
     private int maxOverlappingEvents;
 
@@ -21,10 +20,6 @@ class MyCalendarTwo {
             if (overlappedBooking > maxOverlappingEvents) {
                 hm.put(start, hm.get(start) - 1);
                 hm.put(end, hm.get(end) + 1);
-
-                if (hm.get(start) == 0) {
-                    hm.remove(start);
-                }
 
                 return false;
             }
