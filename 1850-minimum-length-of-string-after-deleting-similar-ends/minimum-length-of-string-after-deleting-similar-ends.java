@@ -23,6 +23,9 @@ class Solution {
                 while(end>=0 && s.charAt(end+1) == s.charAt(end)){
                    end--;
                 }
+                if(start == end){
+                    return 1;
+                }
             }else{ 
                 return end - start +1;
             }
