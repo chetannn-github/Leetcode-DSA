@@ -22,7 +22,7 @@ class MyCalendarTwo {
                 hm.put(end, hm.get(end) + 1);
 
                 if (hm.get(start) == 0) hm.remove(start);
-                if (hm.get(end) == 0) hm.remove(end);
+                // if (hm.get(end) == 0) hm.remove(end);
 
                 return false;
             }
