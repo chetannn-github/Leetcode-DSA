@@ -1,62 +1,27 @@
 class Solution {
     public boolean areSentencesSimilar(String sentence1, String sentence2) {
-        // aage se check kro 
         String[] s1 = sentence1.split(" ");
         String[] s2 = sentence2.split(" ");
-        int l1 = s1.length;
-        int l2 = s2.length;
-
+        if (s1.length < s2.length) {
+            return areSentencesSimilar(sentence2, sentence1);
+        }
+        
         int i = 0;
-        int j = Math.max(l1,l2)-1;
-        
-        int p = 0;
-        int q = Math.min(l1,l2)-1;
+        int j = s2.length - 1;
 
-        if(l1>=l2){
-            while(p<l2){
-                if(s1[i].equals(s2[p]) ){
-                    i++;
-                    p++;
-                }else{
-                    break;
-                }
-            }
-            // System.out.println("p---->"+p);
-            while(q>=p){
-                if(s1[j].equals(s2[q])){
-                    j--;
-                    q--;
-                }else{
-                    break;
-                }
-            }
-        }else{
-            while(p<l1){
-                if(s2[i].equals(s1[p]) ){
-                    i++;
-                    p++;
-                }else{
-                    break;
-                }
-            }
+        int m = 0;
+        int n = s1.length - 1;
 
-            while(q>=p){
-                if(s2[j].equals(s1[q])){
-                    j--;
-                    q--;
-                }else{
-                    break;
-                }
-            }
+        while (i <= j && s1[m].equals(s2[i])) {
+            i++;
+            m++;
         }
 
-
-        if((p-q)!=1){
-            // System.out.println(q);
-            return false;
+        while (j >= i && s1[n].equals(s2[j])) {
+            j--;
+            n--;
         }
 
-        return true;
-        
+        return i > j;
     }
 }
