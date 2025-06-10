@@ -12,8 +12,6 @@ class Solution {
             }
             threeSum(nums,target-nums[i],i+1);
         }
-
-
         return result;
     }
 
