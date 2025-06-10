@@ -29,15 +29,8 @@ class Solution {
         nums[poi] = nums[minIndex] ^ nums[poi];
         nums[minIndex] = nums[minIndex] ^ nums[poi];
 
-        // now sort nums from poi+1 to n-1
-        // Arrays.sort(nums, poi+1, n);
-
-        // or reverse poi+1 to n-1
         reverse(nums,poi+1, n-1);
-
         return;
-
-
     }
 
     public void reverse(int[] nums, int start, int end){
