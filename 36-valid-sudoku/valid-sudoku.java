@@ -9,9 +9,9 @@ class Solution {
                 int boxX = i/3;
                 int boxY = j/3; 
                 String idx = "*"+ch+"*";
-                if(hs.contains(i+idx) || hs.contains(idx+j) || hs.contains("!"+idx+"!"+boxY+"$"+boxX)){
-                    return false;
-                }
+                boolean isInvalid = hs.contains(i+idx) || hs.contains(idx+j) || hs.contains("!"+idx+"!"+boxY+"$"+boxX);
+                if(isInvalid) return false;
+                
                 hs.add(i+idx);
                 hs.add(idx+j);
                 hs.add("!"+idx+"!"+boxY+"$"+boxX);
