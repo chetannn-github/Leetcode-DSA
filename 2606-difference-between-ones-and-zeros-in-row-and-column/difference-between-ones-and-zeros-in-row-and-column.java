@@ -21,8 +21,6 @@ class Solution {
                grid[i][j] = (2* rowOnes[i] + 2*colOnes[j] - (rows + cols));
             }
         }
-
-        return grid;
-        
+        return grid;        
     }
 }
