@@ -14,8 +14,8 @@ class Solution {
         for(int x: dir){
             for(int y: dir){
                 if(x==y && y==0) continue;
-                int cordX= kingX +x;
-                int cordY = kingY +y;
+                int cordX= kingX + x;
+                int cordY = kingY + y;
 
                 while(cordX>=0 && cordX<=7 && cordY<=7 && cordY>=0){
                     if(queenIndices[cordX][cordY]){
