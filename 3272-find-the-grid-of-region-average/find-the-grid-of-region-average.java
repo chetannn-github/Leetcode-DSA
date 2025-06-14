@@ -1,4 +1,4 @@
-class Solution {
+                                                                class Solution {
     public int[][] resultGrid(int[][] image, int threshold) {
         int rows = image.length;
         int cols = image[0].length;
@@ -35,9 +35,7 @@ class Solution {
     }
 
     public boolean checkValidgrid(int r1,int c1,int th ,int[][] image){
-        
         // row checking 
-
         for(int i=r1; i<r1+3; i++){
             for(int j=c1; j<c1+2; j++){
                 if(Math.abs(image[i][j]- image[i][j+1])>th ){
@@ -46,7 +44,6 @@ class Solution {
             }
         }
         
-
         // col checking
         for(int i=r1; i<r1+2; i++){
             for(int j=c1; j<c1+3; j++){
