@@ -4,31 +4,29 @@ class Solution {
         
         for(int x : dir){
             for(int y : dir){
-                if(x==0 &&x==y){continue;}
+                if(x == 0 && x == y) continue;
                 int count = 1;
                 int cordX = r + x;
                 int cordY = c + y;
                 boolean last = false;
 
-                while(cordX>=0 && cordX <8 && cordY>=0 && cordY<8){
-                    if(board[cordX][cordY]==color){
+                while (cordX>=0 && cordX <8 && cordY>=0 && cordY<8) {
+                    if(board[cordX][cordY] == color) {
                         count++;
                         last = true;
                         break;
-                    }else if(board[cordX][cordY]=='.' ){
+                    }else if(board[cordX][cordY] == '.' ) {
                         count = 0;
                         break;
-                    }else if(board[cordX][cordY]!=color){
+                    }else if(board[cordX][cordY]!=color) {
                        count++;
                     }
                     cordX += x;
                     cordY +=y;
                 }
-                if(last&&count>=3) return true;
-
+                if (last && count>=3) return true;
             }
         }
-
         return false;
     }
 }
