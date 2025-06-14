@@ -2,11 +2,11 @@ class Solution {
     public int[][] diagonalSort(int[][] mat) {
         int r = mat.length;
         int c = mat[0].length;
-        ArrayList<Integer> diag = new ArrayList<>();
 
         for(int i=0; i<r; i++){
             int row = i;
             int col = 0;
+            List<Integer> diag = new ArrayList<>();
             while(row<r && col<c){
                 diag.add(mat[row][col]);
                 row++;
@@ -24,11 +24,12 @@ class Solution {
                 col++;
                 idx++;
             }
-            diag.clear();
+           
         }
         for(int i=1; i<c; i++){
             int row = 0;
             int col = i;
+            List<Integer> diag = new ArrayList<>();
             while(row<r && col<c){
                 diag.add(mat[row][col]);
                 row++;
@@ -46,7 +47,7 @@ class Solution {
                 col++;
                 idx++;
             }
-            diag.clear();
+           
         }
 
         return mat;
