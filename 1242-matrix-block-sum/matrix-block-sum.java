@@ -7,7 +7,7 @@ class Solution {
          // row wise prefix sum
         for(int i=0; i<rows; i++){
             for(int j=1; j<cols; j++){
-                mat[i][j] = mat[i][j-1] + mat[i][j];
+                mat[i][j] += mat[i][j-1];
                 
             }
         }
@@ -35,9 +35,9 @@ class Solution {
     public int sumRegion(int[][] pre,int r1, int c1, int r2, int c2) {
         long ans = pre[r2][c2];
 
-        if(r1>0){ans -= pre[r1-1][c2];}
-        if(c1>0){ans -= pre[r2][c1-1];}
-        if(r1>0 && c1>0){ans += pre[r1-1][c1-1];}
+        if (r1>0) ans -= pre[r1-1][c2];
+        if (c1>0) ans -= pre[r2][c1-1];
+        if (r1>0 && c1>0) ans += pre[r1-1][c1-1];
 
         return (int) (ans); 
     }
