@@ -22,7 +22,7 @@ class Solution {
         if(colMaxMin == rowMinMax){
             ans.add(colMaxMin);
         }
-
+        
         return ans;
     }
 }
