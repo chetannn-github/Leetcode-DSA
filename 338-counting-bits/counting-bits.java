@@ -7,7 +7,8 @@ class Solution {
         return ans;
     }
     public int count(int n){
-        if(n>0 && ((n & (n-1)) == 0)){return 1;}
+        // power of two 
+        if (n>0 && ((n & (n-1)) == 0)) return 1;
 
         int ans = 0;
         while(n!=0){
