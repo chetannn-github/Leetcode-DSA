@@ -47,7 +47,6 @@ class Solution {
             perm[i] = perm[i-1] ^ encoded[i-1];
         }
         
-        
 
         return perm;
     }
