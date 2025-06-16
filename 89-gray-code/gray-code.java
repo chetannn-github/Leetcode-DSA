@@ -10,25 +10,25 @@
 //         return ans;
 //     }
 
-//     public boolean solve(List<Integer> ans, int n,HashSet<Integer> hs){
+//     public boolean solve(List<Integer> ans, int n,HashSet<Integer> hs) {
 //         int size  = ans.size();
 //         int last = ans.get(size-1);
 
-//         if(size == (1<<n)){
+//         if(size == (1<<n)) {
 //             // last one must ki 2 ki power
-//             if( (last & (last -1)) == 0){
+//             if( (last & (last -1)) == 0) {
 //                 return true;
 //             }  
 //         }
 //         boolean bool = false;
 
-//         for(int i=1; i<(1<<n) ; i++){
+//         for(int i=1; i<(1<<n) ; i++) {
 //             if(hs.contains(i)) continue;
 //             int xor = (i ^ last);
 
 //             if (xor == 0) continue;
 
-//             if( (xor & (xor-1)) == 0 ){
+//             if( (xor & (xor-1)) == 0 ) {
 //                 hs.add(i);
 //                 ans.add(i);
 //                 bool = bool ||  solve(ans,n,hs);
@@ -60,32 +60,26 @@ class Solution {
         return ans;
     }
 
-    public boolean solve(List<Integer> ans, int n,HashSet<Integer> hs){
+    public boolean solve(List<Integer> ans, int n,HashSet<Integer> hs) {
         int size  = ans.size();
         int last = ans.get(size-1);
 
-        if(size == (1<<n)){
-                return true;
-        }
-        boolean bool = false;
+        if(size == (1<<n)) return true;
 
-        for(int i=0; i<n ; i++){
+        for(int i=0; i<n ; i++) {
             int next = last ^ (1<<i);
+
             if(hs.contains(next)) continue;
 
             hs.add(next);
             ans.add(next);
-            bool = bool ||  solve(ans,n,hs);
-            if (bool) return true;
+            if (solve(ans,n,hs)) return true;
             else{
                 hs.remove(next);
                 ans.remove(size);
             }
- 
-        
-
         }
 
-        return bool;
+        return false;
     }
 }
