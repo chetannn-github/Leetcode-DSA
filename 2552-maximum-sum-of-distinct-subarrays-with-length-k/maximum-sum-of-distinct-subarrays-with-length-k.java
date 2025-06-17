@@ -18,7 +18,7 @@ class Solution {
 
             sum -= nums[i-k];
             sum += nums[i];
-
+            // delete last one 
             if(hm.get(nums[i-k])==1){
                 hm.remove(nums[i-k]);
             }else{
