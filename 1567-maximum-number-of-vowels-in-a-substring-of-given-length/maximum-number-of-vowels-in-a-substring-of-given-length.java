@@ -7,14 +7,15 @@ class Solution {
             ans = isVowel(s.charAt(i))? ans+1 : ans;
         }
 
-        if(ans==k){return ans;}
+        if(ans==k) return ans;
         int temp = ans;
+
         for(int i=k; i<length;i++){
-            temp = isVowel(s.charAt(i-k)) ?  temp-1 : temp ;
-            temp = isVowel(s.charAt(i)) ?  temp+1 : temp ;
+            temp = isVowel(s.charAt(i-k)) ?  temp - 1 : temp ;
+            temp = isVowel(s.charAt(i)) ?  temp + 1 : temp ;
 
             ans = Math.max(temp,ans);
-            if(ans==k){return ans;}
+            if (ans==k) return ans;
         }
         return ans;
     }
