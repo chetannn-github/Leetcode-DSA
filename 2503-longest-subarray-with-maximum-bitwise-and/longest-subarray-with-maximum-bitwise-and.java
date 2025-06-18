@@ -14,22 +14,20 @@ class Solution {
 
         // ab mera kaam simple hh maxVal hoo continuously uski maxLength btanii h
         int start = idx;
-        int end = idx;
+        int maxFreq = 0;
 
-        while(end<n) {
-            // yha  start == end == maxValue ke start pr hoo
-            while(end <n && nums[end] == maxVal) {
-                end++;
+        for(int end = idx; end < n; end++) {
+            if(nums[end] == maxVal) {
+                maxFreq++;
             }
 
-            maxLength = Math.max(maxLength,end-start);
-            
-            start = end;
-
-            while(start < n && nums[start] != maxVal) {
+            while(end - start + 1 > maxFreq) {
+                if(nums[start] == maxVal) {
+                    maxFreq--;
+                }
                 start++;
             }
-            end = start;
+            maxLength = Math.max(end - start + 1, maxLength);
         }
         return maxLength;
 
