@@ -11,7 +11,7 @@ class Solution {
             hm.put(ch, hm.getOrDefault(ch,0)+1);
             maxFreq = Math.max(maxFreq, hm.get(ch));
 
-            while(end-start + 1- maxFreq >k){
+            while(end-start + 1 > k + maxFreq){
                 char left = s.charAt(start);
                 hm.put(left, hm.get(left)-1);
                 start++;
