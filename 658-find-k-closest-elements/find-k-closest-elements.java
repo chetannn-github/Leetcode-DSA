@@ -4,24 +4,23 @@ class Solution {
             int dis1 = Math.abs(x-a);
             int dis2 = Math.abs(x-b);
             if(dis1 == dis2){
-                return a - b;
+                return b - a;
             }else{
-                return dis1 - dis2;
+                return dis2 - dis1;
             }
         });
 
         for(int point : arr){
             pq.add(point);
+            if(pq.size() > k) pq.remove();
         }
-        List<Integer> ans = new ArrayList<>();
-        int idx = 0;
-        while(idx != k){
-            ans.add(pq.remove());
-            idx++;
+        List<Integer> result = new ArrayList<>();
+        while(!pq.isEmpty()){
+            result.add(pq.remove());
         }
-        Collections.sort(ans);
+        Collections.sort(result);
 
-        return ans;
+        return result;
 
     }
 }
