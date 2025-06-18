@@ -7,13 +7,13 @@ class Solution {
         int max = 0;
         int start = 0;
         
-        for(int end =0; end<n; end++){
-
+        for(int end =0; end<n; end++) {
             hm.put(fruits[end],hm.getOrDefault(fruits[end],0)+1);
-            while(hm.size()>2){
-                if(hm.get(fruits[start])>1){
+
+            while(hm.size()>2) {
+                if(hm.get(fruits[start])>1) {
                     hm.put(fruits[start],hm.get(fruits[start])-1);
-                }else{
+                }else {
                     hm.remove(fruits[start]);
                 }
 
