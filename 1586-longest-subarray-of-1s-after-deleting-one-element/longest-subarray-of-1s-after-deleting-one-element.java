@@ -35,6 +35,7 @@ class Solution {
         int n = nums.length;
         int maxFreq = 0;
         for(int end=0; end<n; end++){
+
             if(nums[end]==1){
                 ones++;
             }
@@ -48,9 +49,9 @@ class Solution {
                 start++;
             }
 
-            maxLength = Math.max(maxLength, end-start+1 - 1);
+            maxLength = Math.max(maxLength, end-start+1);
         }
 
-        return maxLength;
+        return maxLength - 1;
     }
 }
