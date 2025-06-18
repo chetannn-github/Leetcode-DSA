@@ -29,11 +29,7 @@ class Solution {
             }
         }
 
-        while(!even.isEmpty()){
-            ans *= 10;
-            even.remove();
-        }
-
+        ans *= Math.pow(10,even.size());
         return ans;
     }
 }
