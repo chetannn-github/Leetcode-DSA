@@ -11,15 +11,14 @@ class KthLargest {
 
         int n = nums.length;
 
-        while(n > k){
+        while(pq.size() > k){
             pq.remove();
-            n--;
         }
     }
     
     public int add(int val) {
         pq.add(val);
-        if(pq.size() != k) pq.remove();
+        if(pq.size() > k) pq.remove();
         return pq.peek();
     }
 }
