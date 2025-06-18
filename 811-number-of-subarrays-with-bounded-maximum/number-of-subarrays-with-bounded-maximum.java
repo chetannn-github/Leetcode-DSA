@@ -30,7 +30,7 @@ class Solution {
     public int numSubarrayBoundedMax(int[] nums, int left, int right) {
         // right se chote wale nikal lo aur left se chote wale nikal krr subtract krr do!!
        
-        return countSubarraysWithMin(nums,right) - countSubarraysWithMin( nums, left-1);
+        return countSubarraysWithMin(nums,right) - countSubarraysWithMin( nums, left - 1);
     }
 
     public int countSubarraysWithMin(int[] nums, int limit) {
@@ -40,13 +40,12 @@ class Solution {
 
 
         for(int end = 0; end<n; end++){
+            int curr = nums[end];
 
-            while(end<n && nums[end]>limit){
-                start = ++end;
-            }
-            if(end<n && nums[end]<=limit){
-                subarrays += end - start + 1;
-            }
+            if(curr > limit){
+                start = end + 1;
+            }else subarrays += end - start + 1;
+            
         }
 
         return subarrays;
