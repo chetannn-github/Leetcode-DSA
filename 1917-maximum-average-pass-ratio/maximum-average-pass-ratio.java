@@ -7,12 +7,12 @@ class Solution {
         });
         double avg = 0.0;
 
-        for(int[] c : classes){
+        for(int[] c : classes) {
             pq.add(new int[]{c[0],c[1]});
             avg += ((double) c[0]/c[1]);
         }
 
-        while(k!=0){
+        while(k!=0) {
             int[] c = pq.remove();
             avg -= ((double) c[0]/c[1]);
             c[0] += 1;
