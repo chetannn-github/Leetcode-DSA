@@ -11,13 +11,13 @@ class MapSum {
         }
         prefixTree.addedStrings.put(key,val);
         TrieNode curr = prefixTree.root;
-
+        val -= pheleWaliValue;
+        
         for(char ch : key.toCharArray()){
             if(curr.children.get(ch) == null){
-                curr.children.put(ch,new TrieNode(val));
-            }else{
-               curr.children.get(ch).value += val - pheleWaliValue ;  
+                curr.children.put(ch,new TrieNode(0));
             }
+            curr.children.get(ch).value += val;  
             curr = curr.children.get(ch);
         }
     }
