@@ -8,8 +8,6 @@ class TrieNode{
     }
 }
 
-
-
 class Trie {
     TrieNode root;
     public Trie() {
