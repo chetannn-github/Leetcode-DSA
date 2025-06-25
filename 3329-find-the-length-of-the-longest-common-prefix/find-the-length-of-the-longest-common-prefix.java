@@ -22,7 +22,7 @@ class Trie {
         TrieNode curr = root;
         int digits = (int) Math.log10(num) + 1;
 
-        while(digits--> 0) {
+        while(digits-- > 0) {
             int MSB = num / (int) Math.pow(10,digits);
             num = num % (int) Math.pow(10,digits);
             
@@ -31,7 +31,6 @@ class Trie {
             }
             curr = curr.children.get(MSB);
         }
-        curr.isEndOfNumber = true;
     }
 
     int countLongestPrefix(int num){
@@ -41,7 +40,7 @@ class Trie {
 
         while(digits--> 0) {
             int MSB = num / (int) Math.pow(10,digits);
-            num = num % (int) Math.pow(10,digits);
+            num %= (int) Math.pow(10,digits);
             
             if(curr.children.get(MSB) == null){
                 return count;
@@ -55,10 +54,8 @@ class Trie {
 
 class TrieNode {
     HashMap<Integer,TrieNode> children;
-    Boolean isEndOfNumber;
 
     TrieNode() {
         children = new HashMap<>();
-        isEndOfNumber = false;
     }
 }
