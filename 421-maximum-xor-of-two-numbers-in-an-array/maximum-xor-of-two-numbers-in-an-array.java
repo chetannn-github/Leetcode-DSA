@@ -26,7 +26,7 @@ class Trie {
             if(bit == 0 ){
                 if(curr.zero == null ) curr.zero = new TrieNode();
                 curr = curr.zero;
-            }else if(bit == 1 ){
+            }else{
                 if(curr.one == null ) curr.one = new TrieNode();
                 curr = curr.one;
             }
