@@ -33,14 +33,13 @@ class Solution {
         
         for(int end = 0; end<s.length();end++){
             char ch = s.charAt(end);
-            hm.put(ch,hm.getOrDefault(ch,0)+1);
-
-            while (hm.get(ch) > 1) {
+            
+            while (hm.getOrDefault(ch,0) > 0) {
                 char st = s.charAt(start);
                 hm.put(st,hm.getOrDefault(st,0)-1);
                 start++;
             }
-
+            hm.put(ch,hm.getOrDefault(ch,0)+1);
             length = Math.max(length,end-start+1);
         }
         return length ;
