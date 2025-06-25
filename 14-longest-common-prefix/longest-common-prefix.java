@@ -20,6 +20,8 @@ class Trie {
         if(val.equals("")){
             emptyString = true;
         }
+        if(emptyString) return;
+        
         TrieNode curr = root;
         for(char ch : val.toCharArray()){
             if(curr.children.get(ch) == null){
