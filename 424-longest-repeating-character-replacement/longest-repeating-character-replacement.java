@@ -12,8 +12,8 @@ class Solution {
             maxFreq = Math.max(maxFreq, hm.get(ch));
 
             while(end-start + 1 > k + maxFreq){
-                char left = s.charAt(start);
-                hm.put(left, hm.get(left)-1);
+                char leftChar = s.charAt(start);
+                hm.put(leftChar, hm.get(leftChar)-1);
                 start++;
             
             }
