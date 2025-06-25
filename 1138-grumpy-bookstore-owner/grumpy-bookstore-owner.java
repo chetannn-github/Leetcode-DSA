@@ -17,14 +17,12 @@ class Solution {
                 cust += customers[end];
             }
             
-            if(end - start +1 >k){
+            if(end - start +1 > k){
                 if(nums[start] == 1){
                     cust -= customers[start];
                 }
                 start++;
             }
-
-
             max = Math.max(cust,max);
         }
 
