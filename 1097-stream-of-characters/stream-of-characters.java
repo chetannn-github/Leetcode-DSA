@@ -23,11 +23,7 @@ class StreamChecker {
             }
             
         }
-        pending = new HashSet<>();
-        for(TrieNode curr : tobeAdded) {
-            pending.add(curr);
-        }
-
+        pending = new HashSet<>(tobeAdded);
         return ans;
     }
 
