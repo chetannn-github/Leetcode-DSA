@@ -100,52 +100,131 @@
 // }
 
 
-class Solution {
-    public int minimumLengthEncoding(String[] words) {
-        Trie suffixTrie = new Trie();
-        HashMap<TrieNode, Integer> wordEndNodeIndexMap = new HashMap<>();
+// class Solution {
+//     public int minimumLengthEncoding(String[] words) {
+//         Trie suffixTrie = new Trie();
+//         HashMap<TrieNode, Integer> wordEndNodeIndexMap = new HashMap<>();
 
         
-        for (int i = 0; i < words.length; i++) {
-            String reversed = reverseString(words[i]);
-            TrieNode curr = suffixTrie.root;
+//         for (int i = 0; i < words.length; i++) {
+//             String reversed = reverseString(words[i]);
+//             TrieNode curr = suffixTrie.root;
 
-            for (char ch : reversed.toCharArray()) {
-                if(curr.children.get(ch) == null){
-                    curr.children.put(ch, new TrieNode());
-                }
-                curr = curr.children.get(ch);
-            }
-            wordEndNodeIndexMap.put(curr, i);
+//             for (char ch : reversed.toCharArray()) {
+//                 if(curr.children.get(ch) == null){
+//                     curr.children.put(ch, new TrieNode());
+//                 }
+//                 curr = curr.children.get(ch);
+//             }
+//             wordEndNodeIndexMap.put(curr, i);
+//         }
+
+//         int totalLength = 0;
+//         for (TrieNode node : wordEndNodeIndexMap.keySet()) {
+//             if (node.children.isEmpty()) {
+//                 int idx = wordEndNodeIndexMap.get(node);
+//                 totalLength += words[idx].length() + 1;
+//             }
+//         }
+
+//         return totalLength;
+//     }
+
+//     public String reverseString(String st) {
+//         return new StringBuilder(st).reverse().toString();
+//     }
+// }
+
+// class Trie {
+//     TrieNode root;
+//     Trie() {
+//         root = new TrieNode();
+//     }
+// }
+
+// class TrieNode {
+//     HashMap<Character, TrieNode> children;
+//     boolean isEndOfWord;
+
+//     TrieNode() {
+//         isEndOfWord = false;
+//         children = new HashMap<>();
+//     }
+// }
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int minimumLengthEncoding(String[] words) {
+        Trie suffixTree = new Trie();
+
+        for(int i = 0; i < words.length; i++) {
+            String reversedWord = reverseString(words[i]);
+            suffixTree.insert(reversedWord);
+
         }
 
-        int totalLength = 0;
-        for (TrieNode node : wordEndNodeIndexMap.keySet()) {
-            if (node.children.isEmpty()) {
-                int idx = wordEndNodeIndexMap.get(node);
-                totalLength += words[idx].length() + 1;
-            }
-        }
-
-        return totalLength;
+        suffixTree.allPathLength();
+        
+        return suffixTree.numberOfPaths + suffixTree.pathLengths;
     }
 
-    public String reverseString(String st) {
+    public String reverseString(String st){
         return new StringBuilder(st).reverse().toString();
     }
 }
 
 class Trie {
     TrieNode root;
+    int numberOfPaths = 0;
+    int pathLengths = 0;
+
     Trie() {
         root = new TrieNode();
     }
+
+    void insert(String st) {
+        TrieNode curr = root;
+        for(char ch : st.toCharArray()) {
+            if(curr.children.get(ch) == null) {
+                curr.children.put(ch, new TrieNode());
+            }
+            curr = curr.children.get(ch);
+        }
+        curr.isEndOfWord = true;
+    }
+
+    void allPathLength() {
+        dfs(this.root, 0);
+    }
+
+    void dfs(TrieNode curr, int currLength) {
+        if(curr.children.size() == 0) {
+            numberOfPaths++;
+            pathLengths += currLength;
+            return;
+        }
+
+        for(char child : curr.children.keySet()) {
+            dfs(curr.children.get(child),currLength+1);
+        }
+
+        return;
+
+    }
+
+    
 }
 
 class TrieNode {
-    HashMap<Character, TrieNode> children;
+    HashMap<Character,TrieNode> children;
     boolean isEndOfWord;
-
     TrieNode() {
         isEndOfWord = false;
         children = new HashMap<>();
