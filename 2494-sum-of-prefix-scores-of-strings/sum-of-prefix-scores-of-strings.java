@@ -2,13 +2,13 @@ class Solution {
     public int[] sumPrefixScores(String[] words) {
         Trie prefixTree = new Trie();
 
-        for(String word : words) {
+        for (String word : words) {
             prefixTree.insert(word);
         }
 
         int[] result = new int[words.length];
         int idx = 0;
-        for(String word : words) {
+        for (String word : words) {
             result[idx++] = prefixTree.calculatePrefixScore(word);
         }
 
@@ -19,7 +19,7 @@ class Solution {
 
 class Trie {
     TrieNode root;
-    
+
     Trie() {
         root = new TrieNode();
     }
@@ -27,35 +27,34 @@ class Trie {
     void insert(String word) {
         TrieNode curr = this.root;
         for (char ch : word.toCharArray()) {
-            if(curr.children.get(ch) == null) {
-                curr.children.put(ch, new TrieNode());
+            int i = ch - 'a';
+            if (curr.children[i] == null) {
+                curr.children[i] = new TrieNode();
             }
-            curr.children.get(ch).val++;
-            curr = curr.children.get(ch);
+            curr = curr.children[i];
+            curr.val++;
         }
     }
-
-    
 
     int calculatePrefixScore(String word) {
         TrieNode curr = this.root;
         int prefixScore = 0;
         for (char ch : word.toCharArray()) {
-            prefixScore += curr.children.get(ch).val;
-            curr = curr.children.get(ch);
+            int i = ch - 'a';
+            curr = curr.children[i];
+            prefixScore += curr.val;
         }
-
         return prefixScore;
     }
 }
 
 
 class TrieNode {
-    HashMap<Character,TrieNode> children;
+    TrieNode[] children;
     int val;
 
     TrieNode() {
         this.val = 0;
-        this.children = new HashMap<>();
+        this.children = new TrieNode[26];
     }
 }
