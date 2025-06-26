@@ -15,7 +15,7 @@ class Solution {
 
             while(freq.size()> maxLetters || end - start +1> minSize){
                 char left = s.charAt(start);
-                if(freq.get(left) ==1){
+                if(freq.get(left) == 1){
                     freq.remove(left);
                 }else{
                     freq.put(left, freq.get(left)-1);
