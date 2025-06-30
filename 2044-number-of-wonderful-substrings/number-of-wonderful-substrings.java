@@ -18,7 +18,7 @@ class Solution {
             }
 
             // Case 2: one odd frequency allowed
-            for (int j = 0; j < 26; j++) {
+            for (int j = 0; j <= 'j' - 'a'; j++) {
                 int maskWithOneBitFlipped = mask ^ (1 << j);
                 if (seen.containsKey(maskWithOneBitFlipped)) {
                     result += seen.get(maskWithOneBitFlipped);
