@@ -1,18 +1,22 @@
 class Solution {
     HashSet<Integer> visited;
-    HashMap<Integer,List<Integer>> hm;
+    HashMap<Integer,List<Integer>> adj;
 
     public int findCircleNum(int[][] isConnected) {
         int n = isConnected.length;
         visited = new HashSet<>();
-        hm = new HashMap<>();
+        adj = new HashMap<>();
 
         for(int i=0; i<n; i++){
             for(int j=0; j<n; j++){
                 if(isConnected[i][j]==1){
-                    List<Integer> nodes = hm.getOrDefault(i,new ArrayList<>());
+                    List<Integer> nodes = adj.getOrDefault(i,new ArrayList<>());
                     nodes.add(j);
-                    hm.put(i,nodes);
+                    adj.put(i,nodes);
+
+                    nodes = adj.getOrDefault(j , new ArrayList<>());
+                    nodes.add(i);
+                    adj.put(j , nodes);
                 }
             }
         }
@@ -31,7 +35,7 @@ class Solution {
 
     public void dfs(int currNode){
         visited.add(currNode);
-        for(int node : hm.getOrDefault(currNode,new ArrayList<>())){
+        for(int node : adj.getOrDefault(currNode,new ArrayList<>())){
             if(!visited.contains(node)){
                 dfs(node);
             }
