@@ -14,9 +14,10 @@ class Solution {
                     nodes.add(j);
                     adj.put(i,nodes);
 
-                    nodes = adj.getOrDefault(j , new ArrayList<>());
-                    nodes.add(i);
-                    adj.put(j , nodes);
+                    // no need kukii dfs marjaaegaa ek relation hua tbhii bhii
+                    // nodes = adj.getOrDefault(j , new ArrayList<>());
+                    // nodes.add(i);
+                    // adj.put(j , nodes);
                 }
             }
         }
