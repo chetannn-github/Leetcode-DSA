@@ -19,6 +19,7 @@ class Solution {
                 if(minDiff == 0) return 0;
                 removeStartAndUpdateORAndBitsFreq(nums[start]);
             }
+            // kukii uparr wala loop me agr element k se badaa huaa tohh sare eleements haata dega window se toh cumOR = 0 hojaaegaa isliye mene yhh condn start < = end lagaii hh
             if(start <= end) minDiff = Math.min(Math.abs(cumOR - k), minDiff);
             if(minDiff == 0) return 0;
         }
