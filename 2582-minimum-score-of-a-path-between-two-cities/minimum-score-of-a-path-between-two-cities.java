@@ -1,5 +1,7 @@
 class Solution {
     public int minScore(int n, int[][] roads) {
+        // 1 se bfs/dfs maroo aur jis node kii value minmum hain whi answer hainn broo
+        // kuki hum path overlap krr skte hain
         int min = Integer.MAX_VALUE;
         List<List<List<Integer>>> adj = new ArrayList<>();
 
