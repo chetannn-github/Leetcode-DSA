@@ -16,6 +16,7 @@ class Solution {
                 left.add(right.remove());
             }
             if(!left.isEmpty()) w += left.remove().profit;
+            else break;
         }
 
         return w;
