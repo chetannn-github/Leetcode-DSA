@@ -32,41 +32,45 @@
 //     }
 // }
 
-
 class Solution {
+    class Pair {
+        int id;
+        long freq;
+
+        Pair(int id, long freq) {
+            this.id = id;
+            this.freq = freq;
+        }
+    }
+
     public long[] mostFrequentIDs(int[] nums, int[] freq) {
+        HashMap<Integer, Long> freqMap = new HashMap<>();
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> {
+            if (b.freq == a.freq) return b.id - a.id;  
+            return Long.compare(b.freq, a.freq);      
+        });
+
         int n = nums.length;
         long[] result = new long[n];
 
-        HashMap<Integer, Long> freqMap = new HashMap<>();
-
-        
-        PriorityQueue<long[]> pq = new PriorityQueue<>(
-            (a, b) -> {
-                if (a[1] == b[1]) return (int) (b[0] - a[0]);
-                return Long.compare(b[1], a[1]);
-            }
-        );
-
         for (int i = 0; i < n; i++) {
             int id = nums[i];
-            int f = freq[i];
+            int change = freq[i];
 
-            long updatedFreq = (long) (freqMap.getOrDefault(id, 0L) + f);
+            long updatedFreq = freqMap.getOrDefault(id, 0L) + change;
             freqMap.put(id, updatedFreq);
 
-            pq.add(new long[]{(long) id,  updatedFreq});
+            pq.add(new Pair(id, updatedFreq));
 
-            
             while (!pq.isEmpty()) {
-                long[] top = pq.peek();
-                if (freqMap.get((int)top[0]) == (long) top[1]) {
+                Pair top = pq.peek();
+                if (freqMap.get(top.id) != top.freq) {
+                    pq.poll(); 
+                } else {
+                    result[i] = top.freq;
                     break;
                 }
-                pq.remove(); 
             }
-
-            result[i] = pq.isEmpty() ? 0 : (long) freqMap.get((int) pq.peek()[0]);
         }
 
         return result;
