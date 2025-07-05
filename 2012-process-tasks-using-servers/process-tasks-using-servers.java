@@ -65,12 +65,13 @@ class Solution {
 
             if(freeServers.isEmpty()) {
                 currTime = runningServers.peek().endTime;
-            }
-            while (!runningServers.isEmpty() && runningServers.peek().endTime <= currTime) {
-                int serverIdx = runningServers.remove().serverIdx;
-                freeServers.add(serverIdx);
-            }
+                while (!runningServers.isEmpty() && runningServers.peek().endTime <= currTime) {
+                    int serverIdx = runningServers.remove().serverIdx;
+                    freeServers.add(serverIdx);
+                }
 
+            }
+            
             while(freeServers.size() > 0 && currTaskIdx < n &&  currTaskIdx <= currTime) {
                 long endTime = currTime + tasks[currTaskIdx]; 
                 int serverIdx = freeServers.remove();
