@@ -6,14 +6,14 @@ class Solution {
         if(b>0) pq.add(new Pair(1,b));
         if(c>0) pq.add(new Pair(2,c));
         
-        Pair pending = null;
+        Pair prev = null;
 
         StringBuilder sb = new StringBuilder();
         while(!pq.isEmpty()) {
             char ch = (char) (pq.peek().ch + 'a');
             int freq = pq.remove().freq;
 
-            if(freq >= 2 && (pending == null || pending.freq <= freq)) {
+            if(freq >= 2 && (prev == null || prev.freq <= freq)) {
                 sb.append(ch);
                 sb.append(ch);
                 freq -= 2;
@@ -22,13 +22,13 @@ class Solution {
                 sb.append(ch);
                 freq--;
             }
-            if (pending != null) {
-                pq.add(pending);
-                pending = null;
+            if (prev != null) {
+                pq.add(prev);
+                prev = null;
             }
 
             if(!pq.isEmpty() && freq >=1) {
-                pending = new Pair(ch - 'a', freq);
+                prev = new Pair(ch - 'a', freq);
             }
 
             
