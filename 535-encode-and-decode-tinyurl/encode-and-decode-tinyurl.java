@@ -11,8 +11,8 @@ public class Codec {
     }
 
     public String decode(String shortUrl) {
-        String id = shortUrl.split("/")[3];
-        return hm.get(id);
+        String ID = shortUrl.split("/")[3];
+        return hm.get(ID);
     }
 }
 
