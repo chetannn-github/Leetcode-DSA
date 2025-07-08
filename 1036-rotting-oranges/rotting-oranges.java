@@ -7,14 +7,14 @@ class Solution {
 
         int i=0;
         int freshCount = 0;
-        for(int[] row : grid){
+        for(int[] row : grid) {
             int j=0;
-            for(int val : row){
+            for(int val : row) {
                 
-                if(val == 2){
+                if(val == 2) {
                     queue.add(new int[]{i,j});
                     grid[i][j] = 0;
-                }else if(val == 1){
+                }else if(val == 1) {
                     freshCount++;
                 }
                 j++;
@@ -22,21 +22,21 @@ class Solution {
             i++;
         }
         
-        int[][] dirs = {{-1,0},{1,0},{0,1},{0,-1}};
+        int[][] dirns = {{-1,0},{1,0},{0,1},{0,-1}};
         int time = 0;
-        while(!queue.isEmpty()){
+        while(!queue.isEmpty() && freshCount > 0) {
             int n = queue.size();
 
-            while(n-->0){
+            while(n-->0) {
                 int[] cell = queue.remove();
-                int x = cell[0]; int y = cell[1];
+                int x = cell[0], y = cell[1];
 
-                for(int[] dir : dirs){
-                    int nx = x + dir[0];
-                    int ny = y + dir[1];
+                for(int[] dirn : dirns) {
+                    int nx = x + dirn[0];
+                    int ny = y + dirn[1];
 
-                    if(nx>=0 && ny >=0 && nx < r && ny < c){
-                        if(grid[nx][ny] == 1){
+                    if(nx >= 0 && ny >= 0 && nx < r && ny < c) {
+                        if(grid[nx][ny] == 1) {
                             freshCount--;
                             queue.add(new int[]{nx,ny});
                             grid[nx][ny] = 0;
@@ -44,8 +44,9 @@ class Solution {
                     }
                 }
             }
-
-            if(!queue.isEmpty()) time++;
+            time++;
+            if(freshCount == 0) return time;
+            
         }
         
         return freshCount == 0 ? time : -1;
