@@ -1,23 +1,20 @@
 class Solution {
     int rows,cols;
-    static int[][] dirns = {{-1,0},{1,0},{0,1},{0,-1}};
+    private static int[][] dirns = {{-1,0},{1,0},{0,1},{0,-1}};
     public int closedIsland(int[][] grid) {
         this.rows = grid.length;
         this.cols = grid[0].length;
-        List<Pair> list = new ArrayList<>();
-        
+        int totalClosedIslands = 0;
+
         for(int i=0; i<rows; i++) {
             for(int j=0; j<cols; j++) {
                 if(grid[i][j] == 0 && !isBoundary(i,j)) {
-                    list.add(new Pair(i,j));
+                    if(dfs(new Pair(i,j),grid)) totalClosedIslands++;
                 }
             }
         }
         
-        int totalClosedIslands = 0 ;
-        for(Pair p : list) {
-            if(grid[p.x][p.y] == 0 && dfs(p,grid)) totalClosedIslands++;
-        }
+        
         return totalClosedIslands;
     }
 
