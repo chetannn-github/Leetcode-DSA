@@ -7,12 +7,14 @@ class Solution {
 
         for(int i=0; i<n+1;i++) adj.add(new ArrayList<>());
 
+        int minDistanceBtwAllRoads = Integer.MAX_VALUE;
         for(int[] road : roads){
             List<Integer> ls = new ArrayList<>();
             ls.add(road[1]);
             ls.add(road[2]);
             adj.get(road[0]).add(ls); 
             
+            minDistanceBtwAllRoads = Math.min(minDistanceBtwAllRoads,road[2]);
             ls = new ArrayList<>();
             ls.add(road[0]);
             ls.add(road[2]);
@@ -31,6 +33,8 @@ class Solution {
                 int v = nbr.get(0);
                 int amt = nbr.get(1);
                 min = Math.min(min,amt);
+
+                if(min == minDistanceBtwAllRoads) return min; // early exit
 
                 if(!visited.contains(v)){
                     queue.add(v);
