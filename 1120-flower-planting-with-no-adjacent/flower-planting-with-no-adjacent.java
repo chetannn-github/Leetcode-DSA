@@ -20,6 +20,7 @@ class Solution {
         if(currNode == N) return true;
 
         for(int color = 1; color<=N; color++){
+            
             if(isSafe(currNode,color,N)){
                 colorOfNode[currNode] = color;
                 if(solve(currNode+1,N)) return true;
