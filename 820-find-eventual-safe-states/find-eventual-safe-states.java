@@ -1,4 +1,5 @@
 class Solution {
+    
     boolean[] bl;
     HashSet<Integer> visited;
     public List<Integer> eventualSafeNodes(int[][] graph) {
