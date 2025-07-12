@@ -48,7 +48,7 @@
 
 
 
-
+// jab indegree zero ho chukii hogii tb uske saree parents nipat chuke hogeee
 class Solution {
     public List<List<Integer>> getAncestors(int n, int[][] edges) {
         List<List<Integer>> adj = new ArrayList<>();        
