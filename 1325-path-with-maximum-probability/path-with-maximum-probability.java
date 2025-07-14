@@ -1,51 +1,59 @@
 class Solution {
     public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
-        List<List<List<Double>>> adj = new ArrayList<>();
-
+        List<List<Node>> adj = new ArrayList<>();
         for(int i=0; i<n+1;i++) adj.add(new ArrayList<>());
         int idx = 0;
         for(int[] edge : edges){
-            List<Double> ls = new ArrayList<>();
-            ls.add((double) edge[1]);
-            ls.add(succProb[idx]);
-            adj.get(edge[0]).add(ls); 
-            
-            ls = new ArrayList<>();
-            ls.add((double)edge[0]);
-            ls.add(succProb[idx]);
-            adj.get(edge[1]).add(ls);
+            int u = edge[0], v = edge[1];
+
+            adj.get(u).add(new Node(v, succProb[idx])); 
+            adj.get(v).add(new Node(u, succProb[idx]));
             
             idx++;
         }
 
-        double[] dis = new double[n+1];
-        Arrays.fill(dis,Double.MIN_VALUE);
+        double[] maxProb = new double[n+1];
+        Arrays.fill(maxProb,0);
        
-        PriorityQueue<double[]> pq = new PriorityQueue<>((a,b)-> {
-            double dif = (double) b[1] - a[1];
+        PriorityQueue<Node> pq = new PriorityQueue<>((a,b)-> {
+            double dif = (double) b.wt - a.wt;
             return dif > 0.0 ? 1 : -1;
         });
-        pq.add(new double[]{(double) start,1.0});
+
+        maxProb[start] = 1.0;
+        pq.add(new Node(start,1.0));
 
         while(!pq.isEmpty()){
-            double curr[] = pq.remove();
-            double u = curr[0];
-            double prob = curr[1];
+            Node curr = pq.remove();
+            int u = curr.val;
+            double currProb = curr.wt;
 
-            for(List<Double> nbr : adj.get((int)curr[0])){
-                double v = nbr.get(0);
-                double amt = nbr.get(1);
-                double prod = (double) prob * amt;
+            for(Node nbr : adj.get(u)) {
+                int v = nbr.val;
+                double amt = nbr.wt;
+                double prod = (double) currProb * amt;
 
-                if(prod > dis[(int)v]){
-                    dis[(int)v] =prod;
-                    pq.add(new double[]{v,prod});
+                if(prod > maxProb[v]){
+                    maxProb[v] =prod;
+                    pq.add(new Node(v,prod));
                    
                 }
             }
         }
 
-        return dis[end] == Double.MIN_VALUE ? 0.0000 : dis[end];
+        return maxProb[end] == Double.MIN_VALUE ? 0.0000 : maxProb[end];
         
+    }
+
+
+}
+
+
+class Node {
+    double wt;
+    int val;
+    Node(int val, double wt) {
+        this.wt = wt;
+        this.val = val;
     }
 }
