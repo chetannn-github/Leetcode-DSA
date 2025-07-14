@@ -1,5 +1,5 @@
 class Solution {
-    int mod = 1_000_000_007;
+    int MOD = 1_000_000_007;
     public int countPaths(int n, int[][] roads) {
         List<List<List<Integer>>> adj = new ArrayList<>();
 
@@ -33,11 +33,11 @@ class Solution {
                     count[v] = count[(int) u];
                 }else if(cost + wt == dist[v]){
                     count[v] += count[(int) u];
-                    count[v] %=mod;
+                    count[v] %=MOD;
                 }
             }
         }
 
-        return (int) count[n-1] % mod;
+        return (int) count[n-1] % MOD;
     }
 }
