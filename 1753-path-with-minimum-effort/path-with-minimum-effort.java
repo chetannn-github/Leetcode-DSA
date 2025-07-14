@@ -18,7 +18,8 @@ class Solution {
             int effortTillNow = curr[0];
 
             if(curr[1] == r-1 && curr[2] == c-1) return dist[r-1][c-1];
-
+            if(dist[curr[1]][curr[2]] > effortTillNow) continue;
+            
             for(int[] dir : dirn){
                 int x = curr[1] + dir[0];
                 int y = curr[2] + dir[1];
