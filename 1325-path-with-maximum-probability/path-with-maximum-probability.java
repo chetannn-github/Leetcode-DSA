@@ -28,6 +28,8 @@ class Solution {
             int u = curr.val;
             double currProb = curr.wt;
 
+            if(currProb < maxProb[u]) continue;
+            
             for(Node nbr : adj.get(u)) {
                 int v = nbr.val;
                 double amt = nbr.wt;
