@@ -98,6 +98,12 @@ class DSU {
     }
 
 
+    public void add(int num) {
+        parentToGroupSize.put(num,1);
+        groupSizeFreq.put(1, groupSizeFreq.getOrDefault(1,0) + 1);
+    }
+
+
 }
 
 
@@ -115,10 +121,8 @@ class Solution {
             int num = nums[i];
             int prev = num - 1 ;
             int next = num + 1;
-            if(!dsu.parentToGroupSize.containsKey(num)) {
-                dsu.parentToGroupSize.put(num,1);
-                dsu.groupSizeFreq.put(1, dsu.groupSizeFreq.getOrDefault(1,0) + 1);
-            }
+            dsu.add(num);
+        
 
             if(prev >= 0 && visited[prev]) dsu.union(num, prev);
             if(next < n && visited[next]) dsu.union(num,next);
