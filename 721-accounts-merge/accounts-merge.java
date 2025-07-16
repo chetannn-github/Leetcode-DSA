@@ -1,7 +1,7 @@
 class Solution {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
         HashMap<String,Integer> mailToID = new HashMap<>();
-        HashMap<Integer,String> mailIDToParent = new HashMap<>();
+        HashMap<Integer,String> mailIDToOwner = new HashMap<>();
         int ID = 0;
 
         for(List<String> acc : accounts) {
@@ -10,7 +10,7 @@ class Solution {
                 String mail = acc.get(i);
                 if(!mailToID.containsKey(mail)) {
                     mailToID.put(mail,ID);
-                    mailIDToParent.put(ID,name);
+                    mailIDToOwner.put(ID,name);
                     ID++;
                 }   
             }
@@ -32,7 +32,7 @@ class Solution {
         }
 
 
-        HashMap<Integer,TreeSet<String>> parentToMails = new HashMap<>();
+        HashMap<Integer,TreeSet<String>> parentIDToMails = new HashMap<>();
 
         for(List<String> acc : accounts) {
             for(int i=1; i<acc.size(); i++) {
@@ -41,20 +41,20 @@ class Solution {
 
                 int parentMailID = dsu.find(currMailID);
 
-                TreeSet<String> mails = parentToMails.getOrDefault(parentMailID,new TreeSet<>());
+                TreeSet<String> mails = parentIDToMails.getOrDefault(parentMailID,new TreeSet<>());
                 mails.add(currMail);
-                parentToMails.put(parentMailID,mails);
+                parentIDToMails.put(parentMailID,mails);
             }
         }
 
         List<List<String>> result = new ArrayList<>();
 
-        for(Integer parentMailID : parentToMails.keySet()) {
-            String parent = mailIDToParent.get(parentMailID);
+        for(Integer parentMailID : parentIDToMails.keySet()) {
+            String parent = mailIDToOwner.get(parentMailID);
             List<String> acc = new ArrayList<>();
             acc.add(parent);
 
-            for(String mail :parentToMails.get(parentMailID)) acc.add(mail);
+            for(String mail :parentIDToMails.get(parentMailID)) acc.add(mail);
             result.add(acc);
         }
 
