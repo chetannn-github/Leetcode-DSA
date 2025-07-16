@@ -47,14 +47,14 @@ class DSU {
     int[] parent, rank;
     HashMap<Integer,Integer> membersSize;
     HashMap<Integer,Integer> parentToGroupSize;
-    HashMap<Integer,Integer> groupSize;
+    HashMap<Integer,Integer> groupSizeFreq;
 
     DSU(int size) {
         parent = new int[size];
         rank = new int[size];
         membersSize = new HashMap<>();
         parentToGroupSize = new HashMap<>();
-        groupSize = new HashMap<>();
+        groupSizeFreq = new HashMap<>();
 
         for(int i=0; i<size; i++) {
             parent[i] = i;
@@ -73,11 +73,11 @@ class DSU {
         // parentToGroupSize.remove(xParent);
         // parentToGroupSize.remove(yParent);
 
-        groupSize.put(xGroupSize, groupSize.get(xGroupSize) - 1);
-        groupSize.put(yGroupSize, groupSize.get(yGroupSize) - 1);
+        groupSizeFreq.put(xGroupSize, groupSizeFreq.get(xGroupSize) - 1);
+        groupSizeFreq.put(yGroupSize, groupSizeFreq.get(yGroupSize) - 1);
         
         int totalSize = xGroupSize + yGroupSize;
-        groupSize.put(totalSize, groupSize.getOrDefault(totalSize, 0) + 1);
+        groupSizeFreq.put(totalSize, groupSizeFreq.getOrDefault(totalSize, 0) + 1);
 
         if(rank[xParent] > rank[yParent]) {
             parent[yParent] = xParent;
@@ -117,7 +117,7 @@ class Solution {
             int next = num + 1;
             if(!dsu.parentToGroupSize.containsKey(num)) {
                 dsu.parentToGroupSize.put(num,1);
-                dsu.groupSize.put(1, dsu.groupSize.getOrDefault(1,0) + 1);
+                dsu.groupSizeFreq.put(1, dsu.groupSizeFreq.getOrDefault(1,0) + 1);
             }
 
             if(prev >= 0 && visited[prev]) dsu.union(num, prev);
@@ -126,7 +126,7 @@ class Solution {
             visited[num] = true;
 
             
-            if(dsu.groupSize.getOrDefault(m,0) > 0) {
+            if(dsu.groupSizeFreq.getOrDefault(m,0) > 0) {
                 lastStep = i+1;
             }
             
