@@ -70,8 +70,8 @@ class DSU {
 
         int xGroupSize = parentToGroupSize.get(xParent);
         int yGroupSize = parentToGroupSize.get(yParent);
-        parentToGroupSize.remove(xParent);
-        parentToGroupSize.remove(yParent);
+        // parentToGroupSize.remove(xParent);
+        // parentToGroupSize.remove(yParent);
 
         groupSize.put(xGroupSize, groupSize.get(xGroupSize) - 1);
         groupSize.put(yGroupSize, groupSize.get(yGroupSize) - 1);
