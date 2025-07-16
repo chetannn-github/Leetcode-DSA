@@ -114,16 +114,13 @@ class Solution {
         DSU dsu = new DSU(n);
         int lastStep = -1;
 
-
-        for(int i=0; i<n; i++) nums[i]--;
         
         for(int i=0; i<n; i++) {
-            int num = nums[i];
+            int num = nums[i] - 1;
             int prev = num - 1 ;
             int next = num + 1;
             dsu.add(num);
         
-
             if(prev >= 0 && visited[prev]) dsu.union(num, prev);
             if(next < n && visited[next]) dsu.union(num,next);
 
