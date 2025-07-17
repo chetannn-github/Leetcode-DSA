@@ -44,18 +44,18 @@ class KMP {
     }
 
     
-    public int KMPSearch(String text, String pattern) {
-        String combined = pattern + "#" + text;
-        int[] LPS = computePrefixFunction(combined);
-        int n = pattern.length();
+    // public int KMPSearch(String text, String pattern) {
+    //     String combined = pattern + "#" + text;
+    //     int[] LPS = computePrefixFunction(combined);
+    //     int n = pattern.length();
         
-        int result = 0;
-        for (int i = n + 1; i < LPS.length; i++) {
-            if (LPS[i] == n) {
-                result++;
-            }
-        }
+    //     int result = 0;
+    //     for (int i = n + 1; i < LPS.length; i++) {
+    //         if (LPS[i] == n) {
+    //             result++;
+    //         }
+    //     }
 
-        return result;
-    }
+    //     return result;
+    // }
 }
