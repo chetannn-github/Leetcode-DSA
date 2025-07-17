@@ -2,15 +2,14 @@ class Solution {
     public String longestPrefix(String s) {
         KMP kmp = new KMP();
         kmp.computePrefixFunction(s);
-        int maxLPSIdx = kmp.maxLPSIdx;
-        int maxLPSLength = kmp.maxLPSLength;
+        int lastPSIdx = kmp.lastPSIdx;
+        int lastLPSLength = kmp.lastLPSLength;
 
         int n = s.length();
         StringBuilder result = new StringBuilder();
-        System.out.println(maxLPSLength);
-        System.out.println(maxLPSIdx);
+        
 
-        for(int i= maxLPSIdx-maxLPSLength+1; i<maxLPSIdx+1; i++) {
+        for(int i= lastPSIdx-lastLPSLength+1; i<lastPSIdx+1; i++) {
             result.append(s.charAt(i));
         }
 
@@ -21,8 +20,8 @@ class Solution {
 
 
 class KMP {
-    int maxLPSIdx = 0;
-    int maxLPSLength = 0;
+    int lastPSIdx = 0;
+    int lastLPSLength = 0;
     public int[] computePrefixFunction(String s) {
         int n = s.length();
         int[] LPS = new int[n];
@@ -36,9 +35,9 @@ class KMP {
             }
             LPS[i] = j;
 
-            if(LPS[n-1] > maxLPSLength) {
-                maxLPSLength = LPS[n-1];
-                maxLPSIdx = n-1;
+            if(LPS[n-1] > lastLPSLength) {
+                lastLPSLength = LPS[n-1];
+                lastPSIdx = n-1;
             }
         }
         return LPS;
