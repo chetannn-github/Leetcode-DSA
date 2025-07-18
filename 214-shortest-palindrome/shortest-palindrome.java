@@ -7,7 +7,6 @@ class Solution {
         int[] lps = kmp.computeLPS(s + "#" + sb.reverse().toString());
         int lengthOfLargestPrefixPalindrome = lps[2*n];
         int charsToBeAdded = n - lengthOfLargestPrefixPalindrome;
-        System.out.println(charsToBeAdded);
 
         StringBuilder result = new StringBuilder();
         for(int i= n - charsToBeAdded; i <= n-1  ; i++){
