@@ -16,6 +16,8 @@ class Solution {
             Triplet curr = pq.remove();
             int x = curr.x, y = curr.y , wt = curr.wt;
 
+            if(x == m-1 && y == n-1) return distance[m-1][n-1];
+
             for(int[] dirn : dirns) {
                 int nx = x + dirn[0], ny = y + dirn[1];
 
@@ -24,7 +26,6 @@ class Solution {
                 if(isNonOutOfBound) {
                    
                     if(wt < moveTime[nx][ny] && distance[nx][ny] > moveTime[nx][ny] + 1) { 
-                       
                         pq.add(new Triplet(nx,ny,moveTime[nx][ny] + 1));
                         distance[nx][ny] = moveTime[nx][ny] + 1;
                     }else if(wt >= moveTime[nx][ny] && distance[nx][ny] > wt+1) {
