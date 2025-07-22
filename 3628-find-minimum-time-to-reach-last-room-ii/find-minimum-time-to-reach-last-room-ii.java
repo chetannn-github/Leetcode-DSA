@@ -16,6 +16,7 @@ class Solution {
             int x = curr.x, y = curr.y , wt = curr.wt;
             int nextCost = curr.nextCost;
 
+            if(x == m-1 && y == n-1) return distance[m-1][n-1];
 
             for(int[] dirn : dirns) {
                 int nx = x + dirn[0], ny = y + dirn[1];
