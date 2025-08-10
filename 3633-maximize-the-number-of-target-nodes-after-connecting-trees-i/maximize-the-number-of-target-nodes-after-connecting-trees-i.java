@@ -49,7 +49,7 @@ class Solution {
 
         int currDepth = 0;
 
-        while(!visited.isEmpty() && currDepth < maxDepth) {
+        while(!queue.isEmpty() && currDepth < maxDepth) {
             int currSize = queue.size();
 
             while(currSize-->0) {
