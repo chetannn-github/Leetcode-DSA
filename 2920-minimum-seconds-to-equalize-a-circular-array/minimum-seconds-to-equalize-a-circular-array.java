@@ -148,7 +148,7 @@ class Solution {
             positions.put(num, pos);
         }
 
-        int ans = Integer.MAX_VALUE;
+        int minSecs = Integer.MAX_VALUE;
 
         for (List<Integer> pos : positions.values()) {
             int maxGap = 0;
@@ -156,12 +156,12 @@ class Solution {
             for (int i = 1; i < pos.size(); i++) {
                 maxGap = Math.max(maxGap, pos.get(i) - pos.get(i - 1) - 1);
             }
-
+            
             maxGap = Math.max(maxGap, pos.get(0) + n - pos.get(pos.size() - 1) - 1);
 
-            ans = Math.min(ans, (maxGap + 1) / 2);
+            minSecs = Math.min(minSecs, (maxGap + 1) / 2);
         }
 
-        return ans;
+        return minSecs;
     }
 }
