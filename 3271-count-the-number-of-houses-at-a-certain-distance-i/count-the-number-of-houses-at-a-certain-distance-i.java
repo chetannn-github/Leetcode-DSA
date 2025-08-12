@@ -46,7 +46,7 @@ class Solution {
 
         for(int i=0; i<n; i++) {
             List<Integer> nbr = new ArrayList<>();
-            if(x != y) {
+            if(x != y ) {
                 if(i == x-1) nbr.add(y-1);
                 if(i == y-1) nbr.add(x-1);
             }
