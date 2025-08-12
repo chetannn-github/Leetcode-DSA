@@ -36,7 +36,7 @@
 //     }
 // }
 
-
+// dimag me aata hain a ke nbr uske bade wale hii banae aurr double krr lenge value koo but wo glt hain kukii wo jldi aage jaakrr peeche aasktaa hain assume 1 --> 100 ek connection hain toh wo peeche jaakr help kregaa bro
 class Solution {
     int result[];
     List<List<Integer>> adj;
@@ -90,3 +90,8 @@ class Solution {
         }
     }
 }
+
+
+
+
+
