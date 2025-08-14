@@ -22,9 +22,9 @@ class Solution {
             return 0;
         }
         if(dp[start]==-1){
-            int option1 = nums[start] + solve(nums, start+2,end);
-            int option2 =  solve(nums, start+1,end);
-            dp[start] = Math.max(option1, option2);
+            int rob = nums[start] + solve(nums, start+2,end);
+            int notRob =  solve(nums, start+1,end);
+            dp[start] = Math.max(rob, notRob);
         }
         
         return dp[start];
