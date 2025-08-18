@@ -76,7 +76,7 @@ class Solution {
         if (start >= n) return 0;
 
         if (last != -1 && dp[start][last] != -1) return dp[start][last];
-        if(last != -1 && words[start].length() - words[last].length() >=2) return 0;
+        // if (last != -1 && words[start].length() - words[last].length() >=2) return 0;
 
         int skip = solve(words, start + 1, last);
 
