@@ -6,6 +6,7 @@ class Solution {
         n1 = text1.length();
         n2 = text2.length();
         dp = new int[n1][n2];
+        
         for(int[] row : dp){
             Arrays.fill(row,-1);
         }
@@ -30,7 +31,5 @@ class Solution {
             
         return dp[i][j] = Math.max(opt1,opt2);
         
-
-
     }
 }
