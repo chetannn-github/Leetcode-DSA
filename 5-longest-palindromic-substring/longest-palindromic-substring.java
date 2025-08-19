@@ -12,7 +12,6 @@ class Solution {
             Arrays.fill(row,-1);
         }
 
-        int ans = 0;
         for(int i=0; i<n; i++){
             solve(s,i,i);
         }
