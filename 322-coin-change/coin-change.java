@@ -1,17 +1,19 @@
 class Solution {
     int n;
-    HashMap<Integer,Integer> dp;
+    int[] dp;
     public int coinChange(int[] coins, int amount) {
-        dp = new HashMap<>();
+        dp = new int[amount + 1];
         Arrays.sort(coins);
+        Arrays.fill(dp,-1);
         this.n = coins.length;
+        
         int result = solve(coins,amount);
         return result == Integer.MAX_VALUE ? - 1 : result;
     }
 
     public int solve(int[] coins, int currAmt) {
         if(currAmt == 0) return 0;
-        if(dp.containsKey(currAmt)) return dp.get(currAmt);
+        if(dp[currAmt] != -1) return dp[currAmt];
 
         int result = Integer.MAX_VALUE;
         for(int i=0; i<n && coins[i] <= currAmt; i++) {
@@ -22,7 +24,7 @@ class Solution {
             }
 
         }
-        dp.put(currAmt,result);
-        return result;
+        
+        return dp[currAmt] = result;
     }
 }
