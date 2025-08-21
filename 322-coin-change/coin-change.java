@@ -1,37 +1,28 @@
 class Solution {
-    
-    int[] dp = new int[10001];
+    int n;
+    HashMap<Integer,Integer> dp;
     public int coinChange(int[] coins, int amount) {
-        Arrays.fill(dp,-1);
-        int result = solve(coins, amount); 
-        return result == Integer.MAX_VALUE ? -1 : result;
-       
+        dp = new HashMap<>();
+        Arrays.sort(coins);
+        this.n = coins.length;
+        int result = solve(coins,amount);
+        return result == Integer.MAX_VALUE ? - 1 : result;
     }
 
-    public int solve(int[] coins, int amount){
-        if(amount==0){
-            return 0; 
-        }
-        if(amount<0){
-            return Integer.MAX_VALUE;
-        }
+    public int solve(int[] coins, int currAmt) {
+        if(currAmt == 0) return 0;
+        if(dp.containsKey(currAmt)) return dp.get(currAmt);
 
-        if(dp[amount] != -1){
-            return dp[amount];
-        }
-
-        int min = Integer.MAX_VALUE;
-
-        for(int i=0; i<coins.length; i++){
-            int coinsRequired = solve(coins, amount - coins[i]);
-
-            if(coinsRequired != Integer.MAX_VALUE){
-                min = Math.min(coinsRequired +1 , min);
+        int result = Integer.MAX_VALUE;
+        for(int i=0; i<n && coins[i] <= currAmt; i++) {
+            int leftAmtResult = solve(coins,currAmt - coins[i]);
+            if(leftAmtResult != Integer.MAX_VALUE) {
+                int currResult  = 1 + leftAmtResult;
+                result = Math.min(result, currResult);
             }
+
         }
-       
-        return dp[amount] = min;
+        dp.put(currAmt,result);
+        return result;
     }
 }
-
-
