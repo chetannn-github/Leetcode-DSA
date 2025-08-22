@@ -1,67 +1,32 @@
-// class Solution {
-//     int n;
-//     int[][] dp;
-//     public int change(int amount, int[] coins) {
-//         n = coins.length;
-//         dp = new int[n+1][amount+1];
-//         Arrays.sort(coins);
-//         for(int[] row : dp){
-//             Arrays.fill(row,-1);
-//         }
-//         return solve(amount,coins,0);
-
-//     }
-
-//     public int solve(int amount, int[] coins,int start){
-//         if(amount==0){
-//             return 1;
-//         }
-
-//         if(dp[start][amount]!=-1){
-//             return dp[start][amount];
-//         }
-
-//         int ways = 0;
-//         for(int i=start; i<n; i++){
-//             if(amount-coins[i]<0){
-//                 break;
-//             }
-//             ways += solve(amount-coins[i] , coins,i);
-//         }
-
-//         return dp[start][amount] = ways;
-
-//     }
-// }
-
 class Solution {
+    int n;
+    int[][] dp;
     public int change(int amount, int[] coins) {
-        int[][] dp = new int[coins.length][5001];
-        for(int[] arr : dp) {
-            Arrays.fill(arr, -1);
-        }
-        return solve(0, amount, coins, dp);
+        this.n = coins.length;
+        dp = new int[amount + 1][n];
+        for(int[] row : dp) Arrays.fill(row,-1);
 
+        Arrays.sort(coins);
+
+        int result = solve(amount,coins,n-1);
+        return result == Integer.MAX_VALUE ? 0 : result;
     }
-    private int solve(int start, int amount, int[] coins, int[][] dp) {
-        if(amount == 0) {
-            return 1;
-        }
-        if(start >= coins.length) {
-            return 0;
-        }
-        if(dp[start][amount] != -1) {
-            return dp[start][amount];
+
+    private int solve(int amt, int[] coins, int lastIdx) {
+        if(amt == 0) return 1;
+
+        if(dp[amt][lastIdx] != -1) return dp[amt][lastIdx];
+
+        int result = Integer.MAX_VALUE;
+
+        for(int i=0; i<=lastIdx && coins[i] <= amt; i++) {
+            int nextResult = solve(amt - coins[i], coins,i);
+
+            if(nextResult != Integer.MAX_VALUE) {
+                result = result == Integer.MAX_VALUE ? nextResult : result + nextResult;
+            }
         }
 
-        //skip 
-        int skip = solve(start+1, amount, coins, dp);
-
-        //take
-        if(coins[start] <= amount) {
-            int take = solve(start, amount-coins[start], coins, dp);
-            skip += take;
-        }
-        return dp[start][amount] = skip;
+        return dp[amt][lastIdx] = result;
     }
 }
