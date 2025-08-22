@@ -18,7 +18,7 @@ class Solution {
             notFlip = solve(s,1,1);
         }
 
-        return Math.min(flip, notFlip);
+        return solve(s,0,0);
     }
 
     public int solve(String s, int prevVal, int currIdx) {
