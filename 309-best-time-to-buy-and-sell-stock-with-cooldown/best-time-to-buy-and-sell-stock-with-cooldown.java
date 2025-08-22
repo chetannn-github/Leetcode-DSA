@@ -1,40 +1,29 @@
 class Solution {
     int n;
-    int dp[][];
+    int[][] dp;
     public int maxProfit(int[] prices) {
-        n = prices.length;
+        this.n = prices.length;
         dp = new int[n][2];
 
-        for(int[] row : dp){
-            Arrays.fill(row,-1);
-        }
-        return solve(prices,0, 0);
+        for(int[] row : dp) Arrays.fill(row,-1);
+        return solve(prices,0,0);
     }
 
 
-    public int solve(int[] prices, int bought, int curr){
-        if(curr>=n){
-            return 0;
+    public int solve(int[] prices,int currDay, int bought) {
+        if(currDay >= n) return 0;
+
+        if(dp[currDay][bought] != -1) return dp[currDay][bought];
+
+        int buy = 0, sell = 0, skip = 0;
+        if(bought == 1) {
+            sell = prices[currDay] + solve(prices,currDay + 2, 0);
+        }else {
+            buy = -prices[currDay] + solve(prices,currDay + 1, 1);
         }
 
-        if(dp[curr][bought] != -1){
-            return dp[curr][bought];
-        }
-        // option 1 : buy (agr phele se nhi kiya hain toh)
-        // option 2 : sell (if bought earlier)
-        int maxProfit = Integer.MIN_VALUE;
+        skip = solve(prices,currDay + 1, bought);
 
-        if(bought == 1){
-            maxProfit = Math.max(maxProfit,prices[curr] + solve(prices,0,curr+2));
-        }else{
-            maxProfit = Math.max(-prices[curr]+solve(prices,1,curr+1),maxProfit);
-        }
-         // option 3 : skip( chill mode )
-        maxProfit = Math.max(solve(prices, bought,curr+1),maxProfit);
-       
-        
-        dp[curr][bought] =  maxProfit;
-        
-        return maxProfit;
+        return dp[currDay][bought] = Math.max(skip, Math.max(sell, buy));
     }
 }
