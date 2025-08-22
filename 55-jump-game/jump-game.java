@@ -15,7 +15,10 @@ class Solution {
         for(int jump=1; jump<=nums[idx]; jump++) {
             ans |= solve(nums, idx + jump);
 
-            if(ans) return ans;
+            if(ans) {
+                dp.put(idx,true);
+                return ans;
+            }
         } 
         dp.put(idx,ans);
         return ans;
