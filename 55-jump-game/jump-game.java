@@ -1,36 +1,23 @@
 class Solution {
     int n;
-    int dp[];
+    HashMap<Integer, Boolean> dp;
     public boolean canJump(int[] nums) {
         n = nums.length;
-        dp = new int[n];
-        Arrays.fill(dp,-1);
-
-        return solve(nums,0) == 1 ? true : false;
+        dp = new HashMap<>();
+        return solve(nums, 0);
     }
 
-    public int solve(int[] nums, int start){
-        if(start == n-1){
-            return 1;
-        }
-        if(start>n-1){
-            return 0;
-        }
 
-        if(dp[start]!= -1){
-            return dp[start];
-        }
+    public boolean solve(int[] nums, int idx) {
+        if(idx >= n-1) return true;
+        if(dp.containsKey(idx)) return dp.get(idx);
+        boolean ans = false;
+        for(int jump=1; jump<=nums[idx]; jump++) {
+            ans |= solve(nums, idx + jump);
 
-        int jumps = nums[start];
-        int isReached = 0;
-
-        for(int i=1; i<=jumps; i++){
-            isReached |= solve(nums, start+i);
-            if(isReached ==1){
-                break;
-            }
-        }
-
-        return dp[start] =  isReached;
-    }
-}
+            if(ans) return ans;
+        } 
+        dp.put(idx,ans);
+        return ans;
+    } 
+} 
