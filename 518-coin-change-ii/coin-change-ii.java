@@ -17,14 +17,12 @@ class Solution {
 
         if(dp[amt][lastIdx] != -1) return dp[amt][lastIdx];
 
-        int result = Integer.MAX_VALUE;
+        int result = 0;
 
         for(int i=0; i<=lastIdx && coins[i] <= amt; i++) {
             int nextResult = solve(amt - coins[i], coins,i);
-
-            if(nextResult != Integer.MAX_VALUE) {
-                result = result == Integer.MAX_VALUE ? nextResult : result + nextResult;
-            }
+            result += nextResult;
+            
         }
 
         return dp[amt][lastIdx] = result;
