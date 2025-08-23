@@ -1,36 +1,42 @@
-// public class Solution {
-//     public boolean find132pattern(int[] nums) {
-//         int minI = Integer.MAX_VALUE;
-//         for (int j = 0; j < nums.length - 1; j++) {
-//             minI = Math.min(minI, nums[j]);
-//             if(minI == nums[j]) continue;
-//             // i found out i and j  then ab k kii turn
-//             for (int k = j + 1; k < nums.length; k++) {
-//                 if (nums[k] < nums[j] && minI < nums[k]) return true;
-//             }
-//         }
-//         return false;
-//     }
-// }
-
-
-public class Solution {
+class Solution {
     public boolean find132pattern(int[] nums) {
-        int n = nums.length;
-        int num3 = Integer.MIN_VALUE;
+        reverseArray(nums);
+        return !checkStackSortable(nums);
+    }
+
+
+    public static boolean checkStackSortable(int[] arr) {
         Stack<Integer> stack = new Stack<>();
+        int n = arr.length;
+        int prev = Integer.MIN_VALUE;
 
-        for (int i = n - 1; i >= 0; i--) {
-            if (nums[i] < num3) {
-                return true;
+        for (int num : arr) {
+            while (!stack.isEmpty() && stack.peek() < num) {
+                if(stack.peek() < prev) return false;
+                prev = stack.pop();
+                
             }
-
-            while (!stack.isEmpty() && nums[i] > stack.peek()) {
-                num3 = stack.pop();
-            }
-            stack.push(nums[i]);
+            stack.push(num);
         }
 
-        return false;
+        while(!stack.isEmpty()) {
+            if(stack.peek() < prev) return false;
+                prev = stack.pop();
+        }
+
+        return true;
+    }
+
+
+    public static void reverseArray(int[] arr) {
+        int start = 0;
+        int end = arr.length - 1;
+        while (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
     }
 }
