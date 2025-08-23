@@ -1,47 +1,41 @@
-
 class Solution {
     int n;
-    int dp[];
+    int[] dp;
     public int mincostTickets(int[] days, int[] costs) {
         n = days.length;
         dp = new int[n];
         Arrays.fill(dp,-1);
-        
-        return solve(days,costs,0);
+        return solve(days, costs, 0);
+    }
+
+    public int solve(int[] days, int[] costs, int currIdx){
+        if(currIdx >= n) return 0;
+        if(dp[currIdx] != -1) return dp[currIdx]; 
+
+        int oneDayPass = costs[0] + solve(days, costs, currIdx +1);
+        int weekPass = costs[1] + solve(days, costs, bs(days, days[currIdx] + 7));
+        int monthPass = costs[2] + solve(days, costs, bs(days, days[currIdx] + 30));
+
+        return dp[currIdx] = Math.min(oneDayPass, Math.min(weekPass, monthPass));
+
     }
 
 
-    public int solve(int[] days, int[] costs, int start){
-        if(start>=n){
-            return 0;
-        }
-        if(dp[start]!= -1){
-            return dp[start];
-        }
+    public int bs(int[] arr, int target) {
+        int start = 0, end = arr.length-1;
+        int result = arr.length;
         
-        // choice one  --> one day pass
-        int one = costs[0] + solve(days, costs, start+1);
+        while(start <= end) {
+            int mid = start + ((end - start)>>1);
 
-
-        // choice one  --> seven days pass
-        int validity = days[start]+7;
-        int j = start;
-        while(j<n && days[j]<validity){
-            j++;
+            if(arr[mid] == target) return mid;
+            else if(arr[mid] < target) start = mid + 1;
+            else {
+                result = mid;
+                end = mid - 1;
+            }
         }
 
-        int seven = costs[1] + solve(days, costs,j);
-
-        // choice one  --> 30days pass
-        validity = days[start]+30;
-        j = start;
-        while(j<n && days[j]<validity){
-            j++;
-        }
-        int thirty = costs[2] + solve(days, costs,j);
-
-
-        return dp[start] =  Math.min(Math.min(one,seven),thirty);
-        
+        return result;
     }
 }
