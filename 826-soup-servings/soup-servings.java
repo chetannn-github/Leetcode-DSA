@@ -1,13 +1,14 @@
 class Solution {
     double oneFourth = 0.25;
     double[][] dp;
+    double NOT_VISITED_FLAG = -1.0;
     public double soupServings(int n) {
         if(n>5000) return 1.0;
         int servings = (int) Math.ceil((double) n / 25);
         System.out.println(servings);
 
         dp = new double[servings+1][servings+1];
-        for(double[] row : dp) Arrays.fill(row,-1.0);
+        for(double[] row : dp) Arrays.fill(row, NOT_VISITED_FLAG);
 
         return solve(servings, servings);
     }
@@ -17,7 +18,7 @@ class Solution {
         if(b<=0) return 0.0;
         if(a<=0 && b>0) return 1;
         
-        if(dp[a][b] != -1.0) return dp[a][b];
+        if(dp[a][b] !=  NOT_VISITED_FLAG) return dp[a][b];
        
 
         double opt1 = oneFourth * solve(a-4,b);
