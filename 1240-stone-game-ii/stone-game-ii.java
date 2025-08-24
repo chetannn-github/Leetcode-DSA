@@ -1,20 +1,20 @@
 class Solution {
     int n;
     int[][][] dp;
-    int NOT_VISITED_VAL = -1;
+    int NOT_VISITED_FLAG = -1;
     public int stoneGameII(int[] piles) {
         n = piles.length;
         dp = new int[n+1][n+1][2];
 
         for(int[][] grid : dp) {
-            for(int[] arr : grid) Arrays.fill(arr, NOT_VISITED_VAL);
+            for(int[] arr : grid) Arrays.fill(arr, NOT_VISITED_FLAG);
         }
         return solve(piles,0,1,1);
     }
 
     public int solve(int[] piles, int currIdx, int M, int alice) {
         if(currIdx >= n) return 0;
-        if(dp[currIdx][M][alice] != NOT_VISITED_VAL) return dp[currIdx][M][alice];
+        if(dp[currIdx][M][alice] != NOT_VISITED_FLAG) return dp[currIdx][M][alice];
 
         int result = alice == 1 ? 0 : Integer.MAX_VALUE;
          
