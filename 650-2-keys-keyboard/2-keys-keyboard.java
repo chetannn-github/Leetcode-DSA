@@ -1,40 +1,19 @@
 class Solution {
-    long[][] dp;
+    int N;
     public int minSteps(int n) {
-        dp = new long[n+1][n+1];
-        for(long[] row : dp){
-            Arrays.fill(row,-1);
-        }
-        return (int) solve(n-1,0,n);
+        if(n == 1) return 0;
+        N = n;
+        return 1 + (int) solve(1,1);
     }
 
+    public long solve(int curr, int copied) {
+        if (curr == N) return 0;
+        if (curr > N) return Integer.MAX_VALUE;
 
-    public long solve(int req, int copied, int n){
-        if(req==0){
-            return 0;
-        }
+        long copy = Integer.MAX_VALUE, paste = Integer.MAX_VALUE;
+        if(curr != copied) copy = 1 + solve(curr, curr);
+        paste = 1 + solve(curr + copied, copied);
 
-        if(req<0){
-            return Integer.MAX_VALUE;
-        }
-        if(dp[req][copied] != -1){
-            return dp[req][copied];
-        }
-
-    // two ops are possible each time either copy or paste(if copy earlier) 
-        long copy = Integer.MAX_VALUE;
-        long paste = Integer.MAX_VALUE;
-
-        
-        if(copied != n - req && n-req <= req){
-            copy = 1 + solve(req, n - req , n);
-        }
-        
-        if(copied != 0){
-            paste = 1 + solve(req-copied, copied, n);
-        }
-
-        return dp[req][copied] = Math.min(copy,paste);
-        
+        return Math.min(copy, paste);
     }
 }
