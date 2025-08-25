@@ -1,37 +1,25 @@
 class Solution {
-    int[][] dp;
-    int mod = 1_000_000_007;
-    public int numRollsToTarget(int n, int k, int target) {
-        dp = new int[n+1][target+1];
-        for(int[] row : dp){
-            Arrays.fill(row,-1);
-        }
-        return solve(n,k,target);
+    long[][] dp;
+    int MOD = 1_000_000_007;
+    public int numRollsToTarget(int dices, int faces, int target) {
+        dp = new long[dices + 1][target + 1];
+        for(long[] row : dp) Arrays.fill(row,-1);
+
+        return (int) (solve(dices,faces,target) % MOD);
     }
 
 
-    public int solve(int n, int k , int target){
-        if(target == 0 && n==0){
-            return 1;
-        }
-        if(n<0){
-            return 0;
-        }
+    public long solve(int dices, int faces, int target) {
+        if(dices == 0 && target == 0) return 1;
+        if(dp[dices][target] != -1) return dp[dices][target];
 
-        if(dp[n][target]!= -1){
-            return dp[n][target];
-        }
-        long ans = 0;
-        for(int i= 1; i<=k; i++){
-            if(target>= i){
-                ans += solve(n-1,k,target-i);
-                ans %= mod;
-            }else{
-                break;
-            }
+
+        long result = 0;
+        for(int i=1; i<=faces && target - i >= 0 && dices - 1 >= 0; i++) {
+            result += (solve(dices-1,faces,target-i)) % MOD;
             
         }
 
-        return dp[n][target] =(int)ans%mod;
+        return dp[dices][target] = result % MOD;
     }
 }
