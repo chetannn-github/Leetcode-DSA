@@ -1,40 +1,31 @@
 class Solution {
-    int mod = 1_000_000_007;
-    long dp[][][];
+    int MOD = 1_000_000_007;
+    long[][][] dp;
+    long NOT_VISITED_FLAG = -1;
     public int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
-        dp = new long[m][n][maxMove+1];
-
-        for(long[][] grid : dp){
-            for(long[] row : grid){
-                Arrays.fill(row,-1);
-            }
+        dp = new long[m][n][maxMove + 1];
+        for(long[][] grid : dp) {
+            for(long[] row : grid) Arrays.fill(row,NOT_VISITED_FLAG);
         }
 
-        return (int) solve(m,n,maxMove,startRow, startColumn);
+        return (int) solve(m,n,maxMove,startRow,startColumn);
     }
 
-    public long solve(int m, int n, int moves, int startRow, int startColumn){
-        if(startRow == -1 || startColumn == -1 || startRow == m || startColumn == n ){
+
+    public long solve(int m, int n, int moves, int currRow, int currCol) {
+        if(currRow < 0 || currRow == m || currCol < 0 || currCol == n) {
             return 1;
         }
 
-        if(dp[startRow][startColumn][moves]!= -1){
-            return dp[startRow][startColumn][moves];
-        }
-        long ways = 0;
-        if(moves>0){
-            ways += solve(m,n,moves-1, startRow-1,startColumn);
-            ways %= mod;
-            ways += solve(m,n,moves-1, startRow+1,startColumn);
-            ways %= mod;
-            ways += solve(m,n,moves-1, startRow,startColumn+1);
-            ways %= mod;
-            ways += solve(m,n,moves-1, startRow,startColumn-1);
-            ways %= mod;
-        }
+        if(dp[currRow][currCol][moves] != NOT_VISITED_FLAG) return dp[currRow][currCol][moves];
 
-        return dp[startRow][startColumn][moves] = ways;
+        if(moves == 0) return 0;
+
+        long opt1 = solve(m,n,moves-1,currRow + 1, currCol) % MOD;
+        long opt2 = solve(m,n,moves-1,currRow, currCol + 1) % MOD;
+        long opt3 = solve(m,n,moves-1,currRow - 1, currCol) % MOD;
+        long opt4 = solve(m,n,moves-1,currRow, currCol - 1) % MOD;
+
+        return dp[currRow][currCol][moves] = (opt1 + opt2 + opt3 + opt4 ) % MOD;
     }
-
-
 }
