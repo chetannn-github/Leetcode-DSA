@@ -1,29 +1,22 @@
 class Solution {
-    int n ;
-    HashMap<String,Integer> dp;
-
+    int n;
+    int[][] dp;
     public int findTargetSumWays(int[] nums, int target) {
         n = nums.length;
-        dp = new HashMap<>();
-        return solve(nums,target,0);
+        dp = new int[target + 3001][n];
+        for(int[] row : dp) Arrays.fill(row,-1);
+
+        return solve(nums,target,0,0);
     }
 
-    public int  solve(int[] nums, int target,int start){
-        if(target ==0 && start ==n){
-            return 1;
-        }else if(start ==n){
-            return 0;
-        }  
+    public int solve(int[] nums, int target, int currIdx, int currVal) {
+        if(currVal == target && currIdx == n) return 1;
+        if(currIdx == n) return 0;
+        if(dp[currVal + 1000][currIdx] != -1) return dp[currVal + 1000][currIdx];
 
-        String key = target + "-->" + start;
+        int opt1 = solve(nums,target,currIdx + 1, currVal + nums[currIdx]);
+        int opt2 = solve(nums,target,currIdx + 1, currVal - nums[currIdx]);
 
-        if(dp.containsKey(key)){
-            return dp.get(key);
-        }
-        int plus = solve(nums,target - nums[start],start+1);
-        int minus = solve(nums,target + nums[start],start+1);  
-        dp.put(key,plus+minus);    
-
-        return plus + minus;
+        return dp[currVal + 1000][currIdx] = opt1 + opt2;
     }
 }
