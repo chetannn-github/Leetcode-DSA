@@ -1,38 +1,34 @@
-class Solution {
-    // yhaa phele mere dimaag me yhh aaya tha dp 3d le kuki teen variables change ho rhee hh
+// yhaa phele mere dimaag me yhh aaya tha dp 3d le kuki teen variables change ho rhee hh
     // but start aur occupiedWidth se prr hii depend krr rhii maxHeight kuki hum books sequence me rkh rhee hh
+class Solution {
     int n;
-    int dp[][];
+    int[][] dp;
+    private int NOT_VISITED_FLAG = -2;
     public int minHeightShelves(int[][] books, int shelfWidth) {
         n = books.length;
-        dp = new int[n][shelfWidth+1];
-
-        for(int[] row : dp){
-            Arrays.fill(row,-1);
-        }
-        return solve(books,shelfWidth, 0,0,0);
+        dp = new int[n][shelfWidth + 1];
+        for(int[] row : dp) Arrays.fill(row,NOT_VISITED_FLAG);
+        
+        return solve(books,shelfWidth,0,0,0);
     }
 
-    public int solve(int[][] books, int shelfWidth, int start, int occupiedWidth, int maxHeight){
 
-        if(start>=n){
-            return maxHeight ;
+    public int solve(int[][] books, int shelfWidth, int currIdx, int currWidth, int currHeight) {
+        if(currIdx >= n) return currHeight;
+        if(dp[currIdx][currWidth] != NOT_VISITED_FLAG) return dp[currIdx][currWidth];
+
+        int placeInSameRow = Integer.MAX_VALUE;
+        int placeInNextRow = Integer.MAX_VALUE;
+
+        int currBookWidth = books[currIdx][0];
+        int currBookHeight = books[currIdx][1];
+
+        if(currWidth + currBookWidth <= shelfWidth) {
+            placeInSameRow = solve(books,shelfWidth, currIdx +1, currWidth + currBookWidth , Math.max(currHeight, currBookHeight));
         }
 
-        if(dp[start][occupiedWidth]!=-1){
-            return dp[start][occupiedWidth];
-        }
+        placeInNextRow = currHeight + solve(books,shelfWidth, currIdx +1,currBookWidth ,currBookHeight);
 
-        int currWidth = books[start][0];
-        int currHeight = books[start][1];
-
-        int opt1 = Integer.MAX_VALUE;
-        if(currWidth + occupiedWidth <= shelfWidth){
-            opt1 = solve(books, shelfWidth,start+1, currWidth + occupiedWidth, Math.max(maxHeight,currHeight));
-        }
-
-        int opt2 = maxHeight + solve(books,shelfWidth,start+1, currWidth, currHeight);
-
-        return dp[start][occupiedWidth] = Math.min(opt1,opt2);
+        return dp[currIdx][currWidth] = Math.min(placeInSameRow,placeInNextRow);
     }
 }
