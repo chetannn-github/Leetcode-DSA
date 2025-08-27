@@ -1,37 +1,28 @@
 class Solution {
-    HashMap<Integer,Integer> hm;
-    int n;
-    int dp[][];
-    public int lenLongestFibSubseq(int[] arr) {
+    public int lenLongestFibSubseq(int[] nums) {
         int maxLength = 0;
-        n = arr.length;
-        dp = new int[n][n];
+        HashSet<Integer> hs = new HashSet<>();
+        int N = nums.length;
+        for(int num : nums ) hs.add(num);
 
-        hm = new HashMap<>();
-        for(int i = 0; i<n; i++){
-            hm.put(arr[i],i);
-            Arrays.fill(dp[i],-1);
-        }
-
-        for(int j=1;j<n; j++){
-            for(int k = j+1; k<n; k++){
-                maxLength  = Math.max(2 + solve(j, k, arr),maxLength);
+        for(int i=0; i<N; i++) {
+            for(int j=i+1; j<N; j++) {
+                int length = 0;
+                int curr = nums[j];
+                int prev = nums[i];
+                int next = prev + curr;
+                
+                
+                while(hs.contains(next)) {
+                    length++;
+                    prev = curr;
+                    curr = next;
+                    next = prev + curr;
+                }
+                maxLength = Math.max(length,maxLength);
             }
         }
-        return maxLength == 2 ? 0 : maxLength;
-    }
 
-
-    public int solve(int j,int k, int[] arr){
-        
-        if(dp[j][k]!=-1){
-            return dp[j][k];
-        }
-        int prev = arr[k] - arr[j];
-        if(hm.containsKey(prev) && hm.get(prev)<j){
-            return 1 + solve(hm.get(prev),j ,arr);
-        } 
-
-        return dp[j][k] = 0;
+        return maxLength == 0 ? 0 : maxLength + 2;
     }
 }
