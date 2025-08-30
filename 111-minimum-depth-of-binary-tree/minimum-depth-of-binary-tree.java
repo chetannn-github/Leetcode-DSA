@@ -1,19 +1,18 @@
 class Solution {
-    public int minDepth(TreeNode root) { 
-        return dfs(root);
+    public int minDepth(TreeNode root) {
+        
+        
+        return solve(root);
     }
 
-    public int dfs(TreeNode root){
-        if(root == null){
-            return 0;
-        }
-        
-        int leftDepth = 1 + dfs(root.left);
-        int rightDepth = 1 + dfs(root.right);
-        int min = Math.min(leftDepth, rightDepth);
-        int max = Math.max(leftDepth, rightDepth);
+    public int solve(TreeNode root) {
+        if(root == null) return 0;
 
-        return min == 1 ? max : min;
-       
+        if(root.left == null) return 1 + solve(root.right);
+        if(root.right == null) return 1 + solve(root.left);
+        
+        int leftDepth = solve(root.left);
+        int rightDepth = solve(root.right);
+        return 1 + Math.min(leftDepth, rightDepth);
     }
 }
