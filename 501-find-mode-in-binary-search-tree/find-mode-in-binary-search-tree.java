@@ -15,8 +15,7 @@ class Solution {
         prev = Integer.MAX_VALUE;
         currFreq = 1;
         inorderModified(root);
-        // System.out.println(ans.toString());
-
+        
         int size = ans.size();
         int[] arr = new int[size];
         for(int i=0; i<size; i++){
@@ -32,9 +31,7 @@ class Solution {
         inorder(root.left);
 
         curr = root.val;
-        if(prev == Integer.MAX_VALUE){
-            prev = curr;
-        }else if(curr == prev){
+        if(curr == prev){
             currFreq++;
         }else if(curr != prev){
             maxFreq = Math.max(currFreq,maxFreq);
@@ -52,8 +49,6 @@ class Solution {
         curr = root.val;
         if(maxFreq == 1){
             ans.add(curr);
-        }else if(prev == Integer.MAX_VALUE){
-            prev = curr;
         }else if(curr == prev){
             currFreq++;
             if(currFreq == maxFreq){
