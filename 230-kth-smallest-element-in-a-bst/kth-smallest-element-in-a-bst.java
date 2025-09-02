@@ -1,5 +1,5 @@
 class Solution {
-    int count = 0;
+    int count = 1;
     int ans = Integer.MAX_VALUE;
     public int kthSmallest(TreeNode root, int k) {
         inorder(root,k);
@@ -12,7 +12,7 @@ class Solution {
 
         inorder(root.left,k);
 
-        if(count == k-1){
+        if(count == k){
             ans = root.val;
             count++;
             return;
