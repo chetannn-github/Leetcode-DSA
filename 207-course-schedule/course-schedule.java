@@ -90,7 +90,7 @@ class Solution {
                 ans = ans && bl[nbr];
             }
 
-            if(!ans) return false;
+            if(!ans) return bl[src] = false;
         }
 
         return bl[src] = ans;
