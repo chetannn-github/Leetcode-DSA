@@ -25,6 +25,7 @@ class Solution {
     public boolean dfs(int[][] graph, int src){
         visited.add(src);
         boolean ans = true;
+        
         for(int nbr : graph[src]){
             if(!visited.contains(nbr)){
                 ans = ans && dfs(graph,nbr);
