@@ -1,31 +1,31 @@
-class Solution {
-    HashMap<Integer,Integer> visited;
+// class Solution {
+//     HashMap<Integer,Integer> visited;
 
-    public boolean isBipartite(int[][] graph) {
-        visited = new HashMap<>();
+//     public boolean isBipartite(int[][] graph) {
+//         visited = new HashMap<>();
 
-        for(int i=0; i<graph.length; i++){
-            if(!visited.containsKey(i) && !dfs(i,0,graph)){
-                return false;
-            }
-        }
-        return true;
-    }
+//         for(int i=0; i<graph.length; i++){
+//             if(!visited.containsKey(i) && !dfs(i,0,graph)){
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
 
-    public boolean dfs(int currNode, int currColor, int[][] graph){
-        visited.put(currNode,currColor);
+//     public boolean dfs(int currNode, int currColor, int[][] graph){
+//         visited.put(currNode,currColor);
 
-        for(int neighbour : graph[currNode] ){
+//         for(int neighbour : graph[currNode] ){
 
-            if(!visited.containsKey(neighbour) && !(dfs(neighbour , 1 - currColor , graph)) ){
-                return false;
-            }else if(visited.get(neighbour) == currColor){
-                return false;
-            }
-        }
-        return true;
-    }
-}
+//             if(!visited.containsKey(neighbour) && !(dfs(neighbour , 1 - currColor , graph)) ){
+//                 return false;
+//             }else if(visited.get(neighbour) == currColor){
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+// }
 
 // class Solution {
     
@@ -67,3 +67,36 @@ class Solution {
 
    
 // }
+
+
+
+class Solution {
+    
+    int[] color;
+    public boolean isBipartite(int[][] graph) {
+        int n = graph.length;
+        color = new int[n];
+        Arrays.fill(color,-1);
+
+        for(int i=0; i<n; i++) {
+            if(color[i] == -1 && !dfs(graph,i, 0)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean dfs(int[][] graph, int currNode, int myColor){
+        color[currNode] = myColor;
+
+        for(int nbr : graph[currNode]) {
+            if(color[nbr] == -1 && !dfs(graph,nbr, 1-myColor)) {
+                return false;
+            }else if(color[nbr] == myColor) return false;
+        }
+
+        return true;
+        
+    }
+}
