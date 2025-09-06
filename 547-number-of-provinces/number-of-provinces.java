@@ -13,24 +13,20 @@ class Solution {
                     List<Integer> nodes = adj.getOrDefault(i,new ArrayList<>());
                     nodes.add(j);
                     adj.put(i,nodes);
-
-                    // no need kukii dfs marjaaegaa ek relation hua tbhii bhii
-                    // nodes = adj.getOrDefault(j , new ArrayList<>());
-                    // nodes.add(i);
-                    // adj.put(j , nodes);
+                    // dusra relation aage aaegaa j --->> 1
                 }
             }
         }
-        int count = 0;
+        int provinces = 0;
         for(int i=0; i<n; i++){
             if(!visited.contains(i)){
                 dfs(i);
-                count++;
+                provinces++;
 
             }
         }
 
-        return count;
+        return provinces;
     }
 
 
