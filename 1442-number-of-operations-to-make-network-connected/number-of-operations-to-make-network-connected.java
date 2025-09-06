@@ -7,26 +7,27 @@ class Solution {
         for(int i=0; i<n; i++){
             parent[i] = i;
         }
-        int total = n;
+
         for(int[] edge : connections){
             int x = edge[0];
             int y = edge[1];
-            int xParent = find(x, parent);
-            int yParent = find(y,parent);
-
-            if(xParent != yParent){
-                union(x,y,rank,parent);
+            
+            if(union(x,y,rank,parent)){
                 n--;
-                
             }
         }
         return n-1;
 
     }
 
-    public void union(int x, int y, int[] rank, int[] parent){
-        int xParent = find(x,parent);
+    public boolean union(int x, int y, int[] rank, int[] parent){
+        int xParent = find(x, parent);
         int yParent = find(y,parent);
+
+        if(xParent == yParent){
+            return false;
+        }
+
 
         if(rank[xParent] > rank[yParent]){
             parent[yParent] = xParent;
@@ -36,6 +37,7 @@ class Solution {
             parent[xParent] = yParent;
             rank[yParent]++;
         }
+        return true;
     }
 
     public int find(int x, int[] parent){
