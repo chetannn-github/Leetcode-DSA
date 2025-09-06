@@ -8,28 +8,30 @@ class Solution {
             Arrays.fill(row,Integer.MAX_VALUE);
         }
 
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->(a[0]-b[0]));
-        pq.add(new int[]{0,0,0}); // effort,i,j
+        PriorityQueue<Triplet> pq = new PriorityQueue<>((a,b)->(a.effort-b.effort));
+        pq.add(new Triplet(0,0,0)); // effort,i,j
         dist[0][0] = 0;
 
         
         while(!pq.isEmpty()){
-            int[] curr = pq.remove();
-            int effortTillNow = curr[0];
+            Triplet curr = pq.remove();
+            int x = curr.x, y = curr.y;
+            int effortTillNow = curr.effort;
 
-            if(curr[1] == r-1 && curr[2] == c-1) return dist[r-1][c-1];
-            if(dist[curr[1]][curr[2]] > effortTillNow) continue;
+            if(curr.x == r-1 && curr.y == c-1) return dist[r-1][c-1];
+            if(dist[x][y] > effortTillNow) continue; // kuki aaage badegaa yaa barabarr rhegaa
+            // agrr kam hone ki possibility hoti tohh nhii krta me continue;
             
             for(int[] dir : dirn){
-                int x = curr[1] + dir[0];
-                int y = curr[2] + dir[1];
+                int nx = x + dir[0];
+                int ny = y + dir[1];
 
-                if(x>=0 && y>=0 && y<c && x < r){
-                   int effort = Math.max(Math.abs(heights[x][y] - heights[curr[1]][curr[2]]), effortTillNow);
+                if(nx>=0 && ny>=0 && ny<c && nx < r){
+                   int effort = Math.max(Math.abs(heights[nx][ny] - heights[x][y]), effortTillNow);
 
-                    if(effort < dist[x][y]){
-                        dist[x][y] =  effort;
-                        pq.add(new int[]{effort,x,y});               
+                    if(effort < dist[nx][ny]){
+                        dist[nx][ny] =  effort;
+                        pq.add(new Triplet(effort,nx,ny));               
                     } 
                 }
 
@@ -39,6 +41,17 @@ class Solution {
 
         return dist[r-1][c-1];
     }
+
+
 }
 
+
+class Triplet {
+    int effort, x,y;
+    Triplet(int effort, int x, int y) {
+        this.effort = effort;
+        this.x = x;
+        this.y = y;
+    }
+}
 
