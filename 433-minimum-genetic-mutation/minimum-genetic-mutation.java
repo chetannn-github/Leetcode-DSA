@@ -23,7 +23,7 @@ class Solution {
             int n = queue.size();
 
             while(n-->0){
-               curr = queue.remove();
+                curr = queue.remove();
                 s = new StringBuilder(curr);
 
                 if(curr.equals(end)){
