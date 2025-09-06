@@ -1,9 +1,9 @@
 class Solution {
-    public long countPairs(int n, int[][] edges) {
-        int[] rank = new int[n];
-        int[] parent = new int[n];
+    public long countPairs(int N, int[][] edges) {
+        int[] rank = new int[N];
+        int[] parent = new int[N];
 
-        for(int i=0;i<n; i++){
+        for(int i=0;i<N; i++){
             parent[i] = i;
         }
 
@@ -15,19 +15,19 @@ class Solution {
         }
         HashMap<Integer,Long> hm = new HashMap<>();
 
-        for(int i=0; i<n; i++){
+        for(int i=0; i<N; i++){
             int p = find(i,parent);
             hm.put(p ,(long) (hm.getOrDefault(p,0L)+1));
         }
-        long ans = 0;
+        long result = 0;
         for(int key : hm.keySet()){
             long val = hm.get(key);
 
-            ans += (val * (n - val));
-            n -= val;
+            result += (val * (N - val));
+            N -= val;
         }
 
-        return ans;
+        return result;
     }
 
     public void union(int x,int y, int[] rank,int[] parent){
