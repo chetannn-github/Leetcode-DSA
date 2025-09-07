@@ -3,9 +3,9 @@ class Solution {
     public int closestMeetingNode(int[] edges, int node1, int node2) {
         int n = edges.length;
         int[] distFromNode1 = new int[n];
-        Arrays.fill(distFromNode1, -1);
+        Arrays.fill(distFromNode1, Integer.MAX_VALUE);
         int[] distFromNode2 = new int[n];
-        Arrays.fill(distFromNode2, -1);
+        Arrays.fill(distFromNode2,Integer.MAX_VALUE);
 
         visited = new HashSet<>();
         dfs(edges,node1,0,distFromNode1);
@@ -13,23 +13,20 @@ class Solution {
         visited = new HashSet<>();
         dfs(edges,node2,0,distFromNode2);
 
-        int[] ans = new int[2];
-        ans[0] = Integer.MAX_VALUE;
-        ans[1] = -1;
+        
 
-
-
+        int resultDist = Integer.MAX_VALUE;
+        int resultNode = -1;
         for(int i=0; i<n; i++){
-            if(distFromNode1[i] != -1 && distFromNode2[i] != -1){
-                int max = Math.max(distFromNode1[i],distFromNode2[i] );
-                if(ans[0] > max){
-                    ans[0] = max;
-                    ans[1] = i;
-                }
+            int currRes = Math.max(distFromNode1[i], distFromNode2[i]);
+            if(currRes < resultDist) {
+                resultDist = currRes;
+                resultNode = i;
             }
+            
         }
 
-        return ans[1];
+        return resultNode;
     }
 
     public void dfs(int[] edges, int curr, int dis, int[] distances){
@@ -42,3 +39,5 @@ class Solution {
         }
     }
 }
+
+
