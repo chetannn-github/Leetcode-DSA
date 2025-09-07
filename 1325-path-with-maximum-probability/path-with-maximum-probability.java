@@ -1,5 +1,12 @@
 class Solution {
     public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        List<List<Node>> adj = constructGraph(n,edges,succProb);
+        return dijkstraForMaxVal(start,end,adj,n); 
+    }
+
+
+
+    public List<List<Node>> constructGraph (int n, int[][] edges, double[] succProb) {
         List<List<Node>> adj = new ArrayList<>();
         for(int i=0; i<n+1;i++) adj.add(new ArrayList<>());
         int idx = 0;
@@ -12,6 +19,11 @@ class Solution {
             idx++;
         }
 
+        return adj;
+    }
+
+
+    public double dijkstraForMaxVal(int start, int end,List<List<Node>> adj,int n) {
         double[] maxProb = new double[n+1];
         Arrays.fill(maxProb,0);
        
@@ -43,8 +55,8 @@ class Solution {
             }
         }
 
-        return maxProb[end] == Double.MIN_VALUE ? 0.0000 : maxProb[end];
-        
+
+        return maxProb[end];
     }
 
 
