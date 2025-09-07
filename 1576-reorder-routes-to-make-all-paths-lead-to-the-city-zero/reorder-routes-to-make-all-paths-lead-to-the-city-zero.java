@@ -1,6 +1,7 @@
 class Solution {
     List<List<List<Integer>>> adj;
     int count;
+    
     public int minReorder(int n, int[][] edges) {
         adj = new ArrayList<>();
         count = 0;
@@ -15,7 +16,7 @@ class Solution {
 
         }
 
-        dfs(0,-1);
+        dfs(0,-1);// kuki sirf 2 roads hii ho skte hh ek node se toh we dont need visited set
         return count;
     }
 
@@ -25,7 +26,7 @@ class Solution {
             int nb = nbr.get(0);
             if(nb != parent){
                 boolean real = nbr.get(1) == 1 ;
-                if(real){count++;}
+                if(real) count++;
                 dfs(nb,curr);
             }
         }
