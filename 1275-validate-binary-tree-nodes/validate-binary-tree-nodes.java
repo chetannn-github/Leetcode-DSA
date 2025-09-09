@@ -46,6 +46,7 @@
 
 
 class Solution {
+    // indegree 1 se jayda se jayada nhii hona chaiyee aur sirf ek ki indegree 0 hona chaiye hain aur connect ke liye traverse kroo
     public boolean validateBinaryTreeNodes(int n, int[] leftChild, int[] rightChild) {
         int[] indegree = new int[n];
         for(int i=0; i<n; i++) {
@@ -73,8 +74,14 @@ class Solution {
         }
 
         if(root == -1) return false;
-        
 
+        return countNodesFromRoot(root, leftChild,rightChild) == n;
+      
+
+        
+    }
+
+    private int countNodesFromRoot(int root, int[] leftChild, int[] rightChild) {
         Queue<Integer> queue = new LinkedList<>();
         queue.add(root);
         int count = 0;
@@ -86,13 +93,8 @@ class Solution {
 
             if(leftChild[curr] != -1) queue.add(leftChild[curr]);
             if(rightChild[curr] != -1) queue.add(rightChild[curr]);
-
-
-            // if(count > n) return false;
         }
-        
-        return count == n;
+        return count;
 
-        
     }
 }
