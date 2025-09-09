@@ -88,7 +88,7 @@ class Solution {
             if(rightChild[curr] != -1) queue.add(rightChild[curr]);
 
 
-            if(count > n) return false;
+            // if(count > n) return false;
         }
         
         return count == n;
