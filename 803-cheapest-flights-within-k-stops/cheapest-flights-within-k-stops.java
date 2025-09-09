@@ -1,20 +1,27 @@
 class Solution {
+    List<Node>[] graph;
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        Queue<int[]> queue = new LinkedList<>();
-        List<List<List<Integer>>> adj = new ArrayList<>();
+        constructGraph(n, flights);
+        return BFSWithKSteps(n,src,dst,k);
+    }
+
+    private void constructGraph(int n, int[][] flights) {
+        graph = new ArrayList[n];
+        for(int i=0; i<n; i++) graph[i] = new ArrayList<>();
+
+        for(int[] flight : flights){
+            int u = flight[0], val = flight[1], price = flight[2];
+            graph[u].add(new Node(val,price));
+        }
+    }
+
+
+    private int BFSWithKSteps(int n, int src, int dst, int k) {
+        Queue<Node> queue = new LinkedList<>();
         int[] dist = new int[n];
         Arrays.fill(dist, Integer.MAX_VALUE);
 
-        for(int i=0; i<n; i++) adj.add(new ArrayList<>());
-
-        for(int[] flight : flights){
-            List<Integer> ls = new ArrayList<>();
-            ls.add(flight[1]);
-            ls.add(flight[2]);
-            adj.get(flight[0]).add(ls);
-        }
-
-        queue.add(new int[]{src,0});
+        queue.add(new Node(src,0));
         dist[src] = 0;
         int level = 0;
 
@@ -22,22 +29,35 @@ class Solution {
             int currSize = queue.size();
 
             while(currSize-->0){
-                int[] curr = queue.remove();
+                Node curr = queue.remove();
+                int u = curr.val;
+                int price = curr.price;
 
-                for(List<Integer> nbr : adj.get(curr[0])){
-                    int nb = nbr.get(0);
-                    int amt = nbr.get(1);
-                    if(amt + curr[1] < dist[nb]){
-                        dist[nb] = amt + curr[1];
-                        queue.add(new int[]{nb,dist[nb]}); 
+                // if(dist[u] < price) continue;
+
+                for(Node nbr : graph[u]){
+                    int v = nbr.val;
+                    int amt = nbr.price;
+                    if(amt + price < dist[v]){
+                        dist[v] = amt + price;
+                        queue.add(new Node(v,dist[v])); 
                     }  
                 }
             }
 
             level++;
+
         }
 
         return dist[dst] == Integer.MAX_VALUE ? -1 : dist[dst];
+    }
+}
 
+
+class Node {
+    int val, price;
+    Node(int val, int price) {
+        this.val = val;
+        this.price = price;
     }
 }
