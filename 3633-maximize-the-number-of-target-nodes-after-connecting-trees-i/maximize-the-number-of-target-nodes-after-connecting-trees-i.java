@@ -1,6 +1,5 @@
 class Solution {
     public int[] maxTargetNodes(int[][] edges1, int[][] edges2, int k) {
-        
         int n = edges1.length, m = edges2.length;
         int[] result = new int[n+1];
         
@@ -8,23 +7,9 @@ class Solution {
             Arrays.fill(result,1);
             return result;
         }
-        List<List<Integer>> tree1 = new ArrayList<>();
-        for(int i=0; i<n+1; i++) tree1.add(new ArrayList<>());
+        List<Integer>[] tree1 = constructTree(n+1,edges1);
+        List<Integer>[] tree2 = constructTree(m+1,edges2);
         
-        List<List<Integer>> tree2 = new ArrayList<>();
-        for(int i=0; i<m+1; i++) tree2.add(new ArrayList<>());
-
-        for(int[] edge : edges1) {
-            int u = edge[0], v = edge[1];
-            tree1.get(u).add(v);
-            tree1.get(v).add(u);
-        }
-        
-        for(int[] edge : edges2) {
-            int u = edge[0], v = edge[1];
-            tree2.get(u).add(v);
-            tree2.get(v).add(u);
-        }
 
         int maxNodesCoveredInTree2= 0;
         for(int i=0; i<m+1; i++) {
@@ -38,7 +23,7 @@ class Solution {
     }
 
 
-    public int bfs(int start, int maxDepth,List<List<Integer>> tree ) {
+    public int bfs(int start, int maxDepth,List<Integer>[]  tree ) {
         Queue<Integer> queue = new LinkedList<>();
         HashSet<Integer> visited = new HashSet<>();
 
@@ -55,7 +40,7 @@ class Solution {
             while(currSize-->0) {
                 int curr = queue.remove();
 
-                for(int nbr : tree.get(curr)) {
+                for(int nbr : tree[curr]) {
                     if(visited.contains(nbr)) continue;
 
                     queue.add(nbr);
@@ -69,5 +54,20 @@ class Solution {
 
 
         return visited.size();
+    }
+
+
+    private List<Integer>[] constructTree(int size, int[][] edges) {
+        List<Integer>[] tree = new List[size];
+       
+        for(int i=0; i<size; i++) tree[i] = new ArrayList<>();
+
+        for(int[] edge : edges) {
+            int u = edge[0], v = edge[1];
+            tree[u].add(v);
+            tree[v].add(u);
+        }
+        return tree;
+        
     }
 }
