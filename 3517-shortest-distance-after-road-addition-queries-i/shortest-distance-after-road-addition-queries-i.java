@@ -1,10 +1,10 @@
 class Solution {
-    List<List<Integer>> adj; 
+    List<Integer>[] adj; 
     public int[] shortestDistanceAfterQueries(int n, int[][] queries) {
-        adj = new ArrayList<>();
-        for(int i=0; i<n; i++) adj.add(new ArrayList<>());
+        adj = new List[n];
+        for(int i=0; i<n; i++) adj[i] = new ArrayList<>();
         for(int i=0; i<n-1; i++){
-            adj.get(i).add(i+1);
+            adj[i].add(i+1);
         }
         
         int[] result = new int[queries.length];
@@ -13,7 +13,7 @@ class Solution {
         for(int[] q : queries){
             int u = q[0];
             int v = q[1];
-            adj.get(u).add(v);
+            adj[u].add(v);
             result[idx++] = bfs(n-1);
         }
 
@@ -34,7 +34,7 @@ class Solution {
                 int curr = queue.remove();
                 if(curr == goal) return count;
 
-                for(int nbr : adj.get(curr)){
+                for(int nbr : adj[curr]){
                     if(!visited.contains(nbr)){
                         queue.add(nbr);
                         visited.add(nbr);
