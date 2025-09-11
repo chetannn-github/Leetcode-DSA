@@ -38,25 +38,10 @@
 
 
 class Solution {
-    List<List<List<Integer>>> adj;
+    List<Node>[] graph;
+    int start,end;
     public int minMaxWeight(int n, int[][] edges, int threshold) {
-        this.adj = new ArrayList<>();
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        for(int i=0; i<n; i++) adj.add(new ArrayList<>());
-
-        for(int[] edge : edges){
-            int u = edge[0];
-            int v = edge[1];
-            int wt = edge[2];
-
-            adj.get(v).add(Arrays.asList(u,wt));
-            max = Math.max(max,wt);
-            min = Math.min(min,wt);
-        }
-
-        int start = min;
-        int end = max;
+        constructGraphAndFindMaxAndMinEdge(n,edges);
         int ans = -1;
 
         while(end >= start){
@@ -78,13 +63,38 @@ class Solution {
     public void dfs(int maxWt, int curr,HashSet<Integer> visited){
         visited.add(curr);
 
-        for(List<Integer> nbr : adj.get(curr)){
-            int v = nbr.get(0);
-            int wt = nbr.get(1);
+        for(Node nbr : graph[curr]){
+            int v = nbr.node;
+            int wt = nbr.wt;
 
             if(wt <= maxWt && !visited.contains(v)){
                 dfs(maxWt,v,visited);
             }
         }
+    }
+
+    public void constructGraphAndFindMaxAndMinEdge(int n, int[][] edges) {
+        start = Integer.MAX_VALUE;
+        end = Integer.MIN_VALUE;
+        this.graph = new List[n];
+        for(int i=0; i<n; i++) graph[i] = new ArrayList<>();
+
+        for(int[] edge : edges){
+            int u = edge[0];
+            int v = edge[1];
+            int wt = edge[2];
+
+            graph[v].add(new Node(u,wt));
+            end = Math.max(end,wt);
+            start = Math.min(start,wt);
+        }
+    }
+}
+ 
+class Node {
+    int node,wt;
+    Node(int node, int wt) {
+        this.node = node;
+        this.wt = wt;
     }
 }
