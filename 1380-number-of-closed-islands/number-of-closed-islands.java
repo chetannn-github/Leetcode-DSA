@@ -8,8 +8,8 @@ class Solution {
 
         for(int i=0; i<rows; i++) {
             for(int j=0; j<cols; j++) {
-                if(grid[i][j] == 0 && !isBoundary(i,j)) {
-                    if(dfs(new Pair(i,j),grid)) totalClosedIslands++;
+                if(grid[i][j] == 0) {
+                    totalClosedIslands += dfs(new Pair(i,j),grid) ? 1 : 0; 
                 }
             }
         }
@@ -31,9 +31,7 @@ class Solution {
 
             if(nx >= 0 && ny >= 0 && nx < rows && ny < cols) {
                 if(grid[nx][ny] == 0) {
-                    grid[nx][ny] = 1;
                     if(!dfs(new Pair(nx,ny),grid)) ans = false;
-                    
                 }
             }
         }
@@ -54,6 +52,4 @@ class Pair {
         this.x = x;
         this.y = y;
     }
-
-    
 }
