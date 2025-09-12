@@ -11,7 +11,7 @@ class Solution {
 
         while(!queue.isEmpty()) {
             int currSize = queue.size();
-            while(currSize -->0) {
+            while(currSize --> 0) {
                 Pair curr = queue.remove();
                 image[curr.x][curr.y] = color;
 
