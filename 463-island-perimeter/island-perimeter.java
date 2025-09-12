@@ -21,7 +21,7 @@ class Solution {
         int ans = 0;
 
         ans += findPerimeter(x,y,grid);
-        grid[x][y] = 2;
+        grid[x][y] = 3;
 
 
         for(int[] dirn : dirns) {
@@ -42,10 +42,10 @@ class Solution {
     public int findPerimeter(int x,int y, int[][] grid) {
         int perimeter = 4;
 
-        if(y-1 >=0 && (grid[x][y-1] == 1 || grid[x][y-1] == 2 )) perimeter--;
-        if(y+1 < cols && (grid[x][y+1] == 1 || grid[x][y+1] == 2)) perimeter--;
-        if(x+1 < rows && (grid[x+1][y] == 1 || grid[x+1][y] == 2)) perimeter--;
-        if(x-1 >=0 && (grid[x-1][y] == 1 || grid[x-1][y] == 2 )) perimeter--;
+        if(y-1 >=0 && (grid[x][y-1] & 1) == 1) perimeter--;
+        if(y+1 < cols && (grid[x][y+1] & 1) == 1) perimeter--;
+        if(x+1 < rows && (grid[x+1][y] & 1) == 1) perimeter--;
+        if(x-1 >=0 && (grid[x-1][y]& 1) == 1) perimeter--;
 
         return perimeter;
     }
