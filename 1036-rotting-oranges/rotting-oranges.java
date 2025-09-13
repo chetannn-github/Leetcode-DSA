@@ -1,25 +1,20 @@
 class Solution {
     public int orangesRotting(int[][] grid) {
-        int r = grid.length;
-        int c = grid[0].length;
+        int rows = grid.length;
+        int cols = grid[0].length;
         Queue<int[]> queue = new LinkedList<>();
        
-
-        int i=0;
         int freshCount = 0;
-        for(int[] row : grid) {
-            int j=0;
-            for(int val : row) {
-                
+        for(int i=0; i<rows; i++) {
+            for(int j=0; j<cols; j++) {
+                int val = grid[i][j];
                 if(val == 2) {
                     queue.add(new int[]{i,j});
                     grid[i][j] = 0;
                 }else if(val == 1) {
                     freshCount++;
                 }
-                j++;
             }
-            i++;
         }
         
         int[][] dirns = {{-1,0},{1,0},{0,1},{0,-1}};
@@ -35,7 +30,7 @@ class Solution {
                     int nx = x + dirn[0];
                     int ny = y + dirn[1];
 
-                    if(nx >= 0 && ny >= 0 && nx < r && ny < c) {
+                    if(nx >= 0 && ny >= 0 && nx < rows && ny < cols) {
                         if(grid[nx][ny] == 1) {
                             freshCount--;
                             queue.add(new int[]{nx,ny});
@@ -45,8 +40,6 @@ class Solution {
                 }
             }
             time++;
-            if(freshCount == 0) return time;
-            
         }
         
         return freshCount == 0 ? time : -1;
