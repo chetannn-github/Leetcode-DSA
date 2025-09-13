@@ -17,7 +17,7 @@ class Solution {
             }
         }
 
-        int distance = 0;
+        int distance = 1;
         while(!queue.isEmpty()) {
             int currSize = queue.size();
 
@@ -35,11 +35,10 @@ class Solution {
                         }else if(grid[nx][ny] == 1) {
                             queue.add(new Pair(nx,ny));
                             grid[nx][ny] = -1;
-                            result[nx][ny] = distance + 1;
+                            result[nx][ny] = distance;
                         }
                     }
                 }
-
             }
 
             distance++;
