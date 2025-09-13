@@ -9,23 +9,20 @@ class Solution {
 
         for(int i=0; i<rows; i++) {
             for(int j=0; j<cols; j++) {
-                if(board[i][j] == 'O' && !isBoundary(i,j) && !visited[i][j]) {
-                    if(dfs(new Pair(i,j),board)) {
-                        changeGrid(new Pair(i,j),board);
-                        
-                    }
+                if(board[i][j] == 'O' && isBoundary(i,j) && !visited[i][j]) {
+                    dfs(new Pair(i,j),board);
                 }
             }
         }
+
+        changeGrid(visited,board);
         return;
     }
 
 
 
-    public boolean dfs(Pair curr, char[][] board) {
+    public void dfs(Pair curr, char[][] board) {
         int x = curr.x, y = curr.y;
-        boolean ans = true;
-        if(isBoundary(x,y)) ans = false;;
         visited[x][y] = true;
 
         for(int[] dirn : dirns) {
@@ -34,15 +31,10 @@ class Solution {
 
             if(nx >= 0 && ny >= 0 && nx < rows && ny < cols) {
                 if(board[nx][ny] == 'O' && !visited[nx][ny]) {
-                    if(!dfs(new Pair(nx,ny),board)) {
-                        ans = false;
-                    }
+                    dfs(new Pair(nx,ny),board);
                 }
             }
         }
-
-        
-        return ans;
     }
 
     public boolean isBoundary(int x, int y) {
@@ -50,21 +42,17 @@ class Solution {
     }
 
 
-    public void changeGrid(Pair curr, char[][] board) {
-        int x = curr.x, y = curr.y;
+    public void changeGrid(boolean[][] visited, char[][] board) {
         
-        board[x][y] = 'X';
-
-        for(int[] dirn : dirns) {
-            int nx = x + dirn[0];
-            int ny = y + dirn[1];
-
-            if(nx >= 0 && ny >= 0 && nx < rows && ny < cols) {
-                if(board[nx][ny] == 'O' && !isBoundary(nx,ny)) {
-                    changeGrid(new Pair(nx,ny),board);
+        for(int i=0; i<rows; i++) {
+            for(int j=0; j<cols; j++) {
+                if(!visited[i][j] && board[i][j] == 'O') {
+                    board[i][j] = 'X';
                 }
             }
         }
+        
+        
     }
 }
 
