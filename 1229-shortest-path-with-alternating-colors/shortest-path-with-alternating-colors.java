@@ -1,26 +1,8 @@
 class Solution {
     public int[] shortestAlternatingPaths(int n, int[][] redEdges, int[][] blueEdges) {
-        HashMap<Integer,List<Integer>> redAdj = new HashMap<>();
-        HashMap<Integer,List<Integer>> blueAdj = new HashMap<>();
-
-        for(int[] edge : redEdges) {
-            int u = edge[0];
-            int v = edge[1];
-            List<Integer> nbrs = redAdj.getOrDefault(u,new ArrayList<>());
-            nbrs.add(v);
-            redAdj.put(u,nbrs);
-        }
-
-        for(int[] edge : blueEdges) {
-            int u = edge[0];
-            int v = edge[1];
-            List<Integer> nbrs = blueAdj.getOrDefault(u,new ArrayList<>());
-            nbrs.add(v);
-            blueAdj.put(u,nbrs);
-        }
-
+        List<Integer>[] redAdj = constructGraph(n,redEdges);
+        List<Integer>[] blueAdj = constructGraph(n,blueEdges);
         
-
         Queue<Pair> queue = new LinkedList<>();
         HashSet<Integer> redVisited = new HashSet<>();
         HashSet<Integer> blueVisited = new HashSet<>();
@@ -40,27 +22,27 @@ class Solution {
                 int prevColor = curr.prevColor;
 
                 if(prevColor == -1) {
-                    for(int nbr : redAdj.getOrDefault(currNode, new ArrayList<>())) {
+                    for(int nbr : redAdj[currNode]) {
                         if(!redVisited.contains(nbr)) {
                             redVisited.add(nbr);
                             queue.add(new Pair(nbr,1));
                         }
                     }
-                    for(int nbr : blueAdj.getOrDefault(currNode, new ArrayList<>())) {
+                    for(int nbr : blueAdj[currNode]) {
                         if(!blueVisited.contains(nbr)) {
                             blueVisited.add(nbr);
                             queue.add(new Pair(nbr,2));
                         }
                     }
                 }else if(prevColor == 1) {
-                    for(int nbr : blueAdj.getOrDefault(currNode, new ArrayList<>())) {
+                    for(int nbr : blueAdj[currNode]) {
                         if(!blueVisited.contains(nbr)) {
                             blueVisited.add(nbr);
                             queue.add(new Pair(nbr,2));
                         }
                     }
                 }else {
-                    for(int nbr : redAdj.getOrDefault(currNode, new ArrayList<>())) {
+                    for(int nbr : redAdj[currNode]) {
 
                         if(!redVisited.contains(nbr)) {
                             redVisited.add(nbr);
@@ -72,6 +54,23 @@ class Solution {
             steps++;
         }
         return result;
+    }
+
+
+    private List<Integer>[] constructGraph(int n,int[][] edges) {
+        List<Integer>[] graph = new List[n];
+        for(int i=0; i<n; i++){
+            graph[i] = new ArrayList<>();
+        }
+
+        for(int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            List<Integer> nbrs = graph[u];
+            nbrs.add(v);
+            graph[u] = nbrs;
+        }
+        return graph;
     }
 
 
