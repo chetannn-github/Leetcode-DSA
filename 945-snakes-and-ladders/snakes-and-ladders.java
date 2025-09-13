@@ -7,8 +7,6 @@ class Solution {
         
         queue.add(0);
         visited.add(0);
-        
-        
         int diceRollsCount = 0;
 
         while(!queue.isEmpty()) {
@@ -37,12 +35,8 @@ class Solution {
                         visited.add(destination);
                         queue.add(destination);
                     }
-
-                    
-
-                }
                 
-
+                }
 
             }
 
