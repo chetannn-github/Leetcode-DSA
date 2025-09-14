@@ -1,35 +1,25 @@
 class Solution {
     int MOD = 1_000_000_007;
-    int[] distance;
     long[] dp;
-    
+    int[] minDistanceFromEnd;
     public int countRestrictedPaths(int n, int[][] edges) {
-        distance = new int[n + 1];
-        List<List<Node>> adj = new ArrayList<>();
-        for(int i = 0; i<=n; i++) adj.add(new ArrayList<>());
+        List<Node>[] graph = constructGraph(edges, n+1);
+        minDistanceFromEnd = dijkstraAlgo(n, graph, n+1);
 
-        for(int[] edge : edges) {
-            int u = edge[0] , v = edge[1], wt = edge[2];
-            adj.get(u).add(new Node(v,wt));
-            adj.get(v).add(new Node(u,wt));
-        }
-
-        dijkstraAlgo(n, adj, distance);
         dp = new long[n+1];
         Arrays.fill(dp,-1);
-        long result = (long) solve(1, n, adj) % MOD;
+        long result = (long) solve(1, n, graph) % MOD;
         return (int) result;
     
     }
 
-    private void dijkstraAlgo(int n, List<List<Node>> adj, int[] distance) {
-        
-        
+    private int[] dijkstraAlgo(int src, List<Node>[] graph, int n) {
+        int[] distance = new int[n];
         Arrays.fill(distance, Integer.MAX_VALUE);
 
         PriorityQueue<Pair> pq = new PriorityQueue<>((a,b)->(a.dist - b.dist));
-        pq.add(new Pair(n,0));
-        distance[n] = 0;
+        pq.add(new Pair(src,0));
+        distance[src] = 0;
 
         while(!pq.isEmpty()){
             Pair curr = pq.remove();
@@ -38,7 +28,7 @@ class Solution {
 
             if(distance[u] < dist) continue;
 
-            for(Node nbr : adj.get(u)) {
+            for(Node nbr : graph[u]) {
                 int v = nbr.v;
                 int wt =nbr.wt;
                 if(wt + dist < distance[v]) {
@@ -47,26 +37,39 @@ class Solution {
                 }
             }
         }
-        return ;
+        return distance;
 
     }
 
-    private long solve(int curr, int n, List<List<Node>> adj) {
+    private long solve(int curr, int n, List<Node>[] graph) {
         if(dp[curr] != -1) {
             return dp[curr];
         }
         if(curr == n) return 1L;
         long result = 0L;
 
-        for(Node nbr : adj.get(curr)) {
+        for(Node nbr : graph[curr]) {
             int v = nbr.v;
             if(v == n) result += 1;
-            else if(distance[v] < distance[curr] && distance[v] > 0) {
-                result += solve(v, n ,adj);
+            else if(minDistanceFromEnd[v] < minDistanceFromEnd[curr]) {
+                result += solve(v, n ,graph);
             }
         }
 
         return dp[curr] = result % MOD;
+    }
+
+    private List<Node>[] constructGraph(int[][] edges, int n) {
+        List<Node>[] graph = new List[n];
+        for(int i = 0; i<n; i++) graph[i]= new ArrayList<>();
+
+        for(int[] edge : edges) {
+            int u = edge[0] , v = edge[1], wt = edge[2];
+            graph[u].add(new Node(v,wt));
+            graph[v].add(new Node(u,wt));
+        }
+
+        return graph;
     }
 }
 
