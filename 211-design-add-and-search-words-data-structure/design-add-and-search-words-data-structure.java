@@ -1,65 +1,3 @@
-// class WordDictionary {
-//     Trie prefixTree;
-//     public WordDictionary() {
-//         prefixTree = new Trie();
-//     }
-    
-//     public void addWord(String word) {
-//         TrieNode curr = prefixTree.root;
-
-//         for(char ch : word.toCharArray()){
-//             if(curr.children.get(ch) == null){
-//                 curr.children.put(ch,new TrieNode());
-//             }
-//             curr = curr.children.get(ch);
-//         }
-//         curr.isEndOfWord = true;
-//     }
-    
-//     public boolean search(String word) {
-//         return searchInNode(word, 0, prefixTree.root);
-//     }
-
-//     private boolean searchInNode(String word, int index, TrieNode node) {
-//         if (index == word.length()) {
-//             return node.isEndOfWord;
-//         }
-
-//         char ch = word.charAt(index);
-        
-//         if (ch == '.') {
-//             for (char key : node.children.keySet()) {
-//                 if (searchInNode(word, index + 1, node.children.get(key))) {
-//                     return true;
-//                 }
-//             }
-//             return false;
-//         }else{
-//             TrieNode child = node.children.get(ch);
-//             if (child == null) return false;
-//             return searchInNode(word, index + 1, child);
-//         }
-//     }
-
-// }
-
-// class TrieNode {
-//     HashMap<Character,TrieNode> children;
-//     boolean isEndOfWord;
-//     TrieNode(){
-//         children = new HashMap<>();
-//         isEndOfWord = false;
-//     }
-// }
-
-// class Trie {
-//     TrieNode root;
-//     Trie(){
-//         root = new TrieNode();
-//     }
-// }
-
-
 class WordDictionary {
     Trie prefixTree;
     public WordDictionary() {
@@ -67,66 +5,75 @@ class WordDictionary {
     }
     
     public void addWord(String word) {
-        prefixTree.insert(word);
-        return;
+        prefixTree.insertWord(word);
     }
     
     public boolean search(String word) {
-        return prefixTree.search(word,prefixTree.root,0, word.length());
+        return prefixTree.search(word,0,prefixTree.root);
     }
-
-
 }
 
 
-class Trie{
+class Trie {
     TrieNode root;
-    Trie() {
+    Trie () {
         root = new TrieNode();
     }
-
-    public void insert (String word) {
+    void insertWord(String word) {
         TrieNode curr = root;
         for(char ch : word.toCharArray()) {
-            if(curr.children.get(ch) == null) {
-                curr.children.put(ch, new TrieNode());
+            if(curr.children[ch-'a'] == null) {
+                curr.children[ch-'a'] = new TrieNode();
             }
-            curr = curr.children.get(ch);
+            curr = curr.children[ch-'a'];
         }
-
         curr.isEndOfWord = true;
     }
 
-    public boolean search (String word, TrieNode curr, int start, int end) {
+    // boolean search(String word) {
+    //     TrieNode curr = root;
+    //     for(char ch : word.toCharArray()) {
+    //         if(ch != '.') {
+    //             if(curr.children[ch-'a'] == null) return false;
+    //         }else {
+    //             return false;
+    //         }
+    //         curr = curr.children[ch-'a'];
+    //     }
+    //     return curr.isEndOfWord;
+    // }
 
-        for(int i=start; i<end; i++) {
-            char ch = word.charAt(i);
 
-            if(ch == '.') {
-                // sare children ko dekhna padegaa
-                for(char key : curr.children.keySet()) {
-                    if (search(word, curr.children.get(key), i+1, end)) return true;
-                }
-                return false;
-            } else {
-                if(curr.children.get(ch) == null) return false;
-                curr = curr.children.get(ch);
+    boolean search(String word, int idx, TrieNode curr) {
+
+        if(idx == word.length()) return curr.isEndOfWord;
+        boolean result = false;
+        char ch = word.charAt(idx);
+
+        if(ch != '.') {
+            if(curr.children[ch-'a'] == null) return false;
+            else {
+                result = search(word,idx+1, curr.children[ch-'a']);
             }
+        }else {
+            for(int i=0; i<26; i++) {
+                if(curr.children[i] != null) {
+                    result = result || search(word, idx+1, curr.children[i]);
+                }
+
+                if(result) return true;
+            }
+
         }
-
-        return curr.isEndOfWord;
+        return result;
     }
-
-
 }
 
-
-class TrieNode{
-    HashMap<Character,TrieNode> children;
+class TrieNode {
+    TrieNode[] children;
     boolean isEndOfWord;
-
-    TrieNode() {
-        children = new HashMap<>();
+    TrieNode () {
+        children = new TrieNode[26];
         isEndOfWord = false;
     }
 }
