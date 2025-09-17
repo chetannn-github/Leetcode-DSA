@@ -1,36 +1,35 @@
 class Solution {
     public int[] maximizeXor(int[] nums, int[][] queries) {
-        List<List<Integer>> queriesModified = new ArrayList<>();
+        int n = nums.length, q = queries.length;
+        int[][] modQueries = new int[q][3];
         Arrays.sort(nums);
+
+        for(int i=0; i<q; i++) {
+            modQueries[i][0] = queries[i][0];
+            modQueries[i][1] = queries[i][1];
+            modQueries[i][2] = i;
+        }
+
+        Arrays.sort(modQueries, (a,b)->(a[1] - b[1]));
+        
         Trie prefixTree = new Trie();
+        int[] result = new int[q];
 
-        for(int i=0; i<queries.length; i++) {
-            List<Integer> q = new ArrayList<>();
-            q.add(queries[i][0]);q.add(queries[i][1]);q.add(i);
-            queriesModified.add(q);
-        }
-
-        Collections.sort(queriesModified, (a,b) -> (a.get(1) - b.get(1)));
-        int addedIdx = 0;
-        int[] result = new int[queries.length];
-        int n = nums.length;
-
-        for(List<Integer> q : queriesModified){
-            int num = q.get(0);
-            int ansIdx = q.get(2);
-            int maxVal = q.get(1);
-
-            
-            
-            while(addedIdx < n && nums[addedIdx] <= maxVal){
-                // System.out.println(i + " -> " + addedIdx);
-                prefixTree.insert(nums[addedIdx++]);
+        int j = 0;
+        boolean isAddedOne = false;
+        for(int i=0; i<q;i++) {
+            while(j<n && nums[j] <= modQueries[i][1] ) {
+                prefixTree.insert(nums[j]);
+                isAddedOne = true;
+                j++;  
             }
-            result[ansIdx] = prefixTree.findMaxXOR(num); 
-        }
+            result[modQueries[i][2]] = !isAddedOne ? -1 : prefixTree.findMaxXOR(modQueries[i][0]);
+        } 
+
         return result;
     }
 }
+
 
 
 
@@ -40,60 +39,54 @@ class Trie {
         root = new TrieNode();
     }
 
-    void insert (int num) {
+    void insert(int num) {
         TrieNode curr = root;
-        for(int i=31 ; i>=0; i--){
-            int bit = (num>>i) & 1;
-
-            if(bit == 0 ){
-                if(curr.zero == null ) curr.zero = new TrieNode();
-                curr = curr.zero;
-            }else{
-                if(curr.one == null ) curr.one = new TrieNode();
-                curr = curr.one;
+        for(int i=31; i>=0; i--) {
+            int bit = num & (1<<i);
+            if(bit == 0) {
+                if(curr.left == null) curr.left = new TrieNode();
+                curr = curr.left;
+            }else {
+                if(curr.right == null) curr.right = new TrieNode();
+                curr = curr.right;
             }
-
-        } 
+        }
     }
 
-    int findMaxXOR (int num) {
+    int findMaxXOR(int num) {
         TrieNode curr = root;
-        int maxVal = 0;
+        int maxXORPossible = 0;
 
-        for(int i=31; i>=0; i--){
-            int bit = (num>>i) & 1;
-            int optimumVal = 1 - bit;
+        for(int i=31; i>=0; i--) {
+            int bit = num & (1<<i);
 
-            if(curr.zero == null && curr.one == null) return -1;
-
-            if( (optimumVal == 0 && curr.zero == null ) || (optimumVal == 1 && curr.one == null) ){
-                if(optimumVal == 0){
-                    curr = curr.one;
-                }else{
-                    curr = curr.zero;
-                }
-            }else{
-                if(optimumVal == 0){
-                    curr = curr.zero;
-                }else{
-                    curr = curr.one;
-                }
-                maxVal |= (1<<i);
+            if(curr == null ) {
+                maxXORPossible = maxXORPossible | (bit<<i);
+                continue;
             }
-            
+
+            if(bit == 0) {
+                if(curr.right != null) {
+                    curr = curr.right;
+                    maxXORPossible = (maxXORPossible | (1 << i));
+                } else {
+                    curr = curr.left;
+                }
+            } else {
+                if(curr.left != null) {
+                    curr = curr.left;
+                    maxXORPossible = (maxXORPossible | (1 << i));
+                } else {
+                    curr = curr.right;
+                }
+            }
         }
 
-        return maxVal;
+        return maxXORPossible;
     }
 }
 
+
 class TrieNode {
-    TrieNode zero;
-    TrieNode one;
-    int maxIdx ;
-    TrieNode () {
-        zero = null;
-        one = null;
-        maxIdx = 0;
-    }
+    TrieNode left, right;
 }
