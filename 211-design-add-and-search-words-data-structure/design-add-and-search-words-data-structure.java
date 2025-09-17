@@ -30,18 +30,7 @@ class Trie {
         curr.isEndOfWord = true;
     }
 
-    // boolean search(String word) {
-    //     TrieNode curr = root;
-    //     for(char ch : word.toCharArray()) {
-    //         if(ch != '.') {
-    //             if(curr.children[ch-'a'] == null) return false;
-    //         }else {
-    //             return false;
-    //         }
-    //         curr = curr.children[ch-'a'];
-    //     }
-    //     return curr.isEndOfWord;
-    // }
+   
 
 
     boolean search(String word, int idx, TrieNode curr) {
