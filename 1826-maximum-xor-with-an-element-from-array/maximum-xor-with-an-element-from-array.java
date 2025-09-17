@@ -60,11 +60,6 @@ class Trie {
         for(int i=31; i>=0; i--) {
             int bit = num & (1<<i);
 
-            if(curr == null ) {
-                maxXORPossible = maxXORPossible | (bit<<i);
-                continue;
-            }
-
             if(bit == 0) {
                 if(curr.right != null) {
                     curr = curr.right;
