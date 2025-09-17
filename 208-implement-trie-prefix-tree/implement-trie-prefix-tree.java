@@ -1,14 +1,14 @@
 class Trie {
     TrieNode root;
     public Trie() {
-        root = new TrieNode(-1);
+        root = new TrieNode();
     }
     
     public void insert(String word) {
         TrieNode curr = root;
         for(char ch : word.toCharArray()) {
             if(curr.children[ch-'a'] == null) {
-                curr.children[ch-'a'] = new TrieNode(ch-'a');
+                curr.children[ch-'a'] = new TrieNode();
             }
             curr = curr.children[ch-'a'];
         }
@@ -47,11 +47,9 @@ class Trie {
 
 class TrieNode {
     TrieNode[] children;
-    int  val;
     boolean isEndOfWord;
-    TrieNode(int val) {
+    TrieNode() {
         this.isEndOfWord = false;
-        this.val = val;
         this.children = new TrieNode[26];
     }
 }
