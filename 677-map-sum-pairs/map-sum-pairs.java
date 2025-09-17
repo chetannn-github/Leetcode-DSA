@@ -5,51 +5,69 @@ class MapSum {
     }
     
     public void insert(String key, int val) {
-        int pheleWaliValue = 0;
-        if(prefixTree.addedStrings.containsKey(key)){
-            pheleWaliValue = prefixTree.addedStrings.get(key);
-        }
-        prefixTree.addedStrings.put(key,val);
-        TrieNode curr = prefixTree.root;
-        val -= pheleWaliValue;
-        
-        for(char ch : key.toCharArray()){
-            if(curr.children.get(ch) == null){
-                curr.children.put(ch,new TrieNode(0));
-            }
-            curr.children.get(ch).value += val;  
-            curr = curr.children.get(ch);
-        }
+        prefixTree.insert(key,val);
     }
-    
-    public int sum(String prefix) {
-        TrieNode current = prefixTree.root;
-        for (char ch : prefix.toCharArray()) {
-            current = current.children.get(ch);
-            if (current == null) return 0;
-        }
-        return current.value;
 
-        
+    public int sum(String prefix) {
+        return prefixTree.sum(prefix);
     }
 }
 
-
-class Trie{
+class Trie {
     TrieNode root;
-    HashMap<String,Integer> addedStrings;
+    HashMap<String,Integer> added;
     Trie() {
         root = new TrieNode(0);
-        addedStrings = new HashMap<>();
+        added = new HashMap<>();
     }
+
+    void insert(String key, int val) {
+        TrieNode curr = root;
+        
+        int effectiveVal = val - added.getOrDefault(key,0);
+
+        for(char ch : key.toCharArray()) {
+            if(curr.children[ch-'a'] == null) {
+                curr.children[ch-'a'] = new TrieNode(effectiveVal);
+            }else {
+                curr.children[ch-'a'].val += effectiveVal;
+            }
+
+            curr = curr.children[ch-'a'];
+        }
+        added.put(key, val);
+        
+    }
+
+
+    int sum(String prefix) {
+        int result = 0;
+        TrieNode curr = root;
+
+        for(char ch : prefix.toCharArray()) {
+            
+            if(curr.children[ch-'a'] == null) return 0;
+            else result = curr.children[ch-'a'].val;
+
+            curr = curr.children[ch-'a'];
+            
+        }
+
+        return result;
+    }
+
+    
 }
 
+
 class TrieNode {
-    int value;
-    HashMap<Character,TrieNode> children;
+    int val;
+    TrieNode[] children;
+    
 
     TrieNode(int val) {
-        value = val;
-        children = new HashMap<>();
+        this.val = val;
+        children = new TrieNode[26];
     }
+
 }
