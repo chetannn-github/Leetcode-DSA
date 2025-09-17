@@ -1,27 +1,16 @@
-class TrieNode{
-    boolean isEndOfWord;
-    HashMap<Character,TrieNode> children;
-    
-    public TrieNode(){
-        children = new HashMap<>();
-        isEndOfWord = false;
-    }
-}
-
 class Trie {
     TrieNode root;
     public Trie() {
-        root = new TrieNode();
+        root = new TrieNode(-1);
     }
     
     public void insert(String word) {
         TrieNode curr = root;
-
-        for(char ch : word.toCharArray()){
-            if(curr.children.get(ch) == null){
-                curr.children.put(ch,new TrieNode());
+        for(char ch : word.toCharArray()) {
+            if(curr.children[ch-'a'] == null) {
+                curr.children[ch-'a'] = new TrieNode(ch-'a');
             }
-            curr = curr.children.get(ch);
+            curr = curr.children[ch-'a'];
         }
 
         curr.isEndOfWord = true;
@@ -29,22 +18,40 @@ class Trie {
     
     public boolean search(String word) {
         TrieNode curr = root;
-        for(char ch : word.toCharArray()){
-            if(curr.children.get(ch) == null){
+
+        for(char ch : word.toCharArray()) {
+            if(curr.children[ch-'a'] == null) {
                 return false;
             }
-            curr = curr.children.get(ch);
+            curr = curr.children[ch-'a'];
         }
 
         return curr.isEndOfWord;
     }
     
     public boolean startsWith(String prefix) {
-        TrieNode current = root;
-        for (char ch : prefix.toCharArray()) {
-            current = current.children.get(ch);
-            if (current == null) return false;
+        TrieNode curr = root;
+        for(char ch : prefix.toCharArray()) {
+            if(curr.children[ch-'a'] == null) {
+                return false;
+            }
+            curr = curr.children[ch-'a'];
         }
+
         return true;
+    }
+}
+
+
+
+
+class TrieNode {
+    TrieNode[] children;
+    int  val;
+    boolean isEndOfWord;
+    TrieNode(int val) {
+        this.isEndOfWord = false;
+        this.val = val;
+        this.children = new TrieNode[26];
     }
 }
