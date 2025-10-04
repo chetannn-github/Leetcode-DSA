@@ -3,13 +3,13 @@ class Solution {
         Trie prefixTree = new Trie();
 
         for(String str : strs){
-            if(str.length() == 0) return new String("");
+            if (str.length() == 0) return new String("");
             prefixTree.insert(str);
         }
-        int lengthOfCommonPrefix = prefixTree.getLongestCommanPrefix();
-        String LCPString = lengthOfCommonPrefix == 0 ? 
+        int LCP = prefixTree.getLongestCommanPrefix();
+        String LCPString = LCP == 0 ? 
             new String("") :
-            strs[0].substring(0,lengthOfCommonPrefix)
+            strs[0].substring(0,LCP)
         ;
         return LCPString;
     }
