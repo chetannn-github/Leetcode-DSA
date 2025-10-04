@@ -23,7 +23,6 @@ class Trie {
 
     void insert(String key, int val) {
         TrieNode curr = root;
-        
         int effectiveVal = val - added.getOrDefault(key,0);
 
         for(char ch : key.toCharArray()) {
@@ -32,7 +31,7 @@ class Trie {
             }else {
                 curr.children[ch-'a'].val += effectiveVal;
             }
-
+            
             curr = curr.children[ch-'a'];
         }
         added.put(key, val);
@@ -45,15 +44,11 @@ class Trie {
         TrieNode curr = root;
 
         for(char ch : prefix.toCharArray()) {
-            
             if(curr.children[ch-'a'] == null) return 0;
-            else result = curr.children[ch-'a'].val;
-
             curr = curr.children[ch-'a'];
-            
         }
 
-        return result;
+        return curr.val;
     }
 
     
@@ -64,7 +59,6 @@ class TrieNode {
     int val;
     TrieNode[] children;
     
-
     TrieNode(int val) {
         this.val = val;
         children = new TrieNode[26];
