@@ -7,49 +7,44 @@ class Trie {
     public void insert(String word) {
         TrieNode curr = root;
         for(char ch : word.toCharArray()) {
-            if(curr.children[ch-'a'] == null) {
-                curr.children[ch-'a'] = new TrieNode();
+            if(curr.children[ch - 'a'] == null) {
+                curr.children[ch - 'a'] = new TrieNode();
             }
             curr = curr.children[ch-'a'];
         }
-
         curr.isEndOfWord = true;
     }
     
     public boolean search(String word) {
         TrieNode curr = root;
-
         for(char ch : word.toCharArray()) {
-            if(curr.children[ch-'a'] == null) {
+            if(curr.children[ch - 'a'] == null) {
                 return false;
             }
             curr = curr.children[ch-'a'];
         }
-
         return curr.isEndOfWord;
     }
     
     public boolean startsWith(String prefix) {
         TrieNode curr = root;
         for(char ch : prefix.toCharArray()) {
-            if(curr.children[ch-'a'] == null) {
+            if(curr.children[ch - 'a'] == null) {
                 return false;
             }
             curr = curr.children[ch-'a'];
         }
-
         return true;
     }
 }
 
 
-
-
 class TrieNode {
     TrieNode[] children;
     boolean isEndOfWord;
+
     TrieNode() {
-        this.isEndOfWord = false;
-        this.children = new TrieNode[26];
+        children = new TrieNode[26];
+        isEndOfWord = false;
     }
 }
