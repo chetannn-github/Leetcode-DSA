@@ -1,6 +1,5 @@
 class StreamChecker {
     Trie prefixTree = new Trie();
-
     HashSet<TrieNode> pending;
     public StreamChecker(String[] words) {
         for(String word : words) {
@@ -26,11 +25,7 @@ class StreamChecker {
         pending = new HashSet<>(tobeAdded);
         return ans;
     }
-
-
 }
-
-
 
 class Trie {
     TrieNode root;
