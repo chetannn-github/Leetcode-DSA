@@ -28,7 +28,6 @@ class Trie {
         TrieNode curr = root;
         for(int i=31 ; i>=0; i--){
             int bit = (num>>i) & 1;
-
             if(bit == 0 ){
                 if(curr.zero == null ) curr.zero = new TrieNode();
                 curr = curr.zero;
@@ -37,14 +36,11 @@ class Trie {
                 curr = curr.one;
             }
             curr.freq++;
-            
         } 
     }
 
-
     long countPairsXORLessThanX(int limit, int num) {
         TrieNode curr = root;
-
         long pairsCount = 0;
 
         for(int i=31; i>=0; i--){
