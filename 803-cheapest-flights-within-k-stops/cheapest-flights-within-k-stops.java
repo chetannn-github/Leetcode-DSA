@@ -33,7 +33,8 @@ class Solution {
                 int u = curr.val;
                 int price = curr.price;
 
-                // if(dist[u] < price) continue;
+                // if(dist[u] < price) continue; we cant do this because broo mujhe stops bhi dekhne hain
+                // mehgaa chalega mujhee but pahuchna hain
 
                 for(Node nbr : graph[u]){
                     int v = nbr.val;
