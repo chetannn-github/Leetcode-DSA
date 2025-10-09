@@ -1,21 +1,14 @@
 class Solution {
     int[] ans;
     HashSet<Integer> visited;
-    List<List<Integer>> adj;
+    List<Integer>[] adj;
     String labels;
     public int[] countSubTrees(int n, int[][] edges, String labels) {
         this.ans = new int[n];
-        this.adj = new ArrayList<>();
+        constructGraph(n,edges);
+
         this.visited = new HashSet<>();
         this.labels = labels;
-
-        for(int i=0; i<n; i++){
-            adj.add(new ArrayList<>());
-        }
-        for(int[] edge : edges){
-            adj.get(edge[0]).add(edge[1]);
-            adj.get(edge[1]).add(edge[0]);
-        }
 
         dfs(0);
         return ans;
@@ -25,7 +18,7 @@ class Solution {
         visited.add(source);
         int[] freq = new int[26];
 
-        for(int nbr : adj.get(source)){
+        for(int nbr : adj[source]){
             if(!visited.contains(nbr)){
                 int[] ans = dfs(nbr);
                 for(int i=0; i<26; i++){
@@ -37,5 +30,16 @@ class Solution {
         ans[source] = ++freq[labels.charAt(source) - 'a'];
         return freq;
         
+    }
+
+    public void constructGraph(int n, int[][] edges) {
+        this.adj = new List[n];
+
+        for(int i=0; i<n; i++) adj[i] = new ArrayList<>();
+        for(int[] edge : edges) {
+            int u = edge[0], v = edge[1];
+            adj[u].add(v);
+            adj[v].add(u);
+        }
     }
 }
