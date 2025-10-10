@@ -3,14 +3,11 @@ class Solution {
         int[] rank = new int[N];
         int[] parent = new int[N];
 
-        for(int i=0;i<N; i++){
-            parent[i] = i;
-        }
-
+        for(int i=0;i<N; i++) parent[i] = i;
+        
         for(int[] edge : edges){
             int x = edge[0];
             int y = edge[1];
-
             union(x,y,rank,parent);
         }
         HashMap<Integer,Long> hm = new HashMap<>();
