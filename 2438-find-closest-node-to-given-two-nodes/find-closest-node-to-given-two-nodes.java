@@ -2,8 +2,10 @@ class Solution {
     HashSet<Integer> visited;
     public int closestMeetingNode(int[] edges, int node1, int node2) {
         int n = edges.length;
+
         int[] distFromNode1 = new int[n];
         Arrays.fill(distFromNode1, Integer.MAX_VALUE);
+
         int[] distFromNode2 = new int[n];
         Arrays.fill(distFromNode2,Integer.MAX_VALUE);
 
@@ -12,8 +14,6 @@ class Solution {
 
         visited = new HashSet<>();
         dfs(edges,node2,0,distFromNode2);
-
-        
 
         int resultDist = Integer.MAX_VALUE;
         int resultNode = -1;
