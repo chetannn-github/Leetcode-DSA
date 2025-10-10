@@ -1,32 +1,27 @@
 class Solution {
     public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
-        List<List<Node>> adj = constructGraph(n,edges,succProb);
+        List<Node>[] adj = constructGraph(n,edges,succProb);
         return dijkstraForMaxVal(start,end,adj,n); 
     }
+    public List<Node>[] constructGraph(int n, int[][] edges, double[] succProb) {
+        List<Node>[] adj = new List[n];
+        for(int i=0; i<n;i++) adj[i] = new ArrayList<>();
 
-
-
-    public List<List<Node>> constructGraph (int n, int[][] edges, double[] succProb) {
-        List<List<Node>> adj = new ArrayList<>();
-        for(int i=0; i<n+1;i++) adj.add(new ArrayList<>());
         int idx = 0;
         for(int[] edge : edges){
             int u = edge[0], v = edge[1];
 
-            adj.get(u).add(new Node(v, succProb[idx])); 
-            adj.get(v).add(new Node(u, succProb[idx]));
-            
+            adj[u].add(new Node(v, succProb[idx])); 
+            adj[v].add(new Node(u, succProb[idx]));
             idx++;
         }
-
         return adj;
     }
 
 
-    public double dijkstraForMaxVal(int start, int end,List<List<Node>> adj,int n) {
-        double[] maxProb = new double[n+1];
-        Arrays.fill(maxProb,0);
-       
+    public double dijkstraForMaxVal(int start, int end,List<Node>[] adj,int n) {
+        double[] maxProb = new double[n];
+        
         PriorityQueue<Node> pq = new PriorityQueue<>((a,b)-> {
             double dif = (double) b.wt - a.wt;
             return dif > 0.0 ? 1 : -1;
@@ -42,7 +37,7 @@ class Solution {
 
             if(currProb < maxProb[u]) continue;
             
-            for(Node nbr : adj.get(u)) {
+            for(Node nbr : adj[u]) {
                 int v = nbr.val;
                 double amt = nbr.wt;
                 double prod = (double) currProb * amt;
@@ -50,12 +45,9 @@ class Solution {
                 if(prod > maxProb[v]){
                     maxProb[v] =prod;
                     pq.add(new Node(v,prod));
-                   
                 }
             }
         }
-
-
         return maxProb[end];
     }
 
