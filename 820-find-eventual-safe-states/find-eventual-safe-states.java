@@ -1,22 +1,17 @@
 class Solution {
-    
     boolean[] bl;
     HashSet<Integer> visited;
     public List<Integer> eventualSafeNodes(int[][] graph) {
         bl = new boolean[graph.length];
         visited = new HashSet<>();
 
-
         for(int i=0; i<graph.length; i++){
-            if(!visited.contains(i)){
-                dfs(graph,i);
-            }
+            if(!visited.contains(i)) dfs(graph,i);
         }
+
         List<Integer> ans = new ArrayList<>();
         for(int i=0; i<graph.length; i++){
-            if(bl[i]){
-                ans.add(i);
-            }
+            if(bl[i]) ans.add(i);
         }
 
         return ans;
@@ -30,7 +25,8 @@ class Solution {
             if(!visited.contains(nbr)){
                 ans = ans && dfs(graph,nbr);
             }else {
-                ans = ans && bl[nbr];
+                ans = ans && bl[nbr]; 
+                // agr wo currRecursion me hoga aur visited hain toh uska ans false hoga
             }
         }
 
