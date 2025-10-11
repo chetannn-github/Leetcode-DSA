@@ -35,11 +35,9 @@ class Solution {
                     dist[nx][ny] = nbrCost;
                     pq.add(new Triplet(nx,ny,nbrCost));
                 }
-
                 }
             }
         }
-
         return dist[rows-1][cols-1];
     }
 }
