@@ -4,9 +4,7 @@ class Solution {
     public int countPaths(int n, int[][] roads) {
         List<Node>[] graph = new List[n];
         constructGraph(graph,roads,n);
-        return dijkstra(graph,n);
-
-        
+        return dijkstra(graph,n);  
     }
 
     private void constructGraph( List<Node>[] graph, int[][] edges, int n) {
