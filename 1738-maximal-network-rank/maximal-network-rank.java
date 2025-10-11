@@ -17,9 +17,7 @@ class Solution {
             nbr = graph[v];
             nbr.add(u);
             graph[v] = nbr;
-
         }
-
 
         int result = 0;
 
