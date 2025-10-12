@@ -41,7 +41,7 @@ class Solution {
     List<Node>[] graph;
     int start,end;
     public int minMaxWeight(int n, int[][] edges, int threshold) {
-        constructGraphAndFindMaxAndMinEdge(n,edges);
+        constructReverseGraphAndFindMaxAndMinEdge(n,edges);
         int ans = -1;
 
         while(end >= start){
@@ -73,7 +73,7 @@ class Solution {
         }
     }
 
-    public void constructGraphAndFindMaxAndMinEdge(int n, int[][] edges) {
+    public void constructReverseGraphAndFindMaxAndMinEdge(int n, int[][] edges) {
         start = Integer.MAX_VALUE;
         end = Integer.MIN_VALUE;
         this.graph = new List[n];
