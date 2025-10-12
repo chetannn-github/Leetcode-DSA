@@ -4,22 +4,20 @@ class Solution {
         List<Integer>[] graph = new List[n];
         constructGraphAndCalcIndegree(n, edges, indegree, graph);
         
-
         List<Set<Integer>> ancestors = new ArrayList<>();
         for(int i=0; i<n; i++) ancestors.add(new HashSet<>());
         
-
         Queue<Integer> queue = new LinkedList<>();
-        for(int i=0; i<n; i++){
-            if(indegree[i] == 0) queue.add(i);
+        for(int i=0; i<n; i++) {
+            if (indegree[i] == 0) queue.add(i);
         }
 
-        while(!queue.isEmpty()){
+        while(!queue.isEmpty()) {
             int curr = queue.remove();
 
-            for(int nbr : graph[curr]){
+            for(int nbr : graph[curr]) {
                 ancestors.get(nbr).add(curr);
-                for(int parentAncestor : ancestors.get(curr)){
+                for(int parentAncestor : ancestors.get(curr)) {
                     ancestors.get(nbr).add(parentAncestor);
                 }
                 
