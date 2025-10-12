@@ -4,9 +4,10 @@ class Solution {
         
         Queue<Pair> queue = new LinkedList<>();
         int[][] dirns = {{-1,0},{1,0},{0,1},{0,-1}};
+
         int rows = image.length;
         int cols = image[0].length;
-        int val = image[sr][sc];
+        int intialColor = image[sr][sc];
         queue.add(new Pair(sr,sc));
 
         while(!queue.isEmpty()) {
@@ -20,7 +21,7 @@ class Solution {
                     int ny = dirn[1] + curr.y;
 
                     if(nx >=0  && ny >=0 && nx < rows && ny < cols) {
-                        if(image[nx][ny] == val) {
+                        if(image[nx][ny] == intialColor) {
                             queue.add(new Pair(nx,ny));
                         }
                     }
