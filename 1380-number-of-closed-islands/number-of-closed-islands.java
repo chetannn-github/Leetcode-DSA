@@ -22,7 +22,7 @@ class Solution {
     public boolean dfs(Pair curr, int[][] grid) {
         int x = curr.x, y = curr.y;
         boolean ans = true;
-        if(isBoundary(x,y)) ans = false;;
+        if(isBoundary(x,y)) ans = false;
         grid[x][y] = 1;
 
         for(int[] dirn : dirns) {
