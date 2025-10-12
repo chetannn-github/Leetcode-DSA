@@ -10,7 +10,6 @@ class Solution {
         List<Integer>[] tree1 = constructTree(n+1,edges1);
         List<Integer>[] tree2 = constructTree(m+1,edges2);
         
-
         int maxNodesCoveredInTree2= 0;
         for(int i=0; i<m+1; i++) {
             maxNodesCoveredInTree2 = Math.max(maxNodesCoveredInTree2, bfs(i,k-1, tree2));
@@ -26,8 +25,6 @@ class Solution {
     public int bfs(int start, int maxDepth,List<Integer>[]  tree ) {
         Queue<Integer> queue = new LinkedList<>();
         HashSet<Integer> visited = new HashSet<>();
-
-        
 
         queue.add(start);
         visited.add(start);
@@ -47,12 +44,8 @@ class Solution {
                     visited.add(nbr);
                 }
             }
-
             currDepth++;
         }
-        
-
-
         return visited.size();
     }
 
