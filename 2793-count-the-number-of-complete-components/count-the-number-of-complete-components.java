@@ -1,31 +1,20 @@
 class Solution {
+    // har node kii uske saare neiborss se direct batcheet honi chaiyee
     HashSet<Integer> visited;
-    List<List<Integer>> adj;
+    List<Integer>[] graph;
     int[] degree; 
-    int countNodesCovered;
+    int nodesCovered;
     public int countCompleteComponents(int n, int[][] edges) {
+        constructGraphAndCalculateDegree(edges,n);
         this.visited = new HashSet<>();
-        this.adj = new ArrayList<>();
-
-        for(int i=0; i<n; i++){
-            adj.add(new ArrayList<>());
-        }
-        degree = new int[n];        
-        for(int[] edge : edges){
-            adj.get(edge[0]).add(edge[1]);
-            adj.get(edge[1]).add(edge[0]);
-
-            degree[edge[0]]++;
-            degree[edge[1]]++;
-        }
-
+        
+        
         int count = 0;
         for(int i=0; i<n; i++){
             if(!visited.contains(i)){
-                countNodesCovered = 0;
-                if(dfs(i,degree[i]) && countNodesCovered == degree[i]+1){
-                    count++;
-                        
+                nodesCovered = 0;
+                if(dfs(i,degree[i]) && nodesCovered == degree[i]+1){
+                    count++;     
                 }      
             }
         }
@@ -33,21 +22,38 @@ class Solution {
         return count;
     }
 
-    public boolean dfs(int curr,int currDegree){
+    public boolean dfs(int curr,int parentDegree){
         visited.add(curr);
         boolean ans = true;
-        countNodesCovered++;
+        nodesCovered++;
 
-        for(int nbr : adj.get(curr)){
+        for(int nbr : graph[curr]){
             if(!visited.contains(nbr)){
-                ans = ans && dfs(nbr,currDegree);
+                ans = ans && dfs(nbr,parentDegree);
             }
-            if(degree[nbr] != currDegree){
+            if(degree[nbr] != parentDegree){
                 ans = false;
             }
         }
 
         return ans;
+    }
+
+
+    private void constructGraphAndCalculateDegree(int[][] edges,int n) {
+        graph = new List[n];
+        degree = new int[n];     
+        for(int i=0; i<n; i++) graph[i] = new ArrayList<>();
+        
+          
+        for(int[] edge : edges){
+            int u = edge[0], v = edge[1];
+            graph[u].add(v);
+            graph[v].add(u);
+
+            degree[u]++;
+            degree[v]++;
+        }
     }
 
 
