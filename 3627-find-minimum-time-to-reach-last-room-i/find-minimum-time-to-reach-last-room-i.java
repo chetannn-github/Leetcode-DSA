@@ -3,9 +3,8 @@ class Solution {
         return dijkstra(moveTime);
     }
 
-
     public int dijkstra(int[][] arr) {
-        int[][] dirns = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+        int[][] dirns = { {1,0}, {-1,0}, {0,1}, {0,-1} };
         int rows = arr.length, cols = arr[0].length;
         int[][] dist = new int[rows][cols];
 
@@ -17,7 +16,7 @@ class Solution {
 
         PriorityQueue<Triplet> pq = new PriorityQueue<>((a,b)->(a.cost - b.cost));
         pq.add(new Triplet(0,0,0));
-        dist[0][0] = 0;
+        dist[0][0] = arr[0][0];
 
         while(!pq.isEmpty()) {
             Triplet curr = pq.remove();
@@ -41,7 +40,6 @@ class Solution {
         return dist[rows-1][cols-1];
     }
 }
-
 
 class Triplet {
     int x, y, cost;
