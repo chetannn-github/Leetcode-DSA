@@ -1,138 +1,84 @@
-// tle
-// class Solution {
-//     public int findLatestStep(int[] nums, int m) {
-//         int n = nums.length;
-//         boolean[] visited = new boolean[n];
-//         DSU dsu = new DSU(n);
-//         int lastStep = -1;
+class Solution {
+    public int findLatestStep(int[] arr, int m) {
+        int n = arr.length;
+        if(m == n) return n; 
 
+        DSU dsu = new DSU(n);
+        int latestStep = -1;
 
-//         for(int i=0; i<n; i++) nums[i]--;
-        
-//         for(int i=0; i<n; i++) {
-//             int num = nums[i];
-//             int prev = num - 1 ;
-//             int next = num + 1;
+        for(int i = 0; i < n; i++) {
+            int idx = arr[i] - 1;
 
-//             if(prev >= 0 && visited[prev]) dsu.union(num, prev);
-//             if(next < n && visited[next]) dsu.union(num,next);
-//             visited[num] = true;
+            dsu.size[idx] = 1;
+            dsu.sizeMap.put(1, dsu.sizeMap.getOrDefault(1, 0) + 1);
 
-//             HashMap<Integer,Integer> parentsFreq = new HashMap();
-            
-//             for(int j=0; j<n; j++) {
-//                 if(visited[j]) {
-//                     int parent = dsu.find(j);
-//                     int prevFreq = parentsFreq.getOrDefault(parent,0);
-//                     parentsFreq.put(parent, prevFreq + 1);
-//                 }
-//             }
+            if(idx > 0 && dsu.size[idx - 1] != 0) {
+                dsu.union(idx, idx - 1);
+            }
 
+            if(idx < n - 1 && dsu.size[idx + 1] != 0) {
+                dsu.union(idx, idx + 1);
+            }
 
-//             for(int key : parentsFreq.keySet()) {
-//                 if(parentsFreq.get(key) == m) {
-//                     lastStep = i+1;
-//                 } 
-//             }
-            
-//         }
-//         return lastStep;
-//     }
+            if(dsu.hasSize(m)) {
+                latestStep = i + 1;
+            }
+        }
 
-    
-// }
-
+        return latestStep;
+    }
+}
 
 class DSU {
-    int[] parent, rank;
-    HashMap<Integer,Integer> membersSize;
-    HashMap<Integer,Integer> parentToGroupSize;
-    HashMap<Integer,Integer> groupSizeFreq;
+    int[] size;
+    int[] parent;
+    HashMap<Integer, Integer> sizeMap;
 
-    DSU(int size) {
-        parent = new int[size];
-        rank = new int[size];
-        membersSize = new HashMap<>();
-        parentToGroupSize = new HashMap<>();
-        groupSizeFreq = new HashMap<>();
+    DSU(int n) {
+        size = new int[n];
+        parent = new int[n];
+        sizeMap = new HashMap<>();
 
-        for(int i=0; i<size; i++) {
+        for(int i = 0; i < n; i++) {
             parent[i] = i;
-        } 
+            size[i] = 0;
+        }
     }
 
-
     public void union(int x, int y) {
-        int xParent = find(x);
-        int yParent = find(y);
+        int px = find(x);
+        int py = find(y);
 
-        if(xParent == yParent) return;
+        if(px == py) return;
 
-        int xGroupSize = parentToGroupSize.get(xParent);
-        int yGroupSize = parentToGroupSize.get(yParent);
-        // parentToGroupSize.remove(xParent);
-        // parentToGroupSize.remove(yParent);
+        int sizeX = size[px];
+        int sizeY = size[py];
 
-        groupSizeFreq.put(xGroupSize, groupSizeFreq.get(xGroupSize) - 1);
-        groupSizeFreq.put(yGroupSize, groupSizeFreq.get(yGroupSize) - 1);
         
-        int totalSize = xGroupSize + yGroupSize;
-        groupSizeFreq.put(totalSize, groupSizeFreq.getOrDefault(totalSize, 0) + 1);
+        sizeMap.put(sizeX, sizeMap.get(sizeX) - 1);
+        sizeMap.put(sizeY, sizeMap.get(sizeY) - 1);
+        if(sizeMap.containsKey(sizeY) && sizeMap.get(sizeX) == 0) sizeMap.remove(sizeX);
+        if(sizeMap.containsKey(sizeY) && sizeMap.get(sizeY) == 0) sizeMap.remove(sizeY);
 
-        if(rank[xParent] > rank[yParent]) {
-            parent[yParent] = xParent;
-            parentToGroupSize.put(xParent,totalSize);
-        }else if(rank[xParent] < rank[yParent]) {
-            parent[xParent] = yParent;
-            parentToGroupSize.put(yParent,totalSize);
-        }else {
-            parent[xParent] = yParent;
-            parentToGroupSize.put(yParent,totalSize);
-            rank[yParent]++;
+        if(sizeX > sizeY) {
+            parent[py] = px;
+            size[px] = sizeX + sizeY;
+            sizeMap.put(size[px], sizeMap.getOrDefault(size[px], 0) + 1);
+        } else {
+            parent[px] = py;
+            size[py] = sizeX + sizeY;
+            sizeMap.put(size[py], sizeMap.getOrDefault(size[py], 0) + 1);
         }
     }
 
     public int find(int x) {
-        if(x == parent[x]) return x;
-        return parent[x] = find(parent[x]);
-    }
-
-
-    public void add(int num) {
-        parentToGroupSize.put(num,1);
-        groupSizeFreq.put(1, groupSizeFreq.getOrDefault(1,0) + 1);
-    }
-
-
-}
-
-
-class Solution {
-    public int findLatestStep(int[] nums, int m) {
-        int n = nums.length;
-        boolean[] visited = new boolean[n];
-        DSU dsu = new DSU(n);
-        int lastStep = -1;
-
-        
-        for(int i=0; i<n; i++) {
-            int num = nums[i] - 1;
-            int prev = num - 1 ;
-            int next = num + 1;
-            dsu.add(num);
-        
-            if(prev >= 0 && visited[prev]) dsu.union(num, prev);
-            if(next < n && visited[next]) dsu.union(num,next);
-
-            visited[num] = true;
-
-            
-            if(dsu.groupSizeFreq.getOrDefault(m,0) > 0) {
-                lastStep = i+1;
-            }
-            
-            
+        if(parent[x] != x) {
+            parent[x] = find(parent[x]);
         }
-        return lastStep;
-    } 
+        return parent[x];
+    }
+
+    public boolean hasSize(int n) {
+        return sizeMap.getOrDefault(n, 0) > 0;
+    }
 }
