@@ -18,12 +18,6 @@ class Solution {
         
     }
 
-    
-
-    public boolean isBoundary(int x, int y) {
-        return (x==0 || y==0 || x== rows-1 || y == cols-1);
-    }
-    
     public int calculateArea(int x, int y, int[][] grid) {
         int area = 1;
         grid[x][y] = 0;
