@@ -1,42 +1,45 @@
 class Solution {
     HashSet<Integer> visited;
-    HashMap<Integer,List<Integer>> adj;
+    List<Integer>[] adj;
 
     public int findCircleNum(int[][] isConnected) {
         int n = isConnected.length;
-        visited = new HashSet<>();
-        adj = new HashMap<>();
+        constructGraph(isConnected, n);
 
-        for(int i=0; i<n; i++){
-            for(int j=0; j<n; j++){
-                if(isConnected[i][j]==1){
-                    List<Integer> nodes = adj.getOrDefault(i,new ArrayList<>());
-                    nodes.add(j);
-                    adj.put(i,nodes);
-                    // dusra relation aage aaegaa j --->> 1
-                }
-            }
-        }
+        visited = new HashSet<>();
         int provinces = 0;
+
         for(int i=0; i<n; i++){
             if(!visited.contains(i)){
                 dfs(i);
                 provinces++;
-
             }
         }
-
         return provinces;
     }
 
-
     public void dfs(int currNode){
         visited.add(currNode);
-        for(int node : adj.getOrDefault(currNode,new ArrayList<>())){
+        for (int node : adj[currNode]) {
             if(!visited.contains(node)){
                 dfs(node);
             }
             
+        }
+    }
+
+    public void constructGraph(int[][] isConnected, int n) {
+        adj = new List[n];
+
+        for(int i=0; i<n; i++) adj[i] = new ArrayList<>();
+
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                if(isConnected[i][j]==1){
+                    adj[i].add(j);
+                    // dusra relation aage aaegaa j --->> 1
+                }
+            }
         }
     }
 }
