@@ -13,9 +13,7 @@ class Solution {
             result[i] = isConnected ? dsu.cumAND[dsu.find(u)] : -1;
         }
 
-        for(int i=0; i<n; i++) {
-            System.out.println(dsu.cumAND[dsu.find(i)]);
-        }
+        
         return result;
     }
 }
@@ -45,7 +43,7 @@ class DSU {
     public boolean union(int x, int y, int wt) {
         int px = find(x);
         int py = find(y);
-        
+
         if (rank[px] < rank[py]) {
             parent[px] = py;
             cumAND[py] &= (wt & cumAND[px]);
