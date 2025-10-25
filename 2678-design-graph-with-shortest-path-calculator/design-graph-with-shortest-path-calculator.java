@@ -19,8 +19,21 @@ class Graph {
     
     public void addEdge(int[] edge) {
         int u = edge[0], v = edge[1], wt = edge[2];
+        if(dist[u][v] < wt) return;
         dist[u][v] = wt;
-        floydWarshall();
+
+         for(int i=0; i<n;i++) {
+            for(int j=0; j<n; j++) {
+                boolean isConnected = (
+                    dist[i][u] != Integer.MAX_VALUE && dist[v][j] != Integer.MAX_VALUE
+                );
+
+                // i to u to v to j
+                boolean isOptimal = isConnected && dist[i][j] > dist[i][u] + wt + dist[v][j];
+                if(isOptimal) dist[i][j] = dist[i][u] + wt + dist[v][j];
+            }
+        } 
+        
     }
     
     public int shortestPath(int u, int v) {
