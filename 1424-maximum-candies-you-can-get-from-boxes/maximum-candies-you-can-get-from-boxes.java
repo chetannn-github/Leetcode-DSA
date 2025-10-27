@@ -55,49 +55,46 @@
 
 
 class Solution {
+    int[] status,candies;
+    int[][] keys,containedBoxes;
+    public int maxCandies(int[] status, int[] candies,int[][] keys, int[][] containedBoxes,int[] initialBoxes) {
+        this.status = status;
+        this.candies = candies;
+        this.keys = keys;
+        this.containedBoxes = containedBoxes;
 
-    public int dfs(int box, int[] status, int[] candies,
-        int[][] keys, int[][] containedBoxes,
-        Set<Integer> visited, Set<Integer> foundBoxes) {
-        
-        if (visited.contains(box)) {
-            return 0;
+        int candiesFound = 0;
+        Set<Integer> visited = new HashSet<>();
+        Set<Integer> foundBoxes = new HashSet<>();
+
+        for(int box : initialBoxes) {
+            candiesFound += dfs(box, visited, foundBoxes);
         }
+        return candiesFound;
+    }
 
-        if (status[box] == 0) {
+    public int dfs(int box,Set<Integer> visited, Set<Integer> foundBoxes) {
+        if(visited.contains(box)) return 0;
+
+        if(status[box] == 0) {
             foundBoxes.add(box);
             return 0;
         }
 
         visited.add(box);
-        int candiesCollected = candies[box];
+        int candiesFound = candies[box];
 
-        for (int innerBox : containedBoxes[box]) {
-            candiesCollected += dfs(innerBox, status, candies, keys, containedBoxes, visited, foundBoxes);
+        for(int innerBox : containedBoxes[box]) {
+            candiesFound += dfs(innerBox, visited, foundBoxes);
         }
 
-        for (int boxKey : keys[box]) {
-            status[boxKey] = 1; // mark as openable
+        for(int boxKey : keys[box]) {
+            status[boxKey] = 1;
             if (foundBoxes.contains(boxKey)) {
-                candiesCollected += dfs(boxKey, status, candies, keys, containedBoxes, visited, foundBoxes);
+                candiesFound += dfs(boxKey, visited, foundBoxes);
             }
         }
 
-        return candiesCollected;
-    }
-
-    public int maxCandies(int[] status, int[] candies,
-                          int[][] keys, int[][] containedBoxes,
-                          int[] initialBoxes) {
-
-        int candiesCollected = 0;
-        Set<Integer> visited = new HashSet<>();
-        Set<Integer> foundBoxes = new HashSet<>();
-
-        for (int box : initialBoxes) {
-            candiesCollected += dfs(box, status, candies, keys, containedBoxes, visited, foundBoxes);
-        }
-
-        return candiesCollected;
+        return candiesFound;
     }
 }
