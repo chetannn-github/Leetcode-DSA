@@ -1,53 +1,49 @@
 class Solution {
+    List<Integer>[] graph;
     public int longestCycle(int[] edges) {
         int n = edges.length;
+        graph = buildGraph(edges); 
         HashSet<Integer> visited = new HashSet<>();
-        int maxCycleLength = -1;
+        int longestCycle = 0;
 
         for(int i=0; i<n; i++) {
             if(!visited.contains(i)) {
-                int cycleNode = findCycleNode(edges,i,visited,new HashSet<>());
-                if(cycleNode != -1) {
-                    int cycleLength = findCycleLength(edges,cycleNode,new HashSet<>());
-                    maxCycleLength = Math.max(cycleLength + 1, maxCycleLength);
-                }
+                longestCycle = Math.max(longestCycle, findLongestCycle(i,visited,new HashMap<>(),0, 0));
             }
         }
 
-        return maxCycleLength;
+        return longestCycle == 0 ? -1 : longestCycle;
     }
 
-    private int findCycleNode(int[] edges,int curr, HashSet<Integer> visited, HashSet<Integer> currRecursion) {
-        visited.add(curr);
-        currRecursion.add(curr);
-        int cycleNode = -1;
-        int nbr = edges[curr];
+    private List<Integer>[] buildGraph(int[] edges) {
+        int n = edges.length;
+        List<Integer>[] graph = new List[n];
 
-        if(nbr != -1) {
-            if(!visited.contains(nbr)) {
-                cycleNode = findCycleNode(edges,nbr, visited,currRecursion);
-            }else if (currRecursion.contains(nbr)) {
-                return nbr;
+        for(int i=0; i<n; i++) graph[i] = new ArrayList<>();
+        for(int i=0; i<n; i++) {
+            int v = edges[i], u = i;
+            if(v == -1) continue;
+            graph[u].add(v);
+        }
+        return graph;
+    }
+
+
+     private int findLongestCycle( int curr,HashSet<Integer> visited,HashMap<Integer,Integer> currRecursion, int maxCycle,int depth) {
+        visited.add(curr);
+        currRecursion.put(curr, depth);
+
+        for(int nbr : graph[curr]) {
+            if(currRecursion.containsKey(nbr) ) {
+                int cycleLength = depth - currRecursion.get(nbr) + 1;
+                maxCycle = Math.max(maxCycle, cycleLength);
+            }else if(!visited.contains(nbr)) {
+                maxCycle = Math.max(maxCycle, findLongestCycle(nbr, visited,currRecursion, maxCycle, depth+1));
             }
         }
 
         currRecursion.remove(curr);
-        return cycleNode;
-        
-    }
 
-    public int findCycleLength(int[] edges,int curr, HashSet<Integer> visited) {
-        visited.add(curr);
-        
-        int cycleLength = 0;
-        int nbr = edges[curr];
-
-        if(nbr != -1) {
-            if(!visited.contains(nbr)) {
-                cycleLength += 1 + findCycleLength(edges,nbr, visited);
-            }
-        }
-
-        return cycleLength ;
+        return maxCycle;
     }
 }
