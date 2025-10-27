@@ -9,7 +9,7 @@ class Solution {
         grid = new int[row][col];
         
         for(int i=0; i<n; i++) {
-            int x = cells[i][0]-1, y = cells[i][1]-1;
+            int x = cells[i][0] - 1, y = cells[i][1]-1;
             grid[x][y] = i + 1;
         }
 
@@ -18,21 +18,24 @@ class Solution {
 
         while(start <= end) {
             int mid = start + ((end - start) >> 1);
-            boolean canCross = false;
-
-            for(int j=0; j<col; j++) {
-                if(grid[0][j] > mid) {
-                    canCross = canCross || dfs(0,j,mid,new boolean[row][col]);
-                }
-            }
-
-            if(canCross) {
+            
+            if(canCross(mid)) {
                 result = mid;
                 start = mid + 1;
             }else end = mid - 1;
             
         }
         return result;
+    }
+
+    public boolean canCross(int currDay) {
+        boolean result = false;
+        for(int j=0; j<col; j++) {
+            if(grid[0][j] > currDay) {
+                if(dfs(0,j,currDay,new boolean[row][col])) return true;
+            }
+        }
+        return false;
     }
 
     private boolean dfs(int x,int y, int day, boolean[][] visited) {
