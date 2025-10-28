@@ -12,9 +12,10 @@ class Solution {
         while(!pq.isEmpty()) {
             Triplet curr = pq.remove();
             int x = curr.x, y = curr.y, wt = curr.wt;
+            if(x==m-1 && y==n-1) return dist[m-1][n-1];
             if(wt > dist[x][y]) continue;
 
-            if(x==m-1 && y==n-1) return dist[m-1][n-1];
+            
 
             for(int[] dirn : dirns) {
                 int nx = x + dirn[0], ny = y + dirn[1];
