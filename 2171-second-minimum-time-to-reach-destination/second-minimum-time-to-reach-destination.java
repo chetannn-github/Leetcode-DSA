@@ -11,11 +11,11 @@ class Solution {
             graph[v].add(u);
         }
 
-        int[] secondMin = dijkstra(0,time,change,n);
-        return secondMin[n-1];
+        
+        return dijkstra(0,time,change,n);
     }
 
-    private int[] dijkstra(int src, int time, int change, int n) {
+    private int dijkstra(int src, int time, int change, int n) {
         PriorityQueue<Pair> pq = new PriorityQueue<>((a,b)->(a.wt - b.wt));
         int[] dist1 = new int[n];
         int[] dist2 = new int[n];
@@ -28,7 +28,8 @@ class Solution {
         while(!pq.isEmpty()) {
             Pair curr = pq.remove();
             int u = curr.node, wt = curr.wt;
-            
+            if(dist2[n-1] != Integer.MAX_VALUE) return dist2[n-1];
+
             for(int nbr : graph[u]) {
                 int nbrWt = wt + time;
                 boolean oddDiv = ((wt / change) & 1) == 1;
@@ -46,7 +47,7 @@ class Solution {
             }
         }
 
-        return dist2;
+        return -1;
     }
 }
 
