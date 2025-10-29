@@ -16,7 +16,6 @@ class Solution {
             }
         }
 
-        System.out.println(dp.toString());
         for(int i=0; i<n; i++) {
             for(int maxColor : dp.get(i)) {
                 result = Math.max(maxColor, result);
@@ -83,7 +82,7 @@ class Solution {
         }
 
         dp.put(curr,maxColors);
-        for (int val : maxColors) result = Math.max(result, val);
+        // for (int val : maxColors) result = Math.max(result, val);
 
         return maxColors;
         
