@@ -64,26 +64,21 @@ class Solution {
     }
 
     private int[] dfs(int curr, String colors) {
-        if(dp.containsKey(curr)) { 
-            return dp.get(curr);
-        }
-
+        if(dp.containsKey(curr)) return dp.get(curr);
         
         int currColor = colors.charAt(curr) - 'a';
         int[] maxColors = new int[26];
         maxColors[currColor]++;
 
         for(int nbr : graph[curr]) {
-            int[] myColors = dfs(nbr,colors);
+            int[] nbrColors = dfs(nbr,colors);
 
             for(int i=0; i<26; i++) {
-                maxColors[i] = Math.max(maxColors[i], myColors[i] + (i == currColor ? 1 : 0));
+                maxColors[i] = Math.max(maxColors[i], nbrColors[i] + (i == currColor ? 1 : 0));
             }
         }
 
         dp.put(curr,maxColors);
-        // for (int val : maxColors) result = Math.max(result, val);
-
         return maxColors;
         
     } 
