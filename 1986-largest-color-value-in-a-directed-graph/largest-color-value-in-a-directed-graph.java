@@ -10,7 +10,7 @@ class Solution {
 
         dp = new HashMap<>();
        
-        for(int node=0; node<n; node++) {
+        for(int node : topoSort) {
             if(!dp.containsKey(node)) { 
                 dfs(node,colors);
             }
@@ -80,6 +80,5 @@ class Solution {
 
         dp.put(curr,maxColors);
         return maxColors;
-        
     } 
 }
