@@ -1,75 +1,74 @@
 class Solution {
- public
-  int minimumScore(int[] nums, int[][] edges) {
-    int n = nums.length;
+    List<Integer>[] graph;
+    int[] subTreeXOR,inTime,outTime;
+    int n,timer;
 
-    // Build adjacency list
-    Map<Integer, List<Integer>> adj = new HashMap<>();
-    for (int i = 0; i < n; i++) adj.put(i, new ArrayList<>());
-    for (int[] edge : edges) {
-      adj.get(edge[0]).add(edge[1]);
-      adj.get(edge[1]).add(edge[0]);
-    }
+    // assume it is 0 rooted tree
+    public int minimumScore(int[] nums, int[][] edges) {
+        this.n = nums.length;
+        subTreeXOR = new int[n];
+        inTime = new int[n];
+        outTime = new int[n];
+        timer = 0;
 
-    int[] subtreeXor = new int[n];
-    int[] inTime = new int[n];
-    int[] outTime = new int[n];
-    int[] timer = new int[1];  // To simulate pass-by-reference
+        buildGraph(edges);
+        dfs(0, -1,nums);
+        int result = Integer.MAX_VALUE;
 
-    dfs(0, -1, subtreeXor, inTime, outTime, timer, nums, adj);
+        for(int u=1; u<n; u++) {
+            for(int v=u+1; v<n; v++) {
+                int xor1, xor2, xor3;
 
-    int result = Integer.MAX_VALUE;
-
-    for (int u = 1; u < n; u++) {
-      for (int v = u + 1; v < n; v++) {
-        int xor1, xor2, xor3;
-
-        if (isAncestor(u, v, inTime, outTime)) {
-          xor1 = subtreeXor[v];
-          xor2 = subtreeXor[u] ^ subtreeXor[v];
-          xor3 = subtreeXor[0] ^ xor1 ^ xor2;
-        } else if (isAncestor(v, u, inTime, outTime)) {
-          xor1 = subtreeXor[u];
-          xor2 = subtreeXor[v] ^ subtreeXor[u];
-          xor3 = subtreeXor[0] ^ xor1 ^ xor2;
-        } else {
-          xor1 = subtreeXor[u];
-          xor2 = subtreeXor[v];
-          xor3 = subtreeXor[0] ^ xor1 ^ xor2;
+                if(isAncestor(u, v)) {
+                    xor1 = subTreeXOR[v];
+                    xor2 = subTreeXOR[u] ^ subTreeXOR[v];
+                }else if(isAncestor(v, u)) {
+                    xor1 = subTreeXOR[u];
+                    xor2 = subTreeXOR[v] ^ subTreeXOR[u];
+                }else{
+                    xor1 = subTreeXOR[u];
+                    xor2 = subTreeXOR[v];
+                }
+                xor3  = subTreeXOR[0] ^ xor1 ^ xor2;
+                result = Math.min(result, getScore(xor1, xor2, xor3));
+            }
         }
 
-        result = Math.min(result, getScore(xor1, xor2, xor3));
-      }
+        return result;
     }
 
-    return result;
-  }
+    private void dfs(int node, int parent,int[] nums) {
+        subTreeXOR[node] = nums[node];
+        inTime[node] = timer++;
 
- private
-  void dfs(int node, int parent, int[] subtreeXor, int[] inTime, int[] outTime,
-           int[] timer, int[] nums, Map<Integer, List<Integer>> adj) {
-    subtreeXor[node] = nums[node];
-    inTime[node] = timer[0]++;
+        for(int nbr : graph[node]) {
+            if(nbr != parent) {
+                dfs(nbr, node, nums);
+                subTreeXOR[node] ^= subTreeXOR[nbr];
+            }
+        }
 
-    for (int neighbor : adj.get(node)) {
-      if (neighbor != parent) {
-        dfs(neighbor, node, subtreeXor, inTime, outTime, timer, nums, adj);
-        subtreeXor[node] ^= subtreeXor[neighbor];
-      }
+        outTime[node] = timer++;
     }
 
-    outTime[node] = timer[0]++;
-  }
+    private boolean isAncestor(int u, int v) {
+        return inTime[v] > inTime[u] && outTime[v] < outTime[u];
+    }
 
- private
-  boolean isAncestor(int u, int v, int[] inTime, int[] outTime) {
-    return inTime[v] > inTime[u] && outTime[v] < outTime[u];
-  }
+    private int getScore(int a, int b, int c) {
+        int max = Math.max(a, Math.max(b, c));
+        int min = Math.min(a, Math.min(b, c));
+        return max - min;
+    }
 
- private
-  int getScore(int a, int b, int c) {
-    int max = Math.max(a, Math.max(b, c));
-    int min = Math.min(a, Math.min(b, c));
-    return max - min;
-  }
+    private void buildGraph(int[][] edges) {
+        this.graph = new List[n];
+
+        for(int i = 0; i < n; i++) graph[i] =  new ArrayList<>();
+        for(int[] edge : edges) {
+            int u = edge[0], v = edge[1];
+            graph[u].add(v);
+            graph[v].add(u);
+        }   
+    }
 }
