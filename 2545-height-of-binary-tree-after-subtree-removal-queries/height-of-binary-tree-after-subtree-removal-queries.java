@@ -53,7 +53,7 @@ class Solution {
             if(indices == null) continue;
             int secondHighestHeight = levelSecondHeight.getOrDefault(level,0);
             int highestHeight = nodeHeight.get(levelHighestNode);
-            for(int idx : indices) result[idx] = (level + secondHighestHeight);
+            for(int idx : indices) result[idx] -= (highestHeight - secondHighestHeight);
 
         }
         return result;
