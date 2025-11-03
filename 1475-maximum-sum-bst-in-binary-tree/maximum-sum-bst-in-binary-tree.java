@@ -42,7 +42,10 @@
 
 // }
 
-
+// why we need MAXSUM & SUM VARIABLE BOTH ??
+// phele me sirf maxsum use krke soch rha thaa but kuki values negative bhii hain aur node sirf maxSum ki info dega
+// toh parent ko toh usse banne wali subtree ki info chaiye hogii aur child maxSum ho skta hain ki wo apne child ka
+// ek parent se hii bst banakr betha ho
 class Solution {
     int MAX = Integer.MAX_VALUE;
     int MIN = Integer.MIN_VALUE;
@@ -55,7 +58,7 @@ class Solution {
         
         Info left = dfs(root.left);
         Info right = dfs(root.right);
-        
+
         int sum = left.sum + right.sum + root.val;
         if(root.val > left.max && root.val < right.min) {
             int currMin = Math.min(root.val, left.min);
