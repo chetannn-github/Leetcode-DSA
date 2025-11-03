@@ -15,7 +15,7 @@ class Solution {
         long result = 0;
         for(int i=0; i<m; i++) {
             for(int j=0; j<n; j++) {
-                result += (dfs(grid,i,j) % MOD);
+                result += dfs(grid,i,j);
             }
         }
 
