@@ -35,29 +35,30 @@ class Solution {
         return toArray(result);
     }
 
-    private void solve(int curr, int bitVal, List<Integer> indices) {
-        int currSize = indices.size();
+    private void solve(int curr, int bitVal, List<Integer> team) {
+        int teamSize = team.size();
         if(1+bitVal == (1<<k)) {
-            if(resultLength > currSize) {
-                resultLength = currSize;
-                result = new ArrayList<>(indices);
+            if(resultLength > teamSize) {
+                resultLength = teamSize;
+                result = new ArrayList<>(team);
             }
             return;
         }
         if(curr >= n) return;
 
-        if(currSize > resultLength) return;
-        if(dp[curr][bitVal] != -1 && dp[curr][bitVal] <= currSize) return ;
+        if(teamSize > resultLength) return;
+        if(dp[curr][bitVal] != -1 && dp[curr][bitVal] <= teamSize) return ;
 
-        solve(curr+1, bitVal, indices);
+        solve(curr+1, bitVal, team);
 
         if(peopleBit[curr] > 0) {
-            indices.add(curr);
-            solve(curr+1, bitVal | peopleBit[curr] , indices);
-            indices.remove(indices.size() - 1);
+            team.add(curr);
+            solve(curr+1, bitVal | peopleBit[curr] , team);
+            team.remove(team.size() - 1);
         }
 
-        dp[curr][bitVal] = indices.size();
+        dp[curr][bitVal] = teamSize;
+        
     }
 
     public int[] toArray(List<Integer> list) {
