@@ -49,13 +49,4 @@ class Solution {
 
         return grid;
     }
-
-    public static void printGrid(int[][] grid) {
-        for (int[] row : grid) {
-            for (int ch : row) {
-                System.out.print(ch + " ");
-            }
-            System.out.println();
-        }
-    }
 }
