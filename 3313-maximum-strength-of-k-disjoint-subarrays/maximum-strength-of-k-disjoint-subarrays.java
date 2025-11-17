@@ -74,6 +74,7 @@ class Solution {
         long notTake = INVALID;
         long take = INVALID;
         
+        
         if(startNew) {
             notTake = solve(currIdx + 1, setNumber, true);
         }
