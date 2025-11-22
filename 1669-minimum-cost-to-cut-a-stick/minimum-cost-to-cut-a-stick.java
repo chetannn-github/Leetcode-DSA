@@ -53,7 +53,7 @@ class Solution {
             int currResult = end - start + solve(startIdx, i) + solve(i, endIdx);
             result = Math.min(currResult,result);
         }
-        result = result == Integer.MAX_VALUE ? 0 : result;
+        
         return dp[startIdx][endIdx] = result;
     }
 }
