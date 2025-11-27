@@ -1,12 +1,14 @@
 class Solution {
     int n;
     int[][] grid;
-    Integer[][] dp;
+    int[][] dp;
     public int minFallingPathSum(int[][] grid) {
         this.n = grid.length;
         this.grid = grid;
-        this.dp = new Integer[n][n];
+        this.dp = new int[n][n];
         int result = Integer.MAX_VALUE;
+
+        for(int[] row : dp) Arrays.fill(row,Integer.MAX_VALUE);
 
         for(int col=0; col<n; col++) {
             result = Math.min(result,grid[0][col] + solve(0,col));
@@ -17,7 +19,7 @@ class Solution {
 
     private int solve(int x, int y) {
         if(x >= n-1) return 0;
-        if(dp[x][y] != null) return dp[x][y];
+        if(dp[x][y] != Integer.MAX_VALUE) return dp[x][y];
 
         int result = Integer.MAX_VALUE;
         for(int col=0; col<n; col++) {
