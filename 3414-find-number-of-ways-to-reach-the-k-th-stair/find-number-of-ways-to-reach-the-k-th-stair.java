@@ -16,7 +16,7 @@ class Solution {
             result += solve(curr-1,jump,1);
         }
         
-        result += solve(curr + (int) Math.pow(2,jump), jump+1, 0);
+        result += solve(curr +(1<<jump), jump+1, 0);
 
         dp.put(key,result);
         return result;
