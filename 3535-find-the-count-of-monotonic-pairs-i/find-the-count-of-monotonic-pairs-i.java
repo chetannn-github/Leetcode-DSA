@@ -2,7 +2,7 @@ class Solution {
     int n;
     int MOD = 1_000_000_007;
     int[] nums;
-    Integer[][][] dp = new Integer[n][52][52];
+    Integer[][][] dp;
 
     public int countOfPairs(int[] nums) {
         this.nums = nums;
@@ -18,8 +18,7 @@ class Solution {
 
         int val = nums[currIdx];
         long result = 0L;
-        for(int i=firstPrev; i<=val; i++) {
-            if(val-i > secPrev) continue; 
+        for(int i=Math.max(val-secPrev,firstPrev); i<=val; i++) {
             result = (result + solve(currIdx+1,i,val-i)) % MOD;
         }
 
