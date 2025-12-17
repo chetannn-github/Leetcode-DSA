@@ -12,8 +12,10 @@ class Solution {
             if(arr[i-1] > arr[i] && arr[i] <= arr[i+1]) {
                 result = peak != -1 ? Math.max(result,i - valley + 1) : result;
                 valley = i;
+                peak = -1;
             }else if(arr[i-1] == arr[i]) {
                 valley = i;
+                peak = -1;
             }
 
 
