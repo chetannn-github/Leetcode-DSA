@@ -17,32 +17,19 @@ class Solution {
         }
         if(dp[x][y] != null) return dp[x][y];
 
-        boolean currMatching = false;
+        boolean isMatched = false;
         if(x < stringLength && y < patternLength) {
-            char stringChar = s.charAt(x);
-            char patternChar = p.charAt(y);
-            if(stringChar == patternChar || patternChar == '.') {
-                currMatching = true;
-            }
+            isMatched = s.charAt(x) == p.charAt(y) || p.charAt(y) == '.';
         }
-        int result = 0;
-
-        if(y+1 < patternLength && p.charAt(y+1) == '*') {
-            result = solve(x,y+2);
-            if(result == 1) return dp[x][y] = 1;
-            if(currMatching) {
-                result = solve(x+1,y);
-            }
-            return dp[x][y] = result;
-        }
-
         
 
-        if(currMatching) {
-            return dp[x][y] = solve(x+1,y+1);
+        if(y+1 < patternLength && p.charAt(y+1) == '*') {
+            int skip = solve(x,y+2);
+            int take = isMatched ? solve(x+1,y) : 0;
+            return dp[x][y] = skip | take;
         }
-        return dp[x][y] = 0;
-
+        
+        return dp[x][y] = isMatched ? solve(x+1,y+1) : 0;
     }
     
 }
