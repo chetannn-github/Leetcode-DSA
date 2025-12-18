@@ -7,11 +7,9 @@ class Solution {
         this.modP = fixConsecutiveStars(p);
         this.stringLength = s.length();
         this.patternLength = modP.length();
-        
         this.dp = new Integer[stringLength][patternLength];
 
         return solve(0,0) == 1;
-        
     }
 
     private int solve(int x, int y) {
@@ -41,11 +39,8 @@ class Solution {
     }
 
     private int checkLastStars(String pattern, int start) {
-        for(int i=start; i<patternLength; i++) {
-            char ch = pattern.charAt(i);
-            if(ch != '*') return 0;
-        }
-
+        if(patternLength - start > 1) return 0;
+        if(modP.charAt(start) != '*') return 0;
         return 1;
     }
 
