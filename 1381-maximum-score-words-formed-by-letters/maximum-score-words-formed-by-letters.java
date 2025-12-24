@@ -28,13 +28,15 @@ class Solution {
         }
 
         int take = 0;
-        int currScore = 0;
+        int takeScore = 0;
+        boolean canTake = true;
         for(char ch : words[currIdx].toCharArray()) {
-            currScore += score[ch-'a'];
+            takeScore += score[ch-'a'];
             freq[ch-'a']--;
+            if(freq[ch-'a'] < 0) canTake = false;
         }
-        if(canTake(freq)) {
-            take = currScore + solve(currIdx+1);
+        if(canTake) {
+            take = takeScore + solve(currIdx+1);
         } 
 
         for(char ch : words[currIdx].toCharArray()) {
@@ -46,9 +48,4 @@ class Solution {
         return Math.max(take,skip);
     }
 
-
-    private boolean canTake(int[] freq) {
-        for(int f : freq) if(f < 0) return false;
-        return true;
-    }
 }
