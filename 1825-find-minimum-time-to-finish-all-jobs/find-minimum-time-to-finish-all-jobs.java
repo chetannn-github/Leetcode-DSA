@@ -8,8 +8,6 @@ class Solution {
         this.jobs = jobs;
         this.workers = new int[k];
 
-        Arrays.sort(jobs);
-        reverse(jobs);
         solve(0);
         return minVal;
     }
@@ -40,13 +38,5 @@ class Solution {
         return maxVal;
     }
 
-    private void reverse(int[] arr) {
-        int start = 0, end = arr.length - 1;
-        while(start < end) {
-            int temp = arr[start];
-            arr[start++] = arr[end];
-            arr[end--] = temp;
-        }
-    }
 }
 
