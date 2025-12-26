@@ -26,28 +26,22 @@ class Solution {
         int[] L = new int[n1];
         int[] R = new int[n2];
 
-        for(int i = 0; i < n1; i++)
-            L[i] = nums[left + i];
-
-        for(int j = 0; j < n2; j++)
-            R[j] = nums[mid + 1 + j];
+        for(int i = 0; i < n1; i++) L[i] = nums[left + i];
+        for(int j = 0; j < n2; j++) R[j] = nums[mid + 1 + j];
 
         int i = 0, j = 0, k = left;
 
-        while (i < n1 && j < n2) {
-            if(customSort(L[i],R[j]))
+        while(i < n1 && j < n2) {
+            if(customSort(L[i],R[j])) {
                 nums[k++] = L[i++];
-            else
+            }else {
                 nums[k++] = R[j++];
+            }       
         }
 
-        while(i < n1)
-            nums[k++] = L[i++];
-
-        while(j < n2)
-            nums[k++] = R[j++];
+        while(i < n1) nums[k++] = L[i++];
+        while(j < n2) nums[k++] = R[j++];
     }
-
 
     private boolean customSort(int a, int b) {
         if(a == 0 || b == 0) return a > b;
@@ -59,7 +53,6 @@ class Solution {
        
         long multiplyFactor = (long) Math.pow(10,digitB); 
         return a * multiplyFactor + b;
-
     }
 
     private StringBuilder trimStartingZero(StringBuilder sb) {
