@@ -21,41 +21,33 @@ class AllOne {
             curr.next.strings.add(key);
         }
         map.put(key,curr.next);
-        if(curr != tail && curr.strings.size() == 0) removeNode(curr);
+        if(curr != tail && curr.strings.isEmpty()) removeNode(curr);
         
     }
     
     public void dec(String key) {
         Node curr = map.get(key);
-        int nextValue = curr.value - 1;
+        int prevValue = curr.value - 1;
         curr.strings.remove(key);
 
-        if(nextValue == 0 && curr.strings.size() == 0) {
+        if(prevValue == 0 && curr.strings.size() == 0) {
             removeNode(curr);
             map.remove(key);
             return;
         }
 
-        curr = curr.prev;
+        Node prev = curr.prev;
 
-        if(curr.value != nextValue) {
-            Node newNode = new Node(nextValue,key);
-            addNewNode(newNode,curr);
-            map.put(key,curr.next);
-            curr = curr.next.next;
-            
-        } else {
-            curr.strings.add(key);
-            map.put(key,curr);
-            curr = curr.next;
-            
+        if(prev.value != prevValue) {
+            Node newNode = new Node(prevValue,key);
+            addNewNode(newNode,prev);
+            map.put(key,newNode);
+        }else {
+            prev.strings.add(key);
+            map.put(key,prev);
         }
-        if(curr != tail && curr.strings.size() == 0) {
-            removeNode(curr);
-        }
+        if(curr.strings.isEmpty()) removeNode(curr);
         
-        
-
     }
     
     public String getMaxKey() {
