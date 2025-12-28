@@ -3,7 +3,6 @@ class LRUCache {
     private int size;
     private Node head, tail;
     int currSize = 0;
-    Node curr;
 
     public LRUCache(int size) {
        this.size = size;
@@ -15,45 +14,45 @@ class LRUCache {
     }
 
     public int get(int key) {
-        curr = map.get(key);
+        Node curr = map.get(key);
 
         if(curr == null) return -1;
 
-        removeNode();
-        addAtFirst();
+        removeNode(curr);
+        addAtFirst(curr);
         map.put(key,curr);
 
         return curr.value;
     }
 
     public void put(int key, int value) {
-        curr = map.get(key);
+        Node curr = map.get(key);
         if(curr == null) {
             currSize++;
             curr = new Node(key,value);
-            addAtFirst();
+            addAtFirst(curr);
         }else {
             curr.value = value;
-            removeNode();
-            addAtFirst();
+            removeNode(curr);
+            addAtFirst(curr);
         }
         map.put(key,curr);
         if(currSize > size) {
             currSize = size;
-            curr = tail.next;
-            removeNode();
-            map.remove(curr.key);
+            Node lru = tail.next;
+            removeNode(lru);
+            map.remove(lru.key);
         }
     }
 
-    private void removeNode() {
+    private void removeNode(Node curr) {
         if(curr.prev != null) curr.prev.next = curr.next;
         if(curr.next != null) curr.next.prev = curr.prev;
         curr.prev = null;
         curr.next = null;
     }
 
-    private void addAtFirst() {
+    private void addAtFirst(Node curr) {
         curr.prev = head.prev;
         head.prev.next = curr;
 
