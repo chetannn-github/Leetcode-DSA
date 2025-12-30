@@ -1,28 +1,48 @@
+// class Solution {
+//     public int[] maxSlidingWindow(int[] nums, int k) {
+//         Deque<Integer> dq = new ArrayDeque<>();
+//         int n = nums.length;
+//         int[] result = new int[n - k + 1];
+
+//         for(int i = 0; i < n; i++) {
+//             while(!dq.isEmpty() && dq.peekFirst() <= i - k) {
+//                 dq.removeFirst();
+//             }
+
+//             while(!dq.isEmpty() && nums[dq.peekLast()] < nums[i]) {
+//                 dq.removeLast();
+//             }
+
+//             dq.addLast(i);
+
+//             if(i >= k - 1) {
+//                 result[i - k + 1] = nums[dq.peekFirst()];
+//             }
+//         }
+
+//         return result;
+//     }
+// }
+
+
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        Deque<Integer> dq = new ArrayDeque<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->(nums[b]-nums[a]));
         int n = nums.length;
         int[] result = new int[n - k + 1];
 
         for(int i = 0; i < n; i++) {
-            // Remove indexes which are out of the window
-            while(!dq.isEmpty() && dq.peekFirst() <= i - k) {
-                dq.removeFirst();
+            while(!pq.isEmpty() && pq.peek() <= i - k) {
+                pq.remove();
             }
+            pq.add(i);
 
-            // Remove all smaller elements (from the back)
-            while(!dq.isEmpty() && nums[dq.peekLast()] < nums[i]) {
-                dq.removeLast();
-            }
-
-            dq.addLast(i); // store index
-
-            // Add to result once the window is valid
             if(i >= k - 1) {
-                result[i - k + 1] = nums[dq.peekFirst()];
+                result[i - k + 1] = nums[pq.peek()];
             }
         }
 
         return result;
     }
 }
+
