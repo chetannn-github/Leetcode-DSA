@@ -24,6 +24,8 @@ class Solution {
                     sum += num/i;
                 }
             }
+
+            if(count > 4) break;
         }
 
         return count == 4 ? sum : 0;
