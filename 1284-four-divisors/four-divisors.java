@@ -10,23 +10,23 @@ class Solution {
 
     private int findDivisorSum(int num) {
         List<Integer> divisors = new ArrayList<>();
-        divisors.add(1);
-        divisors.add(num);
 
+        int count = 2;
+        int sum = 1 + num;
+        
         for(int i=2; i <= (int) Math.sqrt(num); i++) {
             if(num % i == 0) {
                 divisors.add(i);
-                if(num/i != i) divisors.add(num/i);
+                sum += i;
+                count++;
+                if(num/i != i) {
+                    count++;
+                    sum += num/i;
+                }
             }
         }
 
-        return divisors.size() == 4 ? getSum(divisors) : 0;
+        return count == 4 ? sum : 0;
     }
 
-
-    private int getSum(List<Integer> nums) {
-        int totalSum = 0;
-        for(int num : nums) totalSum += num;
-        return totalSum;
-    }
 }
