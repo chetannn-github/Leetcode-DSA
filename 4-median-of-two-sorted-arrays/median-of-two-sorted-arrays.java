@@ -65,7 +65,7 @@ class Solution {
             int l2 = totalLeft - mid == 0 ? min : nums2[totalLeft - mid-1];
 
             int r1 = mid == m ? max : nums1[mid];
-            int r2 = totalLeft - mid == n ? max : nums2[totalLeft - mid];
+            int r2 = totalLeft - mid >= n ? max : nums2[totalLeft - mid];
 
             boolean isGoodParition = (l1 <= r2 && l2 <= r1);
 
