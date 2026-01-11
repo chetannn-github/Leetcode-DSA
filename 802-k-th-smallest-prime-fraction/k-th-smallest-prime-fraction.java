@@ -29,9 +29,9 @@ class Solution {
             int[] curr = pq.poll();
             int i = curr[0], j = curr[1];
 
-            if (i + 1 < j) {
+            
                 pq.offer(new int[]{i + 1, j});
-            }
+            
         }
 
         int[] res = pq.peek();
