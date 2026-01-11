@@ -43,7 +43,7 @@ class Solution {
                 int mid =  start + ((end-start)>>1);
                 if((i+1)*(mid+1) <= target) {
                     result = mid;
-                    
+    
                     start = mid+1;
                 }else end = mid-1;
             }
