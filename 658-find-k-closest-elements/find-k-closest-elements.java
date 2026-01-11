@@ -35,11 +35,11 @@ class Solution {
         while(start <= end) {
             int mid = start + ((end - start)>>1);
 
-            if(mid+k < n && x - arr[mid] > arr[mid + k] - x) {
-                start = mid + 1;
-            }else {
+            if(mid+k >= n || x - arr[mid] <= arr[mid + k] - x) {
                 windowStart = mid;
                 end = mid-1;
+            }else {
+               start = mid + 1;
             }
         }
 
