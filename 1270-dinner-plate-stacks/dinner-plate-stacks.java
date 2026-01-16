@@ -6,34 +6,34 @@ class DinnerPlates {
     }
     
     HashMap<Integer,Stack<Integer>> map = new HashMap<>();
-    TreeSet<Integer> empty = new TreeSet<>((a,b)->(a-b));
-    HashSet<Integer> pureEmpty = new HashSet<>();
+    TreeSet<Integer> partialStacks = new TreeSet<>((a,b)->(a-b));
+    HashSet<Integer> emptyStacks = new HashSet<>();
 
     public void push(int val) {
-        if(maxIdx == -1 || (empty.size() == 0 && map.get(maxIdx).size() == maxSize)) {
+        if(maxIdx == -1 || (partialStacks.size() == 0 && map.get(maxIdx).size() == maxSize)) {
             maxIdx++;
             Stack<Integer> newSet = new Stack<>();
             newSet.add(val);
             map.put(maxIdx, newSet);
 
-            if(pureEmpty.contains(maxIdx)) pureEmpty.remove(maxIdx);
+            if(emptyStacks.contains(maxIdx)) emptyStacks.remove(maxIdx);
 
-        }else if((empty.size() == 0 && map.get(maxIdx).size() != maxSize)) {
+        }else if((partialStacks.size() == 0 && map.get(maxIdx).size() != maxSize)) {
             Stack<Integer> currSet = map.get(maxIdx);
             currSet.add(val);
             map.put(maxIdx, currSet);
-            if(pureEmpty.contains(maxIdx)) pureEmpty.remove(maxIdx);
+            if(emptyStacks.contains(maxIdx)) emptyStacks.remove(maxIdx);
             
         }else {
-            int smallestIdx = empty.first();
+            int smallestIdx = partialStacks.first();
             Stack<Integer> currSet = map.get(smallestIdx);
             currSet.push(val);
 
             if(currSet.size() == maxSize) {
-                empty.remove(smallestIdx);
+                partialStacks.remove(smallestIdx);
                 
             }
-            if(pureEmpty.contains(smallestIdx)) pureEmpty.remove(smallestIdx);
+            if(emptyStacks.contains(smallestIdx)) emptyStacks.remove(smallestIdx);
             maxIdx = Math.max(maxIdx, smallestIdx);
         }
     }
@@ -49,12 +49,12 @@ class DinnerPlates {
         if(currSet == null || currSet.isEmpty()) return -1;
 
         int val = currSet.pop();
-        if(!empty.contains(index)) empty.add(index);
+        if(!partialStacks.contains(index)) partialStacks.add(index);
 
-        if(currSet.isEmpty()) pureEmpty.add(index);
+        if(currSet.isEmpty()) emptyStacks.add(index);
 
         if(currSet.isEmpty() && index == maxIdx) {
-            while(pureEmpty.contains(maxIdx-1)) maxIdx--;
+            while(emptyStacks.contains(maxIdx-1)) maxIdx--;
             maxIdx--;
         }
 
