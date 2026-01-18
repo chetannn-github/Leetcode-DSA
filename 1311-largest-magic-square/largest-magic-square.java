@@ -21,9 +21,8 @@ class Solution {
     }
 
     private int getMaxMagicSquare(int x, int y, int maxPossible) {
-        int maxMagicSquare = 1;
 
-        for(int sq=2; sq<=maxPossible; sq++) {
+        for(int sq=maxPossible; sq>=2; sq--) {
             int maxRow = x + sq;
             int maxCol = y + sq;
             
@@ -53,9 +52,9 @@ class Solution {
                 if(colSum[j] != sum) isMagic = false;
                 if(rowSum[j] != sum) isMagic = false;
             }
-            if(isMagic) maxMagicSquare = sq;
+            if(isMagic) return sq;
         }
 
-        return maxMagicSquare;
+        return 1;
     }
 }
