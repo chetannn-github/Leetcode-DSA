@@ -2,38 +2,32 @@ class Solution {
     public Node copyRandomList(Node head) {
         if (head == null) return head;
 
-        HashMap<Node,Node> hm = new HashMap<>();
+        HashMap<Node,Node> map = new HashMap<>();
         Node curr = head;
-        Node ansHead = new Node(0);;
-        Node ans = ansHead;
-
-        ans.val = curr.val;
-        hm.put(curr, ans);
-
+    
         while(curr != null) {
-            Node next = curr.next;
-
-            if(curr.next != null) {
-                int nextVal = curr.next.val;
-                ans.next = new Node(nextVal);
-                hm.put(curr.next, ans.next);
-            }
-        
+            map.put(curr, new Node(curr.val));
             curr = curr.next;
-            ans = ans.next;
         }
 
+        System.out.println(map.toString());
+
+        Node resultHead = map.get(head);
         curr = head;
-        ans = ansHead;
+        Node copy = resultHead;
 
         while (curr != null) {
             Node random = curr.random;
-            if(random != null) ans.random = hm.get(random);
+            Node next = curr.next;
+
+            if(random != null) copy.random = map.get(random);
+            if(next != null) copy.next = map.get(next);
 
             curr = curr.next;
-            ans = ans.next;
+            copy = copy.next;
+            
         }
 
-        return ansHead;
+        return resultHead;
     }
 }
