@@ -10,8 +10,6 @@ class Solution {
             curr = curr.next;
         }
 
-        System.out.println(map.toString());
-
         Node resultHead = map.get(head);
         curr = head;
         Node copy = resultHead;
