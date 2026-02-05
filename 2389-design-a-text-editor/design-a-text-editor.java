@@ -9,8 +9,7 @@ class TextEditor {
     public void addText(String text) {
         for(char ch : text.toCharArray()) {
             addNewNode(ch);
-        }
-        
+        } 
     }
     
     public int deleteText(int k) {
@@ -26,7 +25,6 @@ class TextEditor {
     public String cursorLeft(int k) {
         while(k-->0 && curr != head) curr = curr.prev;
         return getPreviousString();
-
     }
     
     public String cursorRight(int k) {
@@ -45,17 +43,17 @@ class TextEditor {
     }
 
     private void removeNode() {
-        Node toDelete = curr;
+        Node prev = curr.prev;
+        Node next = curr.next;
 
-        curr = curr.prev;      
+        curr.prev = null;
+        curr.next = null;
 
-        curr.next = toDelete.next;
-        if (toDelete.next != null) {
-            toDelete.next.prev = curr;
-        }
-        
-        toDelete.prev = null;
-        toDelete.next = null;
+        prev.next = next;
+
+        if(next != null) next.prev = prev;
+
+        curr = prev;
     }
 
     private String getPreviousString() {
