@@ -15,13 +15,13 @@ class AllOne {
         curr.strings.remove(key);
 
         if(curr.next.value != nextValue) {
-            Node newNode = new Node(nextValue,key);
-            addNewNode(newNode,curr);
-        }else {
-            curr.next.strings.add(key);
+            Node newNode = new Node(nextValue);
+            curr.addNode(newNode);
         }
+            
+        curr.next.strings.add(key);
         map.put(key,curr.next);
-        if(curr != tail && curr.strings.isEmpty()) removeNode(curr);
+        if(curr != tail && curr.strings.isEmpty()) curr.removeNode();
         
     }
     
@@ -31,7 +31,7 @@ class AllOne {
         curr.strings.remove(key);
 
         if(prevValue == 0 && curr.strings.size() == 0) {
-            removeNode(curr);
+            curr.removeNode();
             map.remove(key);
             return;
         }
@@ -39,14 +39,13 @@ class AllOne {
         Node prev = curr.prev;
 
         if(prev.value != prevValue) {
-            Node newNode = new Node(prevValue,key);
-            addNewNode(newNode,prev);
-            map.put(key,newNode);
-        }else {
-            prev.strings.add(key);
-            map.put(key,prev);
+            Node newNode = new Node(prevValue);
+            prev.addNode(newNode);
         }
-        if(curr.strings.isEmpty()) removeNode(curr);
+
+        curr.prev.strings.add(key);
+        map.put(key,curr.prev);
+        if(curr.strings.isEmpty()) curr.removeNode();
         
     }
     
@@ -59,19 +58,7 @@ class AllOne {
         return tail.next == head ? "" : tail.next.strings.iterator().next();
     }
 
-    private void removeNode(Node curr) {
-        curr.prev.next = curr.next;
-        curr.next.prev = curr.prev;
-        curr.prev = null;
-        curr.next = null;
-    }
-
-    private void addNewNode(Node newNode, Node curr) {
-        newNode.next = curr.next;
-        newNode.prev = curr;
-        curr.next.prev = newNode;
-        curr.next = newNode;
-    }
+    
 }
 
 class Node {
@@ -86,12 +73,18 @@ class Node {
         this.next = null;
     }
 
-    Node(int value, String str) {
-        this.value = value;
-        this.strings = new HashSet<>();
-        strings.add(str);
+    public void removeNode() {
+        this.prev.next = this.next;
+        this.next.prev = this.prev;
         this.prev = null;
         this.next = null;
+    }
+
+    public void addNode(Node newNode) {
+        newNode.next = this.next;
+        newNode.prev = this;
+        this.next.prev = newNode;
+        this.next = newNode;
     }
 
 }
