@@ -1,5 +1,3 @@
-// yhh sirf mene code copy paste kiya hhhh to check my project is working
-
 class Solution {
     public int romanToInt(String s) {
         int res = 0;
