@@ -1,35 +1,19 @@
-
 class Solution {
+    // Add Two Numbers (Java improved)
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        if (l1== null) return l2;
-        if (l2== null) return l1;
-       
-        ListNode one = l1;
-        ListNode two = l2;
-        int carryNext = 0;
-        int carryPrev = 0;
-
-        while (one!=null && two!= null) {
-            carryNext =  (one.val + two.val + carryPrev)/10;
-            one.val = (one.val + two.val + carryPrev)%10;
-            carryPrev = carryNext;
-
-
-            if (one.next == null && two.next == null) break;
-
-            if (one.next== null) one.next = new ListNode(0);
-            if (two.next== null) two.next = new ListNode(0);
-
-            one = one.next;
-            two = two.next;
+        ListNode dummyHead = new ListNode(0);
+        ListNode curr = dummyHead;
+        int carry = 0;
+        while (l1 != null || l2 != null || carry != 0) {
+            int x = (l1 != null) ? l1.val : 0;
+            int y = (l2 != null) ? l2.val : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            curr.next = new ListNode(sum % 10);
+            curr = curr.next;
+            if (l1 != null) l1 = l1.next;
+            if (l2 != null) l2 = l2.next;
         }
-
-
-        if(carryPrev!=0){
-            one.next = new ListNode(1);
-           
-        }
-
-        return l1;
+        return dummyHead.next;
     }
 }
